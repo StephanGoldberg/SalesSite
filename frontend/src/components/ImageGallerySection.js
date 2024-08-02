@@ -4,14 +4,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function ImageGallerySection() {
   const images = [
-  
     '/images/hero.jpg',
     '/images/add.jpg',
-    '/images/admin.jpg',
-    '/images/sponsorship.jpg',
     '/images/signin.jpg',
-    '/images/profile.jpg',
-
+    
   ];
 
   return (
@@ -28,14 +24,26 @@ function ImageGallerySection() {
             showArrows={true} // Enable arrows
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
               hasPrev && (
-                <button type="button" onClick={onClickHandler} title={label} className="absolute left-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100">
+                <button 
+                  type="button" 
+                  onClick={onClickHandler} 
+                  title={label} 
+                  className="absolute left-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100"
+                  style={{ top: '50%', transform: 'translateY(-50%)' }} // Centering the arrow
+                >
                   &#10094; {/* Unicode for left arrow */}
                 </button>
               )
             }
             renderArrowNext={(onClickHandler, hasNext, label) =>
               hasNext && (
-                <button type="button" onClick={onClickHandler} title={label} className="absolute right-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100">
+                <button 
+                  type="button" 
+                  onClick={onClickHandler} 
+                  title={label} 
+                  className="absolute right-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100"
+                  style={{ top: '50%', transform: 'translateY(-50%)' }} // Centering the arrow
+                >
                   &#10095; {/* Unicode for right arrow */}
                 </button>
               )
@@ -59,6 +67,7 @@ function ImageGallerySection() {
 }
 
 export default ImageGallerySection;
+
 
 
 
