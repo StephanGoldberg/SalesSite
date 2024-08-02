@@ -7,7 +7,7 @@ import FAQSection from '../components/FAQSection';
 
 function Home() {
   return (
-    <div className="container mx-auto my-16 px-8">  {/* Increased margin and padding */}
+    <div className="container mx-auto mt-16 mb-16 px-8">  {/* No top margin, keep bottom margin */}
       <HeroSection />
       <FeaturesSection />
       <ImageGallerySection />
@@ -18,6 +18,7 @@ function Home() {
 }
 
 export default Home;
+
 
 
 
