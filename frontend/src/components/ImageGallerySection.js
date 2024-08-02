@@ -4,12 +4,12 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function ImageGallerySection() {
   const images = [
-    '/images/hero.jpg',
-    '/images/add.jpg',
-    '/images/signin.jpg',
-    '/images/admin.jpg',
-    '/images/profile.jpg',
-    '/images/sponsorship.jpg'
+    '/images/1.jpg',
+    '/images/2.jpg',
+    '/images/3.jpg',
+    '/images/4.jpg',
+    '/images/5.jpg',
+    '/images/6.jpg'
   ];
 
   return (
