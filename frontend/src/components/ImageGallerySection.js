@@ -7,7 +7,9 @@ function ImageGallerySection() {
     '/images/hero.jpg',
     '/images/add.jpg',
     '/images/signin.jpg',
-    
+    '/images/admin.jpg',
+    '/images/profile.jpg',
+    '/images/sponsorship.jpg'
   ];
 
   return (
@@ -56,6 +58,7 @@ function ImageGallerySection() {
                   alt={`Screenshot ${index + 1}`} 
                   className="max-w-full h-auto object-contain"
                   style={{ maxHeight: '400px', width: 'auto' }} // Smaller size
+                  onError={(event) => event.target.src = '/images/placeholder.jpg'} // Fallback for broken images
                 />
               </div>
             ))}
@@ -67,6 +70,7 @@ function ImageGallerySection() {
 }
 
 export default ImageGallerySection;
+
 
 
 
