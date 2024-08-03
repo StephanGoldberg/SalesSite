@@ -5,6 +5,11 @@ const uuid = require('uuid');
 const { setPendingAccess } = require('../lib/db');
 
 module.exports = async (req, res) => {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', 'https://your-frontend-domain.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'POST') {
     try {
       const accessToken = uuid.v4();
@@ -33,6 +38,9 @@ module.exports = async (req, res) => {
       console.error('Error creating checkout session:', error);
       res.status(500).json({ error: 'Failed to create checkout session' });
     }
+  } else if (req.method === 'OPTIONS') {
+    // Handle preflight request
+    res.status(200).end();
   } else {
     res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
