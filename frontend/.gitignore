@@ -13,4 +13,3 @@ build/
 
 # Ignore log files
 *.log
-vercel.json
