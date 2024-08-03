@@ -1,8 +1,9 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://your-backend.vercel.app/api/$1"
-    }
-  ]
-}
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "https://sales-site-t79h.vercel.app/api/$1"
+      }
+    ]
+  }
+  
