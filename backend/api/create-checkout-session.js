@@ -5,7 +5,7 @@ const { setPendingAccess } = require('../lib/db');
 
 module.exports = async (req, res) => {
   // Handle CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'https://www.directory-maker.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -46,4 +46,5 @@ module.exports = async (req, res) => {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
+
 

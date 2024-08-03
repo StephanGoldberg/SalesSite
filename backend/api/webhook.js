@@ -4,9 +4,9 @@ const { getPendingAccess, updatePendingAccess } = require('../lib/db');
 
 module.exports = async (req, res) => {
   // Handle CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'https://www.directory-maker.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Stripe-Signature');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -25,7 +25,9 @@ module.exports = async (req, res) => {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    for (let [token, data] of getPendingAccess().entries()) {
+    const pendingAccessEntries = getPendingAccess(); // Assuming this returns a Map or similar structure
+
+    for (let [token, data] of pendingAccessEntries.entries()) {
       if (data.sessionId === session.id) {
         updatePendingAccess(token, { ...data, paid: true });
         break;

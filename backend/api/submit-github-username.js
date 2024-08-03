@@ -4,7 +4,7 @@ const { getPendingAccess, removePendingAccess } = require('../lib/db');
 
 module.exports = async (req, res) => {
   // Handle CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'https://www.directory-maker.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
   if (req.method === 'POST') {
     const { token, githubUsername } = req.body;
 
-    if (!getPendingAccess(token) || !getPendingAccess(token).paid) {
+    const pendingAccess = getPendingAccess(token);
+    if (!pendingAccess || !pendingAccess.paid) {
       return res.status(403).json({ error: 'Invalid or unpaid access token' });
     }
 
