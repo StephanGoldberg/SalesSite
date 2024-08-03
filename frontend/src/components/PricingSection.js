@@ -7,7 +7,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 function PricingSection() {
   const handlePurchase = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session`);
       const stripe = await stripePromise;
       await stripe.redirectToCheckout({
         sessionId: response.data.id,
@@ -66,6 +66,7 @@ function PricingSection() {
 }
 
 export default PricingSection;
+
 
 
 

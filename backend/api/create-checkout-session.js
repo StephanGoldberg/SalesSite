@@ -1,14 +1,17 @@
 require('dotenv').config();
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const uuid = require('uuid');
 const { setPendingAccess } = require('../lib/db');
 
 module.exports = async (req, res) => {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://your-frontend-domain.com');
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
 
   if (req.method === 'POST') {
     try {
@@ -38,11 +41,9 @@ module.exports = async (req, res) => {
       console.error('Error creating checkout session:', error);
       res.status(500).json({ error: 'Failed to create checkout session' });
     }
-  } else if (req.method === 'OPTIONS') {
-    // Handle preflight request
-    res.status(200).end();
   } else {
     res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
+
