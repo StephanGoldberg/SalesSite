@@ -1,17 +1,12 @@
-require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { getPendingAccess, updatePendingAccess } = require('../lib/db');
+const Stripe = require('stripe');
+const dotenv = require('dotenv');
+const { getPendingAccess, updatePendingAccess } = require('../lib/db.js');
+
+dotenv.config();
+
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 module.exports = async (req, res) => {
-  // Handle CORS
-  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'https://www.directory-maker.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Stripe-Signature');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
   const sig = req.headers['stripe-signature'];
 
   let event;
@@ -25,11 +20,15 @@ module.exports = async (req, res) => {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    const pendingAccessEntries = getPendingAccess(); // Assuming this returns a Map or similar structure
+    console.log('Checkout session completed:', session.id);
 
-    for (let [token, data] of pendingAccessEntries.entries()) {
+    const pendingAccessEntries = await getPendingAccess();
+    console.log('Pending access entries:', pendingAccessEntries);
+
+    for (let [token, data] of Object.entries(pendingAccessEntries)) {
       if (data.sessionId === session.id) {
-        updatePendingAccess(token, { ...data, paid: true });
+        await updatePendingAccess(token, { ...data, paid: true });
+        console.log('Updated pending access for token:', token);
         break;
       }
     }

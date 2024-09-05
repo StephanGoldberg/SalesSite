@@ -1,28 +1,116 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import AccessForm from '../components/AccessForm';
+import axios from 'axios';
 
 function Access() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState('');
+  const [githubUsername, setGithubUsername] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const accessToken = searchParams.get('token');
-    if (accessToken) {
-      setToken(accessToken);
+  const checkPaymentStatus = useCallback(async (tokenToCheck) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/check-payment-status/${tokenToCheck}`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
+      console.log('Payment status response:', response.data);
+      if (response.data.paid) {
+        setIsPaid(true);
+        setMessage('Payment successful! Please enter your GitHub username to gain access.');
+      } else {
+        setMessage('Payment is still processing. Please wait a moment and try again.');
+        // Retry after 5 seconds
+        setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
+      }
+    } catch (error) {
+      console.error('Error checking payment status:', error);
+      setMessage('Error checking payment status. Please try again later.');
+      // Retry after 5 seconds even on error
+      setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
     }
-  }, [location]);
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tokenFromUrl = params.get('token');
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+      checkPaymentStatus(tokenFromUrl);
+    } else {
+      setMessage('Invalid access. Please make sure you\'ve completed the payment process.');
+    }
+  }, [location, checkPaymentStatus]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage('');
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
+        { token, githubUsername },
+        { 
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+
+      if (response.data.isOwner) {
+        setMessage('You are the repository owner. Access is already granted.');
+      } else {
+        setMessage('An invitation has been sent to your GitHub account. Please check your email and accept the invitation to gain access to the repository.');
+      }
+    } catch (error) {
+      console.error('Error submitting GitHub username:', error);
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        setMessage(`Error: ${error.response.data.error || 'Failed to grant access. Please try again.'}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setMessage('No response from server. Please check your connection and try again.');
+      } else {
+        console.error('Error setting up request:', error.message);
+        setMessage(`Error: ${error.message}`);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <main>
-      <h1>Access Your Purchase</h1>
-      {token ? (
-        <AccessForm token={token} />
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">Access Your Purchase</h1>
+      {token && isPaid ? (
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <input
+            type="text"
+            value={githubUsername}
+            onChange={(e) => setGithubUsername(e.target.value)}
+            placeholder="Enter your GitHub username"
+            required
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            disabled={isLoading}
+          />
+          <button 
+            type="submit" 
+            className={`w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Submitting...' : 'Submit'}
+          </button>
+        </form>
       ) : (
-        <p>Invalid access token. Please make sure you've completed your purchase.</p>
+        <p className="text-red-600">
+          {token ? 'Waiting for payment confirmation...' : 'Invalid access token. Please make sure you\'ve completed your purchase.'}
+        </p>
       )}
-    </main>
+      {message && <p className="mt-4 text-center font-semibold">{message}</p>}
+    </div>
   );
 }
 

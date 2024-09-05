@@ -1,15 +1,23 @@
 {
-    "name": "directory-maker-backend",
-    "version": "1.0.0",
-    "dependencies": {
-      "@octokit/rest": "^18.5.3",
-      "dotenv": "^10.0.0",
-      "stripe": "^8.191.0",
-      "uuid": "^8.3.2"
-    },
-    "scripts": {
-      "vercel-build": "echo 'No build step necessary for serverless functions'"
-    }
+  "name": "directory-maker-backend",
+  "version": "1.0.0",
+  "description": "Backend for Directory Maker",
+  "main": "api/create-checkout-session.js",
+  "type": "module",
+  "scripts": {
+    "start": "node api/create-checkout-session.js",
+    "dev": "nodemon api/create-checkout-session.js",
+    "build": "echo 'Backend build step complete'"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "stripe": "^8.222.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
-  
-  
+}

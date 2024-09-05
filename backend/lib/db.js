@@ -1,42 +1,59 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-const DB_FILE = path.join(process.cwd(), 'pending-access.json');
+const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
-async function readDB() {
+let pendingAccess = {};
+
+// Helper function to save data to file
+const saveToFile = async () => {
+  await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+};
+
+// Load data from file on module initialization
+const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
-    return JSON.parse(data);
+    pendingAccess = JSON.parse(data);
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      return {};
-    }
-    throw error;
+    console.log('No existing database found, starting fresh');
   }
-}
-
-async function writeDB(data) {
-  await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
-}
-
-exports.setPendingAccess = async (token, data) => {
-  const db = await readDB();
-  db[token] = data;
-  await writeDB(db);
 };
 
-exports.getPendingAccess = async () => {
-  return await readDB();
+// Initialize the database
+loadFromFile();
+
+const setPendingAccess = async (token, data) => {
+  console.log('Setting pending access:', token, data);
+  pendingAccess[token] = data;
+  await saveToFile();
 };
 
-exports.updatePendingAccess = async (token, data) => {
-  const db = await readDB();
-  db[token] = data;
-  await writeDB(db);
+const getPendingAccess = (token) => {
+  console.log('Getting pending access for token:', token);
+  return pendingAccess[token];
 };
 
-exports.deletePendingAccess = async (token) => {
-  const db = await readDB();
-  delete db[token];
-  await writeDB(db);
+const updatePendingAccess = async (token, data) => {
+  console.log('Updating pending access:', token, data);
+  pendingAccess[token] = { ...pendingAccess[token], ...data };
+  await saveToFile();
+};
+
+const removePendingAccess = async (token) => {
+  console.log('Removing pending access:', token);
+  delete pendingAccess[token];
+  await saveToFile();
+};
+
+const getAllPendingAccess = () => {
+  return pendingAccess;
+};
+
+module.exports = {
+  setPendingAccess,
+  getPendingAccess,
+  updatePendingAccess,
+  removePendingAccess,
+  getAllPendingAccess
 };
