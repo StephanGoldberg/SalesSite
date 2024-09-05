@@ -25,7 +25,7 @@ loadFromFile();
 
 const setPendingAccess = async (token, data) => {
   console.log('Setting pending access:', token, data);
-  pendingAccess[token] = data;
+  pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
 };
 
@@ -36,7 +36,7 @@ const getPendingAccess = (token) => {
 
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, data);
-  pendingAccess[token] = { ...pendingAccess[token], ...data };
+  pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
   await saveToFile();
 };
 
@@ -50,10 +50,25 @@ const getAllPendingAccess = () => {
   return pendingAccess;
 };
 
+const cleanupPendingAccess = async () => {
+  console.log('Starting cleanup of pending access');
+  const now = Date.now();
+  const cleanedPendingAccess = Object.fromEntries(
+    Object.entries(pendingAccess).filter(([_, value]) => {
+      // Keep entries less than 24 hours old
+      return now - value.timestamp < 24 * 60 * 60 * 1000;
+    })
+  );
+  pendingAccess = cleanedPendingAccess;
+  await saveToFile();
+  console.log('Cleanup completed');
+};
+
 module.exports = {
   setPendingAccess,
   getPendingAccess,
   updatePendingAccess,
   removePendingAccess,
-  getAllPendingAccess
+  getAllPendingAccess,
+  cleanupPendingAccess
 };
