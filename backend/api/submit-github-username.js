@@ -1,5 +1,5 @@
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
-const { getPendingAccess, removePendingAccess } = require('../lib/db.js');
+const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 
 module.exports = async (req, res) => {
   const { token, githubUsername } = req.body;
@@ -9,6 +9,10 @@ module.exports = async (req, res) => {
   console.log('GitHub Username:', githubUsername);
 
   try {
+    // Run cleanup process
+    await cleanupPendingAccess();
+    console.log('Cleanup process completed');
+
     const pendingAccess = await getPendingAccess(token);
     console.log('Pending access:', pendingAccess);
 
