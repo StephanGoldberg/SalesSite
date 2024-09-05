@@ -1,23 +1,12 @@
-const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
-const dotenv = require('dotenv');
-const path = require('path');
-const { setPendingAccess, getPendingAccess, updatePendingAccess, removePendingAccess } = require('../lib/db.js');
-const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
+const { setPendingAccess } = require('../lib/db.js');
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
+// Initialize Stripe
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
-console.log('PORT:', process.env.PORT);
-console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY ? 'Set' : 'Not set');
-console.log('GITHUB_ACCESS_TOKEN:', process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'Not set');
-console.log('GITHUB_REPO_OWNER:', process.env.GITHUB_REPO_OWNER);
-console.log('GITHUB_REPO_NAME:', process.env.GITHUB_REPO_NAME);
-
+// CORS options
 const corsOptions = {
   origin: [
     process.env.FRONTEND_URL,
@@ -26,21 +15,22 @@ const corsOptions = {
     'https://directory-maker.com',
     'https://sales-site02-29p3hum58-stephangoldbergs-projects.vercel.app'
   ],
-  methods: ['POST', 'GET', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
 
-const app = express();
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-app.use(express.json());
+// Logging function
+const log = (message, data) => {
+  console.log(`[${new Date().toISOString()}] ${message}`, data);
+};
 
+// Create checkout session function
 const createCheckoutSession = async (req, res) => {
-  console.log('Received request for checkout session');
+  log('Received request for checkout session');
   try {
     const accessToken = uuidv4();
-    console.log('Generated access token:', accessToken);
+    log('Generated access token:', accessToken);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -61,13 +51,13 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: `${process.env.FRONTEND_URL}`,
     });
 
-    console.log('Checkout session created:', session.id);
+    log('Checkout session created:', session.id);
     await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
-    console.log('Pending access set for token:', accessToken);
+    log('Pending access set for token:', accessToken);
 
     res.status(200).json({ id: session.id });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    log('Error creating checkout session:', error);
     res.status(500).json({ 
       error: 'Failed to create checkout session', 
       details: error.message 
@@ -75,26 +65,35 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
-// ... (rest of your functions: submitGithubUsername, handleWebhook, checkPaymentStatus)
+// Main handler for Vercel serverless function
+module.exports = (req, res) => {
+  log('Received request:', { method: req.method, url: req.url });
+  
+  // Handle CORS
+  cors(corsOptions)(req, res, () => {
+    log('CORS check passed');
 
-// Export for Vercel serverless function
-module.exports = async (req, res) => {
-  if (req.method === 'POST') {
-    await createCheckoutSession(req, res);
-  } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
-  }
+    if (req.method === 'OPTIONS') {
+      // Preflight request. Reply successfully:
+      res.status(200).end();
+      return;
+    }
+
+    if (req.method === 'POST') {
+      createCheckoutSession(req, res);
+    } else {
+      log('Method not allowed:', req.method);
+      res.setHeader('Allow', 'POST, OPTIONS');
+      res.status(405).end('Method Not Allowed');
+    }
+  });
 };
 
-
-
-
-
-
-
-
-
-
-
-
+// Log environment variables (be careful not to log sensitive information)
+log('Environment variables:', {
+  FRONTEND_URL: process.env.FRONTEND_URL,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ? 'Set' : 'Not set',
+  GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'Not set',
+  GITHUB_REPO_OWNER: process.env.GITHUB_REPO_OWNER,
+  GITHUB_REPO_NAME: process.env.GITHUB_REPO_NAME,
+});
