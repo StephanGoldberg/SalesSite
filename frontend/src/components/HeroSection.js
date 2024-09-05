@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
@@ -7,6 +7,12 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 function HeroSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [backendUrl, setBackendUrl] = useState('');
+
+  useEffect(() => {
+    setBackendUrl(process.env.REACT_APP_BACKEND_URL);
+    console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+  }, []);
 
   const handlePurchase = async () => {
     setIsLoading(true);
@@ -14,16 +20,15 @@ function HeroSection() {
 
     try {
       console.log('Initiating purchase...');
-      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+      console.log('Using backend URL:', backendUrl);
       
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
+        `${backendUrl}/create-checkout-session`,
         {},
         {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: true,
         }
       );
 
@@ -46,20 +51,16 @@ function HeroSection() {
       console.error('Error initiating checkout:', error);
       
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.error('Response data:', error.response.data);
         console.error('Response status:', error.response.status);
         console.error('Response headers:', error.response.headers);
-        setError(`Server error: ${error.response.status}`);
+        setError(`Server error: ${error.response.status} - ${error.response.data.message || 'Unknown error'}`);
       } else if (error.request) {
-        // The request was made but no response was received
         console.error('No response received:', error.request);
-        setError('No response from server. Please check your connection.');
+        setError('No response from server. Please check your connection and try again.');
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.error('Error setting up request:', error.message);
-        setError(error.message);
+        setError(`Error: ${error.message}`);
       }
     } finally {
       setIsLoading(false);

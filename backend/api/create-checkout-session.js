@@ -1,4 +1,3 @@
-const cors = require('cors');
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const { setPendingAccess } = require('../lib/db.js');
@@ -6,17 +5,16 @@ const { setPendingAccess } = require('../lib/db.js');
 // Initialize Stripe
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-// CORS options
-const corsOptions = {
-  origin: ['https://www.directory-maker.com', 'https://directory-maker.com'],
-  methods: ['POST', 'GET', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-};
-
 // Logging function
 const log = (message, data) => {
   console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
+};
+
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': 'https://www.directory-maker.com',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
 // Create checkout session function
@@ -60,47 +58,32 @@ const createCheckoutSession = async (req, res) => {
 };
 
 // Main handler for Vercel serverless function
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   log('Request received:', {
     method: req.method,
     url: req.url,
     headers: req.headers,
-    body: req.body
+    body: req.method === 'POST' ? req.body : undefined
   });
 
-  // Handle CORS
-  return new Promise((resolve, reject) => {
-    cors(corsOptions)(req, res, (err) => {
-      if (err) {
-        log('CORS error:', err);
-        reject(err);
-      } else {
-        log('CORS check passed');
-        resolve();
-      }
-    });
-  })
-  .then(() => {
-    if (req.method === 'OPTIONS') {
-      // Preflight request. Reply successfully:
-      log('Responding to OPTIONS request');
-      res.status(200).end();
-      return;
-    }
-
-    if (req.method === 'POST') {
-      log('Processing POST request');
-      return createCheckoutSession(req, res);
-    } else {
-      log('Method not allowed:', req.method);
-      res.setHeader('Allow', 'POST, OPTIONS');
-      res.status(405).end('Method Not Allowed');
-    }
-  })
-  .catch((error) => {
-    log('Error in request handling:', error);
-    res.status(500).json({ error: 'Internal server error', details: error.message });
+  // Set CORS headers for all responses
+  Object.keys(corsHeaders).forEach(key => {
+    res.setHeader(key, corsHeaders[key]);
   });
+
+  // Handle preflight request
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method === 'POST') {
+    await createCheckoutSession(req, res);
+  } else {
+    log('Method not allowed:', req.method);
+    res.setHeader('Allow', 'POST, OPTIONS');
+    res.status(405).end('Method Not Allowed');
+  }
 };
 
 // Log environment variables (be careful not to log sensitive information)
