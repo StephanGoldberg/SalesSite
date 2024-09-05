@@ -58,7 +58,7 @@ const createCheckoutSession = async (req, res) => {
 };
 
 // Main handler for Vercel serverless function
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   log('Request received:', {
     method: req.method,
     url: req.url,
@@ -78,7 +78,7 @@ module.exports = async (req, res) => {
   }
 
   if (req.method === 'POST') {
-    await createCheckoutSession(req, res);
+    createCheckoutSession(req, res);
   } else {
     log('Method not allowed:', req.method);
     res.setHeader('Allow', 'POST, OPTIONS');
