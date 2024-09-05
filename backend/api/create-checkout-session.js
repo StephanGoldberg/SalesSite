@@ -8,26 +8,20 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 // CORS options
 const corsOptions = {
-  origin: [
-    process.env.FRONTEND_URL,
-    'https://checkout.stripe.com',
-    'https://www.directory-maker.com',
-    'https://directory-maker.com',
-    'https://sales-site02-29p3hum58-stephangoldbergs-projects.vercel.app'
-  ],
-  methods: ['POST', 'OPTIONS'],
+  origin: ['https://www.directory-maker.com', 'https://directory-maker.com'],
+  methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
 
 // Logging function
 const log = (message, data) => {
-  console.log(`[${new Date().toISOString()}] ${message}`, data);
+  console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
 };
 
 // Create checkout session function
 const createCheckoutSession = async (req, res) => {
-  log('Received request for checkout session');
+  log('Creating checkout session');
   try {
     const accessToken = uuidv4();
     log('Generated access token:', accessToken);
@@ -67,25 +61,45 @@ const createCheckoutSession = async (req, res) => {
 
 // Main handler for Vercel serverless function
 module.exports = (req, res) => {
-  log('Received request:', { method: req.method, url: req.url });
-  
-  // Handle CORS
-  cors(corsOptions)(req, res, () => {
-    log('CORS check passed');
+  log('Request received:', {
+    method: req.method,
+    url: req.url,
+    headers: req.headers,
+    body: req.body
+  });
 
+  // Handle CORS
+  return new Promise((resolve, reject) => {
+    cors(corsOptions)(req, res, (err) => {
+      if (err) {
+        log('CORS error:', err);
+        reject(err);
+      } else {
+        log('CORS check passed');
+        resolve();
+      }
+    });
+  })
+  .then(() => {
     if (req.method === 'OPTIONS') {
       // Preflight request. Reply successfully:
+      log('Responding to OPTIONS request');
       res.status(200).end();
       return;
     }
 
     if (req.method === 'POST') {
-      createCheckoutSession(req, res);
+      log('Processing POST request');
+      return createCheckoutSession(req, res);
     } else {
       log('Method not allowed:', req.method);
       res.setHeader('Allow', 'POST, OPTIONS');
       res.status(405).end('Method Not Allowed');
     }
+  })
+  .catch((error) => {
+    log('Error in request handling:', error);
+    res.status(500).json({ error: 'Internal server error', details: error.message });
   });
 };
 

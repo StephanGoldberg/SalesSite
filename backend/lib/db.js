@@ -5,18 +5,33 @@ const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
 let pendingAccess = {};
 
-// Helper function to save data to file
-const saveToFile = async () => {
-  await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+// Logging function
+const log = (message, data) => {
+  console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
 };
 
-// Load data from file on module initialization
+// Helper function to save data to file
+const saveToFile = async () => {
+  try {
+    await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+    log('Data saved to file');
+  } catch (error) {
+    log('Error saving to file:', error.message);
+  }
+};
+
+// Load data from file
 const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
     pendingAccess = JSON.parse(data);
+    log('Data loaded from file');
   } catch (error) {
-    console.log('No existing database found, starting fresh');
+    if (error.code === 'ENOENT') {
+      log('No existing database found, starting fresh');
+    } else {
+      log('Error loading from file:', error.message);
+    }
   }
 };
 
@@ -24,26 +39,34 @@ const loadFromFile = async () => {
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
-  console.log('Setting pending access:', token, data);
+  log('Setting pending access:', { token, data });
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
 };
 
 const getPendingAccess = (token) => {
-  console.log('Getting pending access for token:', token);
+  log('Getting pending access for token:', token);
   return pendingAccess[token];
 };
 
 const updatePendingAccess = async (token, data) => {
-  console.log('Updating pending access:', token, data);
-  pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
-  await saveToFile();
+  log('Updating pending access:', { token, data });
+  if (pendingAccess[token]) {
+    pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
+    await saveToFile();
+  } else {
+    log('Warning: Attempted to update non-existent token:', token);
+  }
 };
 
 const removePendingAccess = async (token) => {
-  console.log('Removing pending access:', token);
-  delete pendingAccess[token];
-  await saveToFile();
+  log('Removing pending access:', token);
+  if (pendingAccess[token]) {
+    delete pendingAccess[token];
+    await saveToFile();
+  } else {
+    log('Warning: Attempted to remove non-existent token:', token);
+  }
 };
 
 const getAllPendingAccess = () => {
@@ -51,17 +74,18 @@ const getAllPendingAccess = () => {
 };
 
 const cleanupPendingAccess = async () => {
-  console.log('Starting cleanup of pending access');
+  log('Starting cleanup of pending access');
   const now = Date.now();
-  const cleanedPendingAccess = Object.fromEntries(
+  const initialCount = Object.keys(pendingAccess).length;
+  pendingAccess = Object.fromEntries(
     Object.entries(pendingAccess).filter(([_, value]) => {
       // Keep entries less than 24 hours old
       return now - value.timestamp < 24 * 60 * 60 * 1000;
     })
   );
-  pendingAccess = cleanedPendingAccess;
+  const finalCount = Object.keys(pendingAccess).length;
   await saveToFile();
-  console.log('Cleanup completed');
+  log(`Cleanup completed. Removed ${initialCount - finalCount} entries.`);
 };
 
 module.exports = {
