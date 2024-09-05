@@ -10,11 +10,20 @@ const log = (message, data) => {
   console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
 };
 
-// CORS headers
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://www.directory-maker.com',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+// CORS middleware
+const allowCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  return await fn(req, res);
 };
 
 // Create checkout session function
@@ -58,7 +67,7 @@ const createCheckoutSession = async (req, res) => {
 };
 
 // Main handler for Vercel serverless function
-module.exports = (req, res) => {
+const handler = (req, res) => {
   log('Request received:', {
     method: req.method,
     url: req.url,
@@ -66,25 +75,17 @@ module.exports = (req, res) => {
     body: req.method === 'POST' ? req.body : undefined
   });
 
-  // Set CORS headers for all responses
-  Object.keys(corsHeaders).forEach(key => {
-    res.setHeader(key, corsHeaders[key]);
-  });
-
-  // Handle preflight request
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
   if (req.method === 'POST') {
-    createCheckoutSession(req, res);
+    return createCheckoutSession(req, res);
   } else {
     log('Method not allowed:', req.method);
     res.setHeader('Allow', 'POST, OPTIONS');
     res.status(405).end('Method Not Allowed');
   }
 };
+
+// Wrap the handler with the CORS middleware
+module.exports = allowCors(handler);
 
 // Log environment variables (be careful not to log sensitive information)
 log('Environment variables:', {
