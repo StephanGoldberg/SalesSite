@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 function HeroSection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,15 +8,19 @@ function HeroSection() {
 
   useEffect(() => {
     setBackendUrl(process.env.REACT_APP_BACKEND_URL);
-    console.log('Primary Backend URL:', process.env.REACT_APP_BACKEND_URL);
-    console.log('Fallback URL 1:', process.env.REACT_APP_FALLBACK_URL_1);
-    console.log('Fallback URL 2:', process.env.REACT_APP_FALLBACK_URL_2);
+    console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
   }, []);
 
-  const tryCheckout = async (url) => {
+  const handlePurchase = async () => {
+    setIsLoading(true);
+    setError(null);
+
     try {
+      console.log('Initiating purchase...');
+      console.log('Using backend URL:', `${backendUrl}/create-checkout-session`);
+      
       const response = await axios.post(
-        `${url}/create-checkout-session`,
+        `${backendUrl}/create-checkout-session`,
         {},
         {
           headers: {
@@ -27,53 +28,27 @@ function HeroSection() {
           },
         }
       );
-      return response.data;
+
+      console.log('Response received:', response.data);
+      setError('Test successful: ' + JSON.stringify(response.data));
     } catch (error) {
-      console.error(`Checkout failed for URL ${url}:`, error);
-      throw error;
-    }
-  };
-
-  const handlePurchase = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    const urls = [
-      backendUrl,
-      process.env.REACT_APP_FALLBACK_URL_1,
-      process.env.REACT_APP_FALLBACK_URL_2
-    ].filter(Boolean);
-
-    for (const url of urls) {
-      try {
-        console.log(`Attempting checkout with URL: ${url}`);
-        const data = await tryCheckout(url);
-        console.log('Checkout successful:', data);
-
-        const stripe = await stripePromise;
-        if (!stripe) {
-          throw new Error('Stripe failed to load');
-        }
-
-        const { error: stripeError } = await stripe.redirectToCheckout({
-          sessionId: data.id,
-        });
-
-        if (stripeError) {
-          console.error('Stripe redirect error:', stripeError);
-          setError(stripeError.message);
-        }
-
-        return; // Exit the loop if successful
-      } catch (error) {
-        console.error(`Checkout failed for ${url}:`, error);
-        // Continue to next URL if available
+      console.error('Error initiating checkout:', error);
+      
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+        setError(`Server error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setError(`No response from server. URL attempted: ${backendUrl}/create-checkout-session`);
+      } else {
+        console.error('Error setting up request:', error.message);
+        setError(`Error: ${error.message}`);
       }
+    } finally {
+      setIsLoading(false);
     }
-
-    // If all URLs fail
-    setError('Failed to initiate checkout. Please try again later.');
-    setIsLoading(false);
   };
 
   return (
@@ -100,8 +75,7 @@ function HeroSection() {
           </p>
         )}
         <div className="mt-4 text-white">
-          <p>Primary Backend URL: {backendUrl}</p>
-          <p>Stripe Publishable Key: {process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY ? 'Set' : 'Not Set'}</p>
+          <p>Backend URL: {backendUrl}</p>
         </div>
       </div>
     </section>
