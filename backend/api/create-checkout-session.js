@@ -1,6 +1,7 @@
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const { setPendingAccess } = require('../lib/db.js');
+const allowCors = require('../lib/allowCors');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -8,22 +9,8 @@ const log = (message, data) => {
   console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
 };
 
-const setCorsHeaders = (res) => {
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-};
-
-module.exports = async (req, res) => {
-  setCorsHeaders(res);
-
+const handler = async (req, res) => {
   log('Request received:', { method: req.method, url: req.url, headers: req.headers });
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
 
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
@@ -61,6 +48,8 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
   }
 };
+
+module.exports = allowCors(handler);
 
 log('Environment variables:', {
   FRONTEND_URL: process.env.FRONTEND_URL,

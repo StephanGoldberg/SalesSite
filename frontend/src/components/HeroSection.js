@@ -57,7 +57,7 @@ function HeroSection() {
         setError(`Server error: ${error.response.status} - ${error.response.data.message || 'Unknown error'}`);
       } else if (error.request) {
         console.error('No response received:', error.request);
-        setError('No response from server. This might be due to a CORS issue. Please check your network settings and try again.');
+        setError('No response from server. This might be due to a CORS issue. Please check the console for more details.');
       } else {
         console.error('Error setting up request:', error.message);
         setError(`Error: ${error.message}`);
