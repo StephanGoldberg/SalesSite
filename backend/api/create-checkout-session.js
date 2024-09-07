@@ -8,26 +8,26 @@ const log = (message, data) => {
   console.log(`[${new Date().toISOString()}] ${message}`, data ? JSON.stringify(data) : '');
 };
 
-module.exports = async (req, res) => {
-  // Set CORS headers
+const setCorsHeaders = (res) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+};
 
-  // Handle preflight request
+module.exports = async (req, res) => {
+  setCorsHeaders(res);
+
+  log('Request received:', { method: req.method, url: req.url, headers: req.headers });
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  log('Request received:', { method: req.method, url: req.url });
-
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    res.status(405).json({ error: 'Method Not Allowed' });
+    return;
   }
 
   try {
@@ -55,10 +55,10 @@ module.exports = async (req, res) => {
     await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
     log('Pending access set for token:', accessToken);
 
-    return res.status(200).json({ id: session.id });
+    res.status(200).json({ id: session.id });
   } catch (error) {
     log('Error creating checkout session:', error);
-    return res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
+    res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
   }
 };
 
