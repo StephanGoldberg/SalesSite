@@ -4,18 +4,10 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run start --prefix frontend\" \"npm run dev --prefix backend\"",
-    "build": "npm run build --prefix frontend && npm run build --prefix backend",
-    "vercel-build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
+    "build": "npm run build --prefix frontend",
+    "vercel-build": "npm run build"
   },
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
-  "dependencies": {},
   "devDependencies": {
     "concurrently": "^8.2.2"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
