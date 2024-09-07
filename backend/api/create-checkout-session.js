@@ -1,7 +1,6 @@
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const { setPendingAccess } = require('../lib/db.js');
-const allowCors = require('../lib/allowCors');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -10,17 +9,24 @@ const log = (message, data) => {
 };
 
 const handler = async (req, res) => {
-  log('Request received:', { method: req.method, url: req.url, headers: req.headers });
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.directory-maker.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
     return;
   }
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  log('Request received:', { method: req.method, url: req.url });
+
   try {
     const accessToken = uuidv4();
-    log('Generated access token:', accessToken);
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -38,23 +44,14 @@ const handler = async (req, res) => {
       cancel_url: `${process.env.FRONTEND_URL}`,
     });
 
-    log('Checkout session created:', session.id);
     await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
-    log('Pending access set for token:', accessToken);
+    log('Checkout session created:', session.id);
 
-    res.status(200).json({ id: session.id });
+    return res.status(200).json({ id: session.id });
   } catch (error) {
     log('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
+    return res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
   }
 };
 
-module.exports = allowCors(handler);
-
-log('Environment variables:', {
-  FRONTEND_URL: process.env.FRONTEND_URL,
-  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ? 'Set' : 'Not set',
-  GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'Not set',
-  GITHUB_REPO_OWNER: process.env.GITHUB_REPO_OWNER,
-  GITHUB_REPO_NAME: process.env.GITHUB_REPO_NAME,
-});
+module.exports = handler;

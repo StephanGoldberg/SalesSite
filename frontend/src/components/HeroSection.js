@@ -20,7 +20,7 @@ function HeroSection() {
 
     try {
       console.log('Initiating purchase...');
-      console.log('Using backend URL:', backendUrl);
+      console.log('Using backend URL:', `${backendUrl}/create-checkout-session`);
       
       const response = await axios.post(
         `${backendUrl}/create-checkout-session`,
@@ -54,7 +54,7 @@ function HeroSection() {
         console.error('Response data:', error.response.data);
         console.error('Response status:', error.response.status);
         console.error('Response headers:', error.response.headers);
-        setError(`Server error: ${error.response.status} - ${error.response.data.message || 'Unknown error'}`);
+        setError(`Server error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
       } else if (error.request) {
         console.error('No response received:', error.request);
         setError(`No response from server. URL attempted: ${backendUrl}/create-checkout-session`);
@@ -90,13 +90,16 @@ function HeroSection() {
             Error: {error}
           </p>
         )}
+        <div className="mt-4 text-white">
+          <p>Backend URL: {backendUrl}</p>
+          <p>Stripe Publishable Key: {process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY ? 'Set' : 'Not Set'}</p>
+        </div>
       </div>
     </section>
   );
 }
 
 export default HeroSection;
-
 
 
 
