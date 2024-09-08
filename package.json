@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run start --prefix frontend\" \"npm run dev --prefix backend\"",
-    "build": "npm run build --prefix frontend",
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
     "vercel-build": "npm run build"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
   }
 }
+
