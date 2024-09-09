@@ -11,6 +11,7 @@ import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Contact from './pages/Contact';
 import License from './pages/License';
+import NotFound from './pages/NotFound'; // You will need to create this component
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/license" element={<License />} />
+            {/* Catch-all route for undefined paths (404) */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
@@ -37,6 +40,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
