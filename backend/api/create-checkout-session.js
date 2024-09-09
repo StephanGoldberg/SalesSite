@@ -3,6 +3,9 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+  // Log the request method and URL
+  console.log(`Received ${req.method} request to ${req.url}`);
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
