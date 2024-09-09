@@ -1,10 +1,28 @@
 import Stripe from 'stripe';
+import cors from 'cors';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const corsOptions = {
+  origin: ['https://www.directory-maker.com', 'https://directory-maker.com'],
+  methods: ['POST', 'GET', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+const corsMiddleware = cors(corsOptions);
+
 export default async function handler(req, res) {
-  // Log the request method and URL
   console.log(`Received ${req.method} request to ${req.url}`);
+
+  await new Promise((resolve, reject) => {
+    corsMiddleware(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -17,6 +35,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('Creating checkout session...');
+    console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -34,6 +55,7 @@ export default async function handler(req, res) {
       cancel_url: `${process.env.FRONTEND_URL}`,
     });
 
+    console.log('Checkout session created:', session.id);
     res.status(200).json({ id: session.id });
   } catch (error) {
     console.error('Error creating checkout session:', error);

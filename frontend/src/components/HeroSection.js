@@ -13,12 +13,30 @@ function HeroSection() {
     setError(null);
 
     try {
-      const response = await axios.post('/api/create-checkout-session');
+      console.log('Initiating checkout...');
+      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+      
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`);
+      console.log('Checkout session created:', response.data);
+      
       const stripe = await stripePromise;
-      await stripe.redirectToCheckout({ sessionId: response.data.id });
+      const { error } = await stripe.redirectToCheckout({ sessionId: response.data.id });
+      
+      if (error) {
+        console.error('Stripe redirect error:', error);
+        setError(error.message);
+      }
     } catch (error) {
       console.error('Error:', error);
-      setError('Failed to initiate checkout. Please try again.');
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        setError(`Server error: ${error.response.status} - ${error.response.data.error || 'Unknown error'}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setError('No response from server. Please check your connection.');
+      } else {
+        setError(`Error: ${error.message}`);
+      }
     } finally {
       setIsLoading(false);
     }
