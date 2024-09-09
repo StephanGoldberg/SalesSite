@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for Directory Maker",
   "main": "api/create-checkout-session.js",
-  "type": "module",
+
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "start": "node api/create-checkout-session.js",
     "dev": "nodemon api/create-checkout-session.js",
