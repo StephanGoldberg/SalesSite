@@ -9,9 +9,12 @@
       name="description"
       content="Directory Maker - Get access to our exclusive GitHub repository"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Directory Maker</title>
+    <!-- Preconnect to your API domain -->
+    <link rel="preconnect" href="https://www.directory-maker.com">
+    <!-- Add Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://checkout.stripe.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.stripe.com;">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

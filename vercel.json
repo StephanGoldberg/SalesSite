@@ -1,24 +1,11 @@
 {
     "version": 2,
     "builds": [
-      { 
-        "src": "frontend/package.json", 
-        "use": "@vercel/static-build",
-        "config": { "distDir": "build" }
-      },
-      { 
-        "src": "backend/api/**/*.js", 
-        "use": "@vercel/node" 
-      }
+      { "src": "frontend/package.json", "use": "@vercel/static-build" },
+      { "src": "backend/api/**/*.js", "use": "@vercel/node" }
     ],
     "routes": [
       { "src": "/api/(.*)", "dest": "/backend/api/$1" },
-      { 
-        "src": "/(.*)", 
-        "dest": "/frontend/build/$1",
-        "headers": {
-          "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com;"
-        }
-      }
+      { "src": "/(.*)", "dest": "/frontend/index.html" }
     ]
   }
