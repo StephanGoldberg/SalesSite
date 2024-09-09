@@ -2,9 +2,17 @@
   "name": "directory-maker",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
     "vercel-build": "npm run build"
   }
 }
 
+{
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
