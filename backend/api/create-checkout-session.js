@@ -1,6 +1,6 @@
-const Stripe = require('stripe');
+import Stripe from 'stripe';
 
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   console.log('Function invoked');
 
   // Set CORS headers
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 
   try {
     console.log('Initializing Stripe');
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     console.log('Stripe initialized');
 
     console.log('Creating checkout session');
@@ -50,3 +50,5 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
   }
 };
+
+export default handler;
