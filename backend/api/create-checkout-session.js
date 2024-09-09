@@ -4,7 +4,7 @@ import cors from 'cors';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const corsOptions = {
-  origin: ['https://www.directory-maker.com', 'https://directory-maker.com'],
+  origin: ['https://www.directory-maker.com', 'https://directory-maker.com', 'https://sales-site02-beoj5w8y6-stephangoldbergs-projects.vercel.app'],
   methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
