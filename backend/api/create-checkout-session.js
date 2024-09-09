@@ -12,7 +12,7 @@ const corsOptions = {
 
 const corsMiddleware = cors(corsOptions);
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   console.log(`Received ${req.method} request to ${req.url}`);
 
   await new Promise((resolve, reject) => {
@@ -61,4 +61,6 @@ export default async function handler(req, res) {
     console.error('Error creating checkout session:', error);
     res.status(500).json({ error: 'Failed to create checkout session', details: error.message });
   }
-}
+};
+
+export default handler;
