@@ -13,29 +13,53 @@ function HeroSection() {
     setError(null);
 
     try {
-      console.log('Initiating checkout...');
+      console.log('Initiating purchase...');
       console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
       
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`);
-      console.log('Checkout session created:', response.data);
-      
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      console.log('Response received:', response.data);
+
       const stripe = await stripePromise;
-      const { error } = await stripe.redirectToCheckout({ sessionId: response.data.id });
-      
-      if (error) {
-        console.error('Stripe redirect error:', error);
-        setError(error.message);
+      if (!stripe) {
+        throw new Error('Stripe failed to load');
+      }
+
+      const { error: stripeError } = await stripe.redirectToCheckout({
+        sessionId: response.data.id,
+      });
+
+      if (stripeError) {
+        console.error('Stripe redirect error:', stripeError);
+        setError(stripeError.message);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error initiating checkout:', error);
+      
       if (error.response) {
-        console.error('Error response:', error.response.data);
-        setError(`Server error: ${error.response.status} - ${error.response.data.error || 'Unknown error'}`);
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+        setError(`Server error: ${error.response.status}`);
       } else if (error.request) {
+        // The request was made but no response was received
         console.error('No response received:', error.request);
         setError('No response from server. Please check your connection.');
       } else {
-        setError(`Error: ${error.message}`);
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error setting up request:', error.message);
+        setError(error.message);
       }
     } finally {
       setIsLoading(false);
@@ -71,27 +95,3 @@ function HeroSection() {
 }
 
 export default HeroSection;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
