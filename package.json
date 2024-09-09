@@ -10,9 +10,3 @@
     "vercel-build": "npm run build"
   }
 }
-
-{
-  "engines": {
-    "node": ">=16.0.0"
-  }
-}
