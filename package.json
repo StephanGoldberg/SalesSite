@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run start --prefix frontend\" \"npm run dev --prefix backend\"",
-    "build": "cd frontend && npm install && npm run build",
+    "build": "echo 'Starting build' && cd frontend && npm install && echo 'Frontend dependencies installed' && npm run build && echo 'Frontend build complete' && cd .. && echo 'Moving build folder' && mv frontend/build . && echo 'Build folder moved' && ls -la",
     "vercel-build": "npm run build"
   },
   "dependencies": {
