@@ -27,7 +27,13 @@ function HeroSection() {
         }
       );
 
-      console.log('Response received:', response.data);
+      console.log('Full response:', response);
+      console.log('Response status:', response.status);
+      console.log('Response data:', response.data);
+
+      if (!response.data || !response.data.id) {
+        throw new Error('Invalid response from server');
+      }
 
       const stripe = await stripePromise;
       if (!stripe) {
