@@ -4,60 +4,26 @@
       {
         "src": "frontend/package.json",
         "use": "@vercel/static-build",
-        "config": { 
-          "distDir": "build"
-        }
+        "config": { "distDir": "build" }
       },
       {
         "src": "backend/api/**/*.js",
         "use": "@vercel/node",
         "config": {
-          "maxLambdaSize": "10mb"
+          "includeFiles": ["backend/**/*.js"]
         }
       }
     ],
     "routes": [
-      {
-        "src": "/api/create-checkout-session",
-        "dest": "/backend/api/create-checkout-session.js"
-      },
-      {
-        "src": "/api/submit-github-username",
-        "dest": "/backend/api/submit-github-username.js"
-      },
-      {
-        "src": "/api/webhook",
-        "dest": "/backend/api/webhook.js"
-      },
-      {
-        "src": "/api/cleanup",
-        "dest": "/backend/api/cleanup.js"
-      },
-      {
-        "src": "/api/test",
-        "dest": "/backend/api/test.js"
-      },
-      {
-        "src": "/api/(.*)",
-        "dest": "/backend/api/$1.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/frontend/build/$1"
-      },
-      {
-        "handle": "filesystem"
-      },
-      {
-        "src": "/[^.]+",
-        "dest": "/frontend/build/index.html",
-        "status": 200
-      }
+      { "src": "/api/test", "dest": "/backend/api/test.js" },
+      { "src": "/api/simple-test", "dest": "/backend/api/simple-test.js" },
+      { "src": "/api/(.*)", "dest": "/backend/api/$1.js" },
+      { "src": "/(.*)", "dest": "/frontend/build/$1" }
     ],
     "env": {
-      "DEBUG": "true"
-    },
-    "regions": ["iad1"]
+      "DEBUG": "true",
+      "NODE_ENV": "production"
+    }
   }
   
   
