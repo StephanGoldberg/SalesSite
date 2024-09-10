@@ -12,6 +12,7 @@ function Access() {
 
   const checkPaymentStatus = useCallback(async (tokenToCheck) => {
     try {
+      console.log('Checking payment status for token:', tokenToCheck);
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/check-payment-status/${tokenToCheck}`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
@@ -28,7 +29,16 @@ function Access() {
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
-      setMessage('Error checking payment status. Please try again later.');
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        setMessage(`Error checking payment status: ${error.response.data.error || 'Unknown error'}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setMessage('No response from server. Please check your connection and try again.');
+      } else {
+        console.error('Error setting up request:', error.message);
+        setMessage(`Error: ${error.message}`);
+      }
       // Retry after 5 seconds even on error
       setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
     }
@@ -49,8 +59,9 @@ function Access() {
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
-
+  
     try {
+      console.log('Submitting GitHub username:', githubUsername);
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
         { token, githubUsername },
@@ -59,11 +70,12 @@ function Access() {
           withCredentials: true
         }
       );
-
+  
+      console.log('Submit GitHub username response:', response.data);
       if (response.data.isOwner) {
         setMessage('You are the repository owner. Access is already granted.');
       } else {
-        setMessage('An invitation has been sent to your GitHub account. Please check your email and accept the invitation to gain access to the repository.');
+        setMessage('Access granted to GitHub repository. An invitation has been sent to your GitHub account if needed. Please check your email and accept the invitation if you received one.');
       }
     } catch (error) {
       console.error('Error submitting GitHub username:', error);
