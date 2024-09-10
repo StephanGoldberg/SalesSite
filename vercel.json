@@ -22,7 +22,10 @@
         "src": "/(.*)",
         "dest": "/frontend/build/$1"
       }
-    ]
+    ],
+    "env": {
+      "DEBUG": "true"
+    }
   }
   
   

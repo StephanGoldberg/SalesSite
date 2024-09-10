@@ -9,23 +9,23 @@ const corsOptions = {
 
 const corsMiddleware = cors(corsOptions);
 
-const cleanup = async (req, res) => {
-  try {
-    await cleanupPendingAccess();
-    res.status(200).json({ message: 'Cleanup successful' });
-  } catch (error) {
-    console.error('Cleanup error:', error);
-    res.status(500).json({ error: 'Cleanup failed' });
-  }
-};
+module.exports = async (req, res) => {
+  await new Promise((resolve) => corsMiddleware(req, res, resolve));
 
-module.exports = (req, res) => {
   if (req.method === 'OPTIONS') {
-    return corsMiddleware(req, res, () => {
-      res.status(200).end();
-    });
+    return res.status(200).end();
   }
-  return corsMiddleware(req, res, () => {
-    cleanup(req, res);
-  });
+
+  if (req.method === 'GET') {
+    try {
+      await cleanupPendingAccess();
+      res.status(200).json({ message: 'Cleanup successful' });
+    } catch (error) {
+      console.error('Cleanup error:', error);
+      res.status(500).json({ error: 'Cleanup failed' });
+    }
+  } else {
+    res.setHeader('Allow', 'GET');
+    res.status(405).end('Method Not Allowed');
+  }
 };
