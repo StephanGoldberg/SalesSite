@@ -1,30 +1,16 @@
-const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
-const dotenv = require('dotenv');
-const path = require('path');
 const { setPendingAccess } = require('../lib/db.js');
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
-console.log('PORT:', process.env.PORT);
-console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY ? 'Set' : 'Not set');
-console.log('GITHUB_ACCESS_TOKEN:', process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'Not set');
-console.log('GITHUB_REPO_OWNER:', process.env.GITHUB_REPO_OWNER);
-console.log('GITHUB_REPO_NAME:', process.env.GITHUB_REPO_NAME);
-
-const corsOptions = {
-  origin: [process.env.FRONTEND_URL, 'https://checkout.stripe.com'],
-  methods: ['POST', 'GET', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
+const corsMiddleware = cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-};
-
-const corsMiddleware = cors(corsOptions);
+});
 
 module.exports = async (req, res) => {
   await new Promise((resolve) => corsMiddleware(req, res, resolve));
@@ -71,7 +57,7 @@ module.exports = async (req, res) => {
       });
     }
   } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };

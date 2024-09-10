@@ -4,13 +4,11 @@ const { getPendingAccess, updatePendingAccess } = require('../lib/db.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-const corsOptions = {
+const corsMiddleware = cors({
   origin: 'https://dashboard.stripe.com',
   methods: ['POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Stripe-Signature'],
-};
-
-const corsMiddleware = cors(corsOptions);
+});
 
 module.exports = async (req, res) => {
   await new Promise((resolve) => corsMiddleware(req, res, resolve));
@@ -24,7 +22,7 @@ module.exports = async (req, res) => {
     let event;
 
     try {
-      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+      event = stripe.webhooks.constructEvent(req.rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
       console.error('Webhook Error:', err.message);
       return res.status(400).send(`Webhook Error: ${err.message}`);
@@ -52,7 +50,7 @@ module.exports = async (req, res) => {
 
     res.json({received: true});
   } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };

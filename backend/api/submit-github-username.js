@@ -2,14 +2,12 @@ const cors = require('cors');
 const { getPendingAccess, removePendingAccess } = require('../lib/db.js');
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
 
-const corsOptions = {
+const corsMiddleware = cors({
   origin: process.env.FRONTEND_URL,
   methods: ['POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-};
-
-const corsMiddleware = cors(corsOptions);
+});
 
 module.exports = async (req, res) => {
   await new Promise((resolve) => corsMiddleware(req, res, resolve));
@@ -42,8 +40,8 @@ module.exports = async (req, res) => {
       res.status(500).json({ error: 'Failed to grant GitHub access', details: error.message });
     }
   } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
 

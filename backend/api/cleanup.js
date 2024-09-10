@@ -1,13 +1,11 @@
 const cors = require('cors');
 const { cleanupPendingAccess } = require('../lib/db');
 
-const corsOptions = {
+const corsMiddleware = cors({
   origin: process.env.FRONTEND_URL,
   methods: ['GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-const corsMiddleware = cors(corsOptions);
+});
 
 module.exports = async (req, res) => {
   await new Promise((resolve) => corsMiddleware(req, res, resolve));
@@ -25,7 +23,7 @@ module.exports = async (req, res) => {
       res.status(500).json({ error: 'Cleanup failed' });
     }
   } else {
-    res.setHeader('Allow', 'GET');
-    res.status(405).end('Method Not Allowed');
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
