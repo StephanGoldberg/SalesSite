@@ -4,26 +4,33 @@
       {
         "src": "frontend/package.json",
         "use": "@vercel/static-build",
-        "config": { "distDir": "build" }
+        "config": { 
+          "distDir": "build"
+        }
       },
       {
         "src": "backend/api/**/*.js",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": ["backend/**/*.js"]
-        }
+        "use": "@vercel/node"
       }
     ],
     "routes": [
-      { "src": "/api/test", "dest": "/backend/api/test.js" },
-      { "src": "/api/simple-test", "dest": "/backend/api/simple-test.js" },
-      { "src": "/api/(.*)", "dest": "/backend/api/$1.js" },
-      { "src": "/(.*)", "dest": "/frontend/build/$1" }
-    ],
-    "env": {
-      "DEBUG": "true",
-      "NODE_ENV": "production"
-    }
+      {
+        "src": "/api/(.*)",
+        "dest": "/backend/api/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/frontend/build/$1"
+      },
+      {
+        "handle": "filesystem"
+      },
+      {
+        "src": "/[^.]+",
+        "dest": "/frontend/build/index.html",
+        "status": 200
+      }
+    ]
   }
   
   
