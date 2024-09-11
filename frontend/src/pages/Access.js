@@ -33,6 +33,11 @@ function Access() {
       if (error.response) {
         console.error('Error response:', error.response.data);
         console.error('Error status:', error.response.status);
+        console.error('Error headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error setting up request:', error.message);
       }
       setMessage('Error checking payment status. Please try again later.');
       setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
