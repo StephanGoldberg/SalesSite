@@ -7,7 +7,12 @@ let pendingAccess = {};
 
 // Helper function to save data to file
 const saveToFile = async () => {
-  await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+  try {
+    await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+    console.log('Database saved successfully');
+  } catch (error) {
+    console.error('Error saving database:', error);
+  }
 };
 
 // Load data from file on module initialization
@@ -15,8 +20,14 @@ const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
     pendingAccess = JSON.parse(data);
+    console.log('Database loaded successfully');
   } catch (error) {
-    console.log('No existing database found, starting fresh');
+    if (error.code === 'ENOENT') {
+      console.log('No existing database found, starting fresh');
+      await saveToFile(); // Initialize an empty database file
+    } else {
+      console.error('Error loading database:', error);
+    }
   }
 };
 
@@ -36,14 +47,22 @@ const getPendingAccess = (token) => {
 
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, data);
-  pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
-  await saveToFile();
+  if (pendingAccess[token]) {
+    pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
+    await saveToFile();
+  } else {
+    console.log('Token not found for update:', token);
+  }
 };
 
 const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
-  delete pendingAccess[token];
-  await saveToFile();
+  if (pendingAccess[token]) {
+    delete pendingAccess[token];
+    await saveToFile();
+  } else {
+    console.log('Token not found for removal:', token);
+  }
 };
 
 const getAllPendingAccess = () => {

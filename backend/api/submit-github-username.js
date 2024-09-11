@@ -19,15 +19,19 @@ module.exports = async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    // Handle payment status check
     const token = req.query.token;
     console.log('Checking payment status for token:', token);
-    const pendingAccess = getPendingAccess(token);
-    console.log('Pending access for token:', pendingAccess);
-    if (pendingAccess) {
-      return res.json({ paid: pendingAccess.paid });
-    } else {
-      return res.status(404).json({ error: 'Token not found' });
+    try {
+      const pendingAccess = getPendingAccess(token);
+      console.log('Pending access for token:', pendingAccess);
+      if (pendingAccess) {
+        return res.json({ paid: pendingAccess.paid });
+      } else {
+        return res.status(404).json({ error: 'Token not found' });
+      }
+    } catch (error) {
+      console.error('Error checking payment status:', error);
+      return res.status(500).json({ error: 'Internal server error' });
     }
   }
 

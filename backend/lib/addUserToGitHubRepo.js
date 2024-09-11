@@ -14,7 +14,6 @@ async function addUserToGitHubRepo(username) {
 
     console.log(`Repository details - Owner: ${owner}, Repo: ${repo}`);
 
-    // Check if the username is the same as the repo owner
     if (username.toLowerCase() === owner.toLowerCase()) {
       console.log(`User ${username} is the repository owner. No need to add as collaborator.`);
       return 'owner';
