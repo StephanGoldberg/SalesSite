@@ -11,7 +11,6 @@ const saveToFile = async () => {
     console.log('Database saved successfully');
   } catch (error) {
     console.error('Error saving database:', error);
-    throw error;
   }
 };
 
@@ -23,14 +22,13 @@ const loadFromFile = async () => {
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.log('No existing database found, starting fresh');
-      await saveToFile();
     } else {
       console.error('Error loading database:', error);
-      throw error;
     }
   }
 };
 
+// Load data on module initialization
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
@@ -41,15 +39,15 @@ const setPendingAccess = async (token, data) => {
 
 const getPendingAccess = (token) => {
   console.log('Getting pending access for token:', token);
-  const access = pendingAccess[token];
-  console.log('Retrieved pending access:', access);
-  return access;
+  return pendingAccess[token];
 };
 
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, data);
-  pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
-  await saveToFile();
+  if (pendingAccess[token]) {
+    pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
+    await saveToFile();
+  }
 };
 
 const removePendingAccess = async (token) => {
