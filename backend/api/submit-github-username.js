@@ -4,7 +4,7 @@ const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
 
 const corsOptions = {
   origin: process.env.FRONTEND_URL,
-  methods: ['POST', 'OPTIONS'],
+  methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
@@ -16,6 +16,19 @@ module.exports = async (req, res) => {
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  if (req.method === 'GET') {
+    // Handle payment status check
+    const token = req.query.token;
+    console.log('Checking payment status for token:', token);
+    const pendingAccess = getPendingAccess(token);
+    console.log('Pending access for token:', pendingAccess);
+    if (pendingAccess) {
+      return res.json({ paid: pendingAccess.paid });
+    } else {
+      return res.status(404).json({ error: 'Token not found' });
+    }
   }
 
   if (req.method === 'POST') {
@@ -48,7 +61,7 @@ module.exports = async (req, res) => {
       res.status(500).json({ error: 'Failed to grant GitHub access', details: error.message });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['GET', 'POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
