@@ -35,7 +35,8 @@ module.exports = async (req, res) => {
         if (pendingAccess) {
           return res.status(200).json({ paid: pendingAccess.paid });
         } else {
-          return res.status(404).json({ error: 'Token not found' });
+          console.log('Token not found in pending access');
+          return res.status(404).json({ error: 'Token not found', message: 'Your session may have expired or the payment is still processing. Please try again or contact support.' });
         }
       } catch (error) {
         console.error('Error checking payment status:', error);

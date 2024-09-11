@@ -30,16 +30,20 @@ function Access() {
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
-      if (error.response) {
+      if (error.response && error.response.status === 404) {
+        setMessage('Your session may have expired or the payment is still processing. Please try again or contact support.');
+      } else if (error.response) {
         console.error('Error response:', error.response.data);
         console.error('Error status:', error.response.status);
         console.error('Error headers:', error.response.headers);
+        setMessage(`Error: ${error.response.data.message || 'An unexpected error occurred. Please try again.'}`);
       } else if (error.request) {
         console.error('No response received:', error.request);
+        setMessage('Unable to connect to the server. Please check your internet connection and try again.');
       } else {
         console.error('Error setting up request:', error.message);
+        setMessage(`Error: ${error.message}`);
       }
-      setMessage('Error checking payment status. Please try again later.');
       setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
     }
   }, []);
