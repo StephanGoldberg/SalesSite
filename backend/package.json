@@ -2,11 +2,10 @@
   "name": "directory-maker-backend",
   "version": "1.0.0",
   "description": "Backend for Directory Maker",
-  "main": "api/create-checkout-session.js",
-  
+  "main": "api/submit-github-username.js",
   "scripts": {
-    "start": "node api/create-checkout-session.js",
-    "dev": "nodemon api/create-checkout-session.js",
+    "start": "node api/submit-github-username.js",
+    "dev": "nodemon api/submit-github-username.js",
     "build": "echo 'Backend build step complete'"
   },
   "dependencies": {
@@ -19,5 +18,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
