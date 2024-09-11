@@ -1,4 +1,3 @@
-const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
