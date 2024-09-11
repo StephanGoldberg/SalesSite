@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error', details: error.message });
     }
   }
 
