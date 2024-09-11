@@ -5,17 +5,16 @@ const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
 let pendingAccess = {};
 
-// Helper function to save data to file
 const saveToFile = async () => {
   try {
     await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
     console.log('Database saved successfully');
   } catch (error) {
     console.error('Error saving database:', error);
+    throw error;
   }
 };
 
-// Load data from file on module initialization
 const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
@@ -24,14 +23,14 @@ const loadFromFile = async () => {
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.log('No existing database found, starting fresh');
-      await saveToFile(); // Initialize an empty database file
+      await saveToFile();
     } else {
       console.error('Error loading database:', error);
+      throw error;
     }
   }
 };
 
-// Initialize the database
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
@@ -42,27 +41,21 @@ const setPendingAccess = async (token, data) => {
 
 const getPendingAccess = (token) => {
   console.log('Getting pending access for token:', token);
-  return pendingAccess[token];
+  const access = pendingAccess[token];
+  console.log('Retrieved pending access:', access);
+  return access;
 };
 
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, data);
-  if (pendingAccess[token]) {
-    pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
-    await saveToFile();
-  } else {
-    console.log('Token not found for update:', token);
-  }
+  pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
+  await saveToFile();
 };
 
 const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
-  if (pendingAccess[token]) {
-    delete pendingAccess[token];
-    await saveToFile();
-  } else {
-    console.log('Token not found for removal:', token);
-  }
+  delete pendingAccess[token];
+  await saveToFile();
 };
 
 const getAllPendingAccess = () => {
