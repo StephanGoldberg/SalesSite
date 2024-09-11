@@ -19,13 +19,6 @@
         "dest": "/backend/api/$1.js"
       },
       {
-        "src": "/access",
-        "dest": "/frontend/build/index.html"
-      },
-      {
-        "handle": "filesystem"
-      },
-      {
         "src": "/(.*)",
         "dest": "/frontend/build/index.html"
       }
