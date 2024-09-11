@@ -13,7 +13,9 @@ function Access() {
   const checkPaymentStatus = useCallback(async (tokenToCheck) => {
     try {
       console.log('Checking payment status for token:', tokenToCheck);
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/submit-github-username?token=${tokenToCheck}`, {
+      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/submit-github-username`, {
+        params: { token: tokenToCheck },
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -24,13 +26,15 @@ function Access() {
         setMessage('Payment successful! Please enter your GitHub username to gain access.');
       } else {
         setMessage('Payment is still processing. Please wait a moment and try again.');
-        // Retry after 5 seconds
         setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        console.error('Error status:', error.response.status);
+      }
       setMessage('Error checking payment status. Please try again later.');
-      // Retry after 5 seconds even on error
       setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
     }
   }, []);
