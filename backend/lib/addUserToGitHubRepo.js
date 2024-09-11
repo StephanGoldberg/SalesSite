@@ -1,14 +1,14 @@
-const { Octokit } = require("@octokit/rest");
 const dotenv = require('dotenv');
 
 dotenv.config();
-
-const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
 
 async function addUserToGitHubRepo(username) {
   console.log(`Attempting to add user ${username} to repository...`);
   
   try {
+    const { Octokit } = await import('@octokit/rest');
+    const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
+
     const owner = process.env.GITHUB_REPO_OWNER;
     const repo = process.env.GITHUB_REPO_NAME;
 
