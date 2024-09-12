@@ -3,7 +3,7 @@ const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 const path = require('path');
-const { setPendingAccess } = require('../lib/db.js');
+const { setPendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -62,6 +62,9 @@ module.exports = async (req, res) => {
       console.log('Checkout session created:', session.id);
       await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
       console.log('Pending access set for token:', accessToken);
+
+      const allPendingAccess = await getAllPendingAccess();
+      console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
 
       res.status(200).json({ id: session.id, token: accessToken });
     } catch (error) {

@@ -35,7 +35,7 @@ const setPendingAccess = async (token, data) => {
   console.log('Setting pending access:', token, JSON.stringify(data));
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
-  console.log('Current pendingAccess:', JSON.stringify(pendingAccess));
+  console.log('Current pendingAccess after setting:', JSON.stringify(pendingAccess));
 };
 
 const getPendingAccess = (token) => {
@@ -50,7 +50,7 @@ const updatePendingAccess = async (token, data) => {
   if (pendingAccess[token]) {
     pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
     await saveToFile();
-    console.log('Current pendingAccess:', JSON.stringify(pendingAccess));
+    console.log('Current pendingAccess after updating:', JSON.stringify(pendingAccess));
   } else {
     console.log('Token not found for update:', token);
   }
@@ -60,7 +60,7 @@ const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
   delete pendingAccess[token];
   await saveToFile();
-  console.log('Current pendingAccess:', JSON.stringify(pendingAccess));
+  console.log('Current pendingAccess after removing:', JSON.stringify(pendingAccess));
 };
 
 const getAllPendingAccess = () => {
