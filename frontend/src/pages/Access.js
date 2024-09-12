@@ -8,6 +8,7 @@ function Access() {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const location = useLocation();
 
   const checkPaymentStatus = useCallback(async (tokenToCheck) => {
@@ -26,7 +27,14 @@ function Access() {
         setMessage('Payment successful! Please enter your GitHub username to gain access.');
       } else {
         setMessage('Payment is still processing. Please wait a moment and try again.');
-        setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
+        if (retryCount < 5) {
+          setTimeout(() => {
+            setRetryCount(prevCount => prevCount + 1);
+            checkPaymentStatus(tokenToCheck);
+          }, 5000);
+        } else {
+          setMessage('Payment processing is taking longer than expected. Please contact support if this persists.');
+        }
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
@@ -44,9 +52,16 @@ function Access() {
         console.error('Error setting up request:', error.message);
         setMessage(`Error: ${error.message}`);
       }
-      setTimeout(() => checkPaymentStatus(tokenToCheck), 5000);
+      if (retryCount < 5) {
+        setTimeout(() => {
+          setRetryCount(prevCount => prevCount + 1);
+          checkPaymentStatus(tokenToCheck);
+        }, 5000);
+      } else {
+        setMessage('Unable to verify payment status. Please contact support.');
+      }
     }
-  }, []);
+  }, [retryCount]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

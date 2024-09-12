@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
       await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
       console.log('Pending access set for token:', accessToken);
 
-      res.status(200).json({ id: session.id });
+      res.status(200).json({ id: session.id, token: accessToken });
     } catch (error) {
       console.error('Error creating checkout session:', error);
       res.status(500).json({ 
