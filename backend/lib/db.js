@@ -4,7 +4,12 @@ let edgeConfigClient;
 
 const getEdgeConfig = () => {
   if (!edgeConfigClient) {
+    if (!process.env.EDGE_CONFIG) {
+      console.error('EDGE_CONFIG environment variable is not set');
+      throw new Error('EDGE_CONFIG environment variable is not set');
+    }
     edgeConfigClient = createClient(process.env.EDGE_CONFIG);
+    console.log('Edge Config client created');
   }
   return edgeConfigClient;
 };
@@ -12,10 +17,12 @@ const getEdgeConfig = () => {
 const setPendingAccess = async (token, data) => {
   console.log('Setting pending access:', token, JSON.stringify(data));
   try {
-    await getEdgeConfig().set(`pending:${token}`, { ...data, timestamp: Date.now() });
+    const config = getEdgeConfig();
+    await config.set(`pending:${token}`, { ...data, timestamp: Date.now() });
     console.log('Pending access set for token:', token);
   } catch (error) {
     console.error('Error setting pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };
@@ -23,11 +30,13 @@ const setPendingAccess = async (token, data) => {
 const getPendingAccess = async (token) => {
   console.log('Getting pending access for token:', token);
   try {
-    const access = await getEdgeConfig().get(`pending:${token}`);
+    const config = getEdgeConfig();
+    const access = await config.get(`pending:${token}`);
     console.log('Retrieved pending access:', JSON.stringify(access));
     return access;
   } catch (error) {
     console.error('Error getting pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };
@@ -35,15 +44,17 @@ const getPendingAccess = async (token) => {
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, JSON.stringify(data));
   try {
-    const existingData = await getEdgeConfig().get(`pending:${token}`);
+    const config = getEdgeConfig();
+    const existingData = await config.get(`pending:${token}`);
     if (existingData) {
-      await getEdgeConfig().set(`pending:${token}`, { ...existingData, ...data, timestamp: Date.now() });
+      await config.set(`pending:${token}`, { ...existingData, ...data, timestamp: Date.now() });
       console.log('Pending access updated for token:', token);
     } else {
       console.log('Token not found for update:', token);
     }
   } catch (error) {
     console.error('Error updating pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };
@@ -51,10 +62,12 @@ const updatePendingAccess = async (token, data) => {
 const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
   try {
-    await getEdgeConfig().delete(`pending:${token}`);
+    const config = getEdgeConfig();
+    await config.delete(`pending:${token}`);
     console.log('Pending access removed for token:', token);
   } catch (error) {
     console.error('Error removing pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };
@@ -62,7 +75,9 @@ const removePendingAccess = async (token) => {
 const getAllPendingAccess = async () => {
   console.log('Getting all pending access');
   try {
-    const allItems = await getEdgeConfig().getAll();
+    const config = getEdgeConfig();
+    const allItems = await config.getAll();
+    console.log('All items from Edge Config:', JSON.stringify(allItems));
     const pendingAccess = Object.entries(allItems)
       .filter(([key]) => key.startsWith('pending:'))
       .map(([_, value]) => value);
@@ -70,6 +85,7 @@ const getAllPendingAccess = async () => {
     return pendingAccess;
   } catch (error) {
     console.error('Error getting all pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };
@@ -77,18 +93,20 @@ const getAllPendingAccess = async () => {
 const cleanupPendingAccess = async () => {
   console.log('Starting cleanup of pending access');
   try {
-    const allItems = await getEdgeConfig().getAll();
+    const config = getEdgeConfig();
+    const allItems = await config.getAll();
     const now = Date.now();
     let cleaned = 0;
     for (const [key, value] of Object.entries(allItems)) {
       if (key.startsWith('pending:') && now - value.timestamp >= 24 * 60 * 60 * 1000) {
-        await getEdgeConfig().delete(key);
+        await config.delete(key);
         cleaned++;
       }
     }
     console.log(`Cleanup completed. Removed ${cleaned} entries.`);
   } catch (error) {
     console.error('Error during cleanup of pending access:', error);
+    console.error('Error details:', error.stack);
     throw error;
   }
 };

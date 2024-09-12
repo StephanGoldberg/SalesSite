@@ -26,10 +26,10 @@ module.exports = async (req, res) => {
       console.log('Checking payment status for token:', token);
       
       try {
-        const allPendingAccess = getAllPendingAccess();
+        const allPendingAccess = await getAllPendingAccess();
         console.log('All pending access:', JSON.stringify(allPendingAccess));
 
-        const pendingAccess = getPendingAccess(token);
+        const pendingAccess = await getPendingAccess(token);
         console.log('Pending access for token:', JSON.stringify(pendingAccess));
         
         if (pendingAccess) {
@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
         }
       } catch (error) {
         console.error('Error checking payment status:', error);
+        console.error('Error details:', error.stack);
         return res.status(500).json({ error: 'Internal server error', details: error.message });
       }
     }
@@ -50,7 +51,7 @@ module.exports = async (req, res) => {
       const { token, githubUsername } = req.body;
 
       try {
-        const pendingAccess = getPendingAccess(token);
+        const pendingAccess = await getPendingAccess(token);
         console.log('Pending access:', JSON.stringify(pendingAccess));
         if (!pendingAccess || !pendingAccess.paid) {
           console.log('Invalid or unpaid access token:', token);
@@ -71,6 +72,7 @@ module.exports = async (req, res) => {
         return res.status(200).json({ success: true, message: 'Access granted to GitHub repository' });
       } catch (error) {
         console.error('Error granting GitHub access:', error);
+        console.error('Error details:', error.stack);
         return res.status(500).json({ error: 'Failed to grant GitHub access', details: error.message });
       }
     }
@@ -79,6 +81,8 @@ module.exports = async (req, res) => {
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   } catch (error) {
     console.error('Unhandled error in submit-github-username.js:', error);
+    console.error('Error details:', error.stack);
     return res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 };
+

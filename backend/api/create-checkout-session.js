@@ -68,6 +68,7 @@ module.exports = async (req, res) => {
           console.log('Pending access set for token:', accessToken);
         } catch (dbError) {
           console.error('Error setting pending access:', dbError);
+          console.error('Error details:', dbError.stack);
           // Continue with the response even if setting pending access fails
         }
 
@@ -76,12 +77,14 @@ module.exports = async (req, res) => {
           console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
         } catch (getAllError) {
           console.error('Error getting all pending access:', getAllError);
+          console.error('Error details:', getAllError.stack);
           // This is just for logging, so we can continue even if it fails
         }
 
         res.status(200).json({ id: session.id, token: accessToken });
       } catch (error) {
         console.error('Error creating checkout session:', error);
+        console.error('Error details:', error.stack);
         res.status(500).json({ 
           error: 'Failed to create checkout session', 
           details: error.message 
@@ -94,6 +97,7 @@ module.exports = async (req, res) => {
     }
   } catch (error) {
     console.error('Unhandled error in create-checkout-session:', error);
+    console.error('Error details:', error.stack);
     res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 };
