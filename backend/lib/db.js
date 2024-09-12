@@ -3,28 +3,32 @@ const path = require('path');
 
 const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
+let inMemoryDB = {};
+
 const readDatabase = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
-    console.log('Database read successfully');
+    console.log('Database read successfully from file');
     return JSON.parse(data);
   } catch (error) {
     if (error.code === 'ENOENT') {
-      console.log('Database file not found, creating new one');
-      return {};
+      console.log('Database file not found, using in-memory storage');
+      return inMemoryDB;
     }
     console.error('Error reading database:', error);
-    throw error;
+    console.log('Falling back to in-memory storage');
+    return inMemoryDB;
   }
 };
 
 const writeDatabase = async (data) => {
   try {
     await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
-    console.log('Database written successfully');
+    console.log('Database written successfully to file');
   } catch (error) {
-    console.error('Error writing database:', error);
-    throw error;
+    console.error('Error writing database to file:', error);
+    console.log('Storing data in-memory');
+    inMemoryDB = data;
   }
 };
 
@@ -37,7 +41,8 @@ const setPendingAccess = async (token, data) => {
     console.log('Pending access set for token:', token);
   } catch (error) {
     console.error('Error setting pending access:', error);
-    throw error;
+    inMemoryDB[token] = { ...data, timestamp: Date.now() };
+    console.log('Pending access set in-memory for token:', token);
   }
 };
 
@@ -50,7 +55,9 @@ const getPendingAccess = async (token) => {
     return access;
   } catch (error) {
     console.error('Error getting pending access:', error);
-    throw error;
+    const access = inMemoryDB[token];
+    console.log('Retrieved pending access from in-memory:', JSON.stringify(access));
+    return access;
   }
 };
 
@@ -67,7 +74,12 @@ const updatePendingAccess = async (token, data) => {
     }
   } catch (error) {
     console.error('Error updating pending access:', error);
-    throw error;
+    if (inMemoryDB[token]) {
+      inMemoryDB[token] = { ...inMemoryDB[token], ...data, timestamp: Date.now() };
+      console.log('Pending access updated in-memory for token:', token);
+    } else {
+      console.log('Token not found for update in-memory:', token);
+    }
   }
 };
 
@@ -80,7 +92,8 @@ const removePendingAccess = async (token) => {
     console.log('Pending access removed for token:', token);
   } catch (error) {
     console.error('Error removing pending access:', error);
-    throw error;
+    delete inMemoryDB[token];
+    console.log('Pending access removed from in-memory for token:', token);
   }
 };
 
@@ -92,7 +105,8 @@ const getAllPendingAccess = async () => {
     return Object.values(db);
   } catch (error) {
     console.error('Error getting all pending access:', error);
-    throw error;
+    console.log('All pending access from in-memory:', JSON.stringify(inMemoryDB));
+    return Object.values(inMemoryDB);
   }
 };
 
@@ -112,7 +126,16 @@ const cleanupPendingAccess = async () => {
     console.log(`Cleanup completed. Removed ${cleaned} entries. Remaining entries: ${Object.keys(db).length}`);
   } catch (error) {
     console.error('Error during cleanup of pending access:', error);
-    throw error;
+    // Perform cleanup on in-memory storage
+    const now = Date.now();
+    let cleaned = 0;
+    for (const [token, data] of Object.entries(inMemoryDB)) {
+      if (now - data.timestamp >= 24 * 60 * 60 * 1000) {
+        delete inMemoryDB[token];
+        cleaned++;
+      }
+    }
+    console.log(`In-memory cleanup completed. Removed ${cleaned} entries. Remaining entries: ${Object.keys(inMemoryDB).length}`);
   }
 };
 
