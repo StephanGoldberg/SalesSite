@@ -1,6 +1,6 @@
 const cors = require('cors');
 const Stripe = require('stripe');
-const { getPendingAccess, updatePendingAccess } = require('../lib/db.js');
+const { getPendingAccess, updatePendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -11,46 +11,53 @@ const corsMiddleware = cors({
 });
 
 module.exports = async (req, res) => {
-  await new Promise((resolve) => corsMiddleware(req, res, resolve));
+  try {
+    await new Promise((resolve) => corsMiddleware(req, res, resolve));
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method === 'POST') {
-    const sig = req.headers['stripe-signature'];
-    let event;
-
-    try {
-      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-    } catch (err) {
-      console.error('Webhook Error:', err.message);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
     }
 
-    console.log('Received webhook event:', event.type);
+    if (req.method === 'POST') {
+      const sig = req.headers['stripe-signature'];
+      let event;
 
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-      console.log('Checkout session completed:', session.id);
-      
-      const token = new URL(session.success_url).searchParams.get('token');
-      if (token) {
-        const pendingAccess = await getPendingAccess(token);
-        if (pendingAccess) {
-          await updatePendingAccess(token, { ...pendingAccess, paid: true });
-          console.log('Updated pending access for token:', token);
-        } else {
-          console.log('No pending access found for token:', token);
-        }
-      } else {
-        console.log('No token found in success_url');
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+      } catch (err) {
+        console.error('Webhook Error:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
       }
-    }
 
-    res.json({received: true});
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+      console.log('Received webhook event:', event.type);
+
+      if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+        console.log('Checkout session completed:', session.id);
+        
+        const token = new URL(session.success_url).searchParams.get('token');
+        if (token) {
+          const pendingAccess = await getPendingAccess(token);
+          if (pendingAccess) {
+            await updatePendingAccess(token, { ...pendingAccess, paid: true });
+            console.log('Updated pending access for token:', token);
+            const allPendingAccess = await getAllPendingAccess();
+            console.log('All pending access after update:', JSON.stringify(allPendingAccess));
+          } else {
+            console.log('No pending access found for token:', token);
+          }
+        } else {
+          console.log('No token found in success_url');
+        }
+      }
+
+      res.json({received: true});
+    } else {
+      res.setHeader('Allow', ['POST']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+  } catch (error) {
+    console.error('Unhandled error in webhook:', error);
+    res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 };
