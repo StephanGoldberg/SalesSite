@@ -15,6 +15,7 @@ console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY ? 'Set' : 'Not s
 console.log('GITHUB_ACCESS_TOKEN:', process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'Not set');
 console.log('GITHUB_REPO_OWNER:', process.env.GITHUB_REPO_OWNER);
 console.log('GITHUB_REPO_NAME:', process.env.GITHUB_REPO_NAME);
+console.log('EDGE_CONFIG:', process.env.EDGE_CONFIG ? 'Set' : 'Not set');
 
 const corsOptions = {
   origin: [process.env.FRONTEND_URL, 'https://checkout.stripe.com'],
@@ -61,11 +62,22 @@ module.exports = async (req, res) => {
         });
 
         console.log('Checkout session created:', session.id);
-        await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
-        console.log('Pending access set for token:', accessToken);
+        
+        try {
+          await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
+          console.log('Pending access set for token:', accessToken);
+        } catch (dbError) {
+          console.error('Error setting pending access:', dbError);
+          // Continue with the response even if setting pending access fails
+        }
 
-        const allPendingAccess = await getAllPendingAccess();
-        console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
+        try {
+          const allPendingAccess = await getAllPendingAccess();
+          console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
+        } catch (getAllError) {
+          console.error('Error getting all pending access:', getAllError);
+          // This is just for logging, so we can continue even if it fails
+        }
 
         res.status(200).json({ id: session.id, token: accessToken });
       } catch (error) {
