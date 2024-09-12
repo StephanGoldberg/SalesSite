@@ -1,5 +1,5 @@
 const cors = require('cors');
-const { cleanupPendingAccess } = require('../lib/db');
+const { cleanupPendingAccess, getAllPendingAccess } = require('../lib/db');
 
 const corsMiddleware = cors({
   origin: process.env.FRONTEND_URL,
@@ -16,11 +16,19 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
+      console.log('Cleanup process started');
+      const beforeCleanup = getAllPendingAccess();
+      console.log('Pending access before cleanup:', JSON.stringify(beforeCleanup));
+      
       await cleanupPendingAccess();
-      res.status(200).json({ message: 'Cleanup successful' });
+      
+      const afterCleanup = getAllPendingAccess();
+      console.log('Pending access after cleanup:', JSON.stringify(afterCleanup));
+      
+      res.status(200).json({ message: 'Cleanup successful', before: beforeCleanup, after: afterCleanup });
     } catch (error) {
       console.error('Cleanup error:', error);
-      res.status(500).json({ error: 'Cleanup failed' });
+      res.status(500).json({ error: 'Cleanup failed', details: error.message });
     }
   } else {
     res.setHeader('Allow', ['GET']);
