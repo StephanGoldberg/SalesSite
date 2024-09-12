@@ -17,12 +17,12 @@ module.exports = async (req, res) => {
   if (req.method === 'GET') {
     try {
       console.log('Cleanup process started');
-      const beforeCleanup = getAllPendingAccess();
+      const beforeCleanup = await getAllPendingAccess();
       console.log('Pending access before cleanup:', JSON.stringify(beforeCleanup));
       
       await cleanupPendingAccess();
       
-      const afterCleanup = getAllPendingAccess();
+      const afterCleanup = await getAllPendingAccess();
       console.log('Pending access after cleanup:', JSON.stringify(afterCleanup));
       
       res.status(200).json({ message: 'Cleanup successful', before: beforeCleanup, after: afterCleanup });

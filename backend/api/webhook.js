@@ -37,7 +37,9 @@ module.exports = async (req, res) => {
         
         const token = new URL(session.success_url).searchParams.get('token');
         if (token) {
+          console.log('Token found in success_url:', token);
           const pendingAccess = await getPendingAccess(token);
+          console.log('Pending access before update:', JSON.stringify(pendingAccess));
           if (pendingAccess) {
             await updatePendingAccess(token, { ...pendingAccess, paid: true });
             console.log('Updated pending access for token:', token);
