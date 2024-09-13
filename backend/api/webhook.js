@@ -32,11 +32,15 @@ module.exports = async (req, res) => {
             const pendingAccess = await getPendingAccess(token);
             console.log('Current pending access:', pendingAccess);
             
-            await updatePendingAccess(token, { paid: true });
-            console.log('Updated pending access for token:', token);
+            if (pendingAccess) {
+              await updatePendingAccess(token, { paid: true });
+              console.log('Updated pending access for token:', token);
             
-            const updatedPendingAccess = await getPendingAccess(token);
-            console.log('Updated pending access:', updatedPendingAccess);
+              const updatedPendingAccess = await getPendingAccess(token);
+              console.log('Updated pending access:', updatedPendingAccess);
+            } else {
+              console.log('No pending access found for token:', token);
+            }
           } else {
             console.log('No token found in success_url');
           }

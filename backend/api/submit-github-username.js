@@ -8,14 +8,19 @@ module.exports = async (req, res) => {
     const token = req.query.token;
     console.log('Checking payment status for token:', token);
     
-    const pendingAccess = getPendingAccess(token);
-    console.log('Pending access for token:', JSON.stringify(pendingAccess));
-    
-    if (pendingAccess) {
-      return res.status(200).json({ paid: pendingAccess.paid });
-    } else {
-      console.log('Token not found in pending access');
-      return res.status(404).json({ error: 'Token not found', message: 'Your session may have expired or the payment is still processing. Please try again or contact support.' });
+    try {
+      const pendingAccess = await getPendingAccess(token);
+      console.log('Pending access for token:', JSON.stringify(pendingAccess));
+      
+      if (pendingAccess) {
+        return res.status(200).json({ paid: pendingAccess.paid });
+      } else {
+        console.log('Token not found in pending access');
+        return res.status(404).json({ error: 'Token not found', message: 'Your session may have expired or the payment is still processing. Please try again or contact support.' });
+      }
+    } catch (error) {
+      console.error('Error checking payment status:', error);
+      return res.status(500).json({ error: 'Internal server error', message: 'An unexpected error occurred. Please try again later.' });
     }
   } else if (req.method === 'POST') {
     const { token, githubUsername } = req.body;
@@ -28,7 +33,7 @@ module.exports = async (req, res) => {
       await cleanupPendingAccess();
       console.log('Cleanup process completed');
 
-      const pendingAccess = getPendingAccess(token);
+      const pendingAccess = await getPendingAccess(token);
       console.log('Pending access:', JSON.stringify(pendingAccess));
 
       if (!pendingAccess || !pendingAccess.paid) {
