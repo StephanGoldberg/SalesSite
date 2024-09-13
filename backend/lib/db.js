@@ -2,7 +2,9 @@ const PENDING_ACCESS_KEY = 'PENDING_ACCESS';
 
 const getPendingAccessData = () => {
   try {
-    return JSON.parse(process.env[PENDING_ACCESS_KEY] || '{}');
+    const data = process.env[PENDING_ACCESS_KEY];
+    console.log('Raw pending access data:', data);
+    return data ? JSON.parse(data) : {};
   } catch (error) {
     console.error('Error parsing pending access data:', error);
     return {};
@@ -11,9 +13,8 @@ const getPendingAccessData = () => {
 
 const setPendingAccessData = async (data) => {
   try {
-    // In a real Vercel environment, you would use their API to update the environment variable
-    // For now, we'll just update process.env
     process.env[PENDING_ACCESS_KEY] = JSON.stringify(data);
+    console.log('Updated pending access data:', process.env[PENDING_ACCESS_KEY]);
   } catch (error) {
     console.error('Error setting pending access data:', error);
   }
@@ -24,12 +25,15 @@ const setPendingAccess = async (token, data) => {
   const pendingAccess = getPendingAccessData();
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await setPendingAccessData(pendingAccess);
+  console.log('Pending access after setting:', JSON.stringify(getPendingAccessData()));
 };
 
 const getPendingAccess = (token) => {
   console.log('Getting pending access for token:', token);
   const pendingAccess = getPendingAccessData();
-  return pendingAccess[token];
+  const access = pendingAccess[token];
+  console.log('Retrieved pending access:', JSON.stringify(access));
+  return access;
 };
 
 const updatePendingAccess = async (token, data) => {
@@ -38,6 +42,7 @@ const updatePendingAccess = async (token, data) => {
   if (pendingAccess[token]) {
     pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
     await setPendingAccessData(pendingAccess);
+    console.log('Pending access after updating:', JSON.stringify(getPendingAccessData()));
   }
 };
 
@@ -46,6 +51,7 @@ const removePendingAccess = async (token) => {
   const pendingAccess = getPendingAccessData();
   delete pendingAccess[token];
   await setPendingAccessData(pendingAccess);
+  console.log('Pending access after removing:', JSON.stringify(getPendingAccessData()));
 };
 
 const getAllPendingAccess = () => {
@@ -63,7 +69,7 @@ const cleanupPendingAccess = async () => {
     })
   );
   await setPendingAccessData(cleanedPendingAccess);
-  console.log('Cleanup completed');
+  console.log('Cleanup completed. Current pending access:', JSON.stringify(getPendingAccessData()));
 };
 
 module.exports = {
