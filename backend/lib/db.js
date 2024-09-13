@@ -5,18 +5,26 @@ const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
 let pendingAccess = {};
 
-// Helper function to save data to file
 const saveToFile = async () => {
-  await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+  try {
+    await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
+    console.log('Database saved to file successfully');
+  } catch (error) {
+    console.error('Error saving database to file:', error);
+  }
 };
 
-// Load data from file on module initialization
 const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
     pendingAccess = JSON.parse(data);
+    console.log('Database loaded from file successfully');
   } catch (error) {
-    console.log('No existing database found, starting fresh');
+    if (error.code === 'ENOENT') {
+      console.log('No existing database found, starting fresh');
+    } else {
+      console.error('Error loading database from file:', error);
+    }
   }
 };
 
@@ -24,7 +32,7 @@ const loadFromFile = async () => {
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
-  console.log('Setting pending access:', token, data);
+  console.log('Setting pending access:', token, JSON.stringify(data));
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
 };
@@ -35,7 +43,7 @@ const getPendingAccess = (token) => {
 };
 
 const updatePendingAccess = async (token, data) => {
-  console.log('Updating pending access:', token, data);
+  console.log('Updating pending access:', token, JSON.stringify(data));
   pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
   await saveToFile();
 };
