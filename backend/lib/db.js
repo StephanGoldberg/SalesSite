@@ -5,28 +5,18 @@ const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
 let pendingAccess = {};
 
+// Helper function to save data to file
 const saveToFile = async () => {
-  try {
-    await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
-    console.log('Database saved to file successfully');
-  } catch (error) {
-    console.error('Error saving database to file:', error);
-    // In Vercel, writing to file might fail, so we'll just log the error
-  }
+  await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
 };
 
+// Load data from file on module initialization
 const loadFromFile = async () => {
   try {
     const data = await fs.readFile(DB_FILE, 'utf8');
     pendingAccess = JSON.parse(data);
-    console.log('Database loaded from file successfully');
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      console.log('No existing database found, starting fresh');
-    } else {
-      console.error('Error loading database from file:', error);
-    }
-    // In case of any error, we'll use the in-memory object
+    console.log('No existing database found, starting fresh');
   }
 };
 
@@ -34,7 +24,7 @@ const loadFromFile = async () => {
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
-  console.log('Setting pending access:', token, JSON.stringify(data));
+  console.log('Setting pending access:', token, data);
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
 };
@@ -45,7 +35,7 @@ const getPendingAccess = (token) => {
 };
 
 const updatePendingAccess = async (token, data) => {
-  console.log('Updating pending access:', token, JSON.stringify(data));
+  console.log('Updating pending access:', token, data);
   pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
   await saveToFile();
 };

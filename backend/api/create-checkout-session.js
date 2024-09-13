@@ -3,7 +3,7 @@ const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 const path = require('path');
-const { setPendingAccess } = require('../lib/db.js');
+const { setPendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -16,59 +16,72 @@ console.log('GITHUB_ACCESS_TOKEN:', process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'N
 console.log('GITHUB_REPO_OWNER:', process.env.GITHUB_REPO_OWNER);
 console.log('GITHUB_REPO_NAME:', process.env.GITHUB_REPO_NAME);
 
-const corsMiddleware = cors({
+const corsOptions = {
   origin: [process.env.FRONTEND_URL, 'https://checkout.stripe.com'],
   methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
   credentials: true,
-});
+};
 
+const corsMiddleware = cors(corsOptions);
 
 module.exports = async (req, res) => {
-  await new Promise((resolve) => corsMiddleware(req, res, resolve));
+  console.log('Create checkout session endpoint hit');
+  
+  try {
+    await new Promise((resolve) => corsMiddleware(req, res, resolve));
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method === 'POST') {
-    try {
-      const accessToken = uuidv4();
-      console.log('Generated access token:', accessToken);
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: 'GitHub Repository Access',
-              },
-              unit_amount: 7900, // $79.00
-            },
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}`,
-        cancel_url: `${process.env.FRONTEND_URL}`,
-      });
-
-      console.log('Checkout session created:', session.id);
-      await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
-      console.log('Pending access set for token:', accessToken);
-
-      res.status(200).json({ id: session.id, token: accessToken });
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      res.status(500).json({ 
-        error: 'Failed to create checkout session', 
-        details: error.message 
-      });
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
     }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    if (req.method === 'POST') {
+      console.log('Processing POST request');
+      try {
+        const accessToken = uuidv4();
+        console.log('Generated access token:', accessToken);
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: [
+            {
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: 'GitHub Repository Access',
+                },
+                unit_amount: 7900, // $79.00
+              },
+              quantity: 1,
+            },
+          ],
+          mode: 'payment',
+          success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}`,
+          cancel_url: `${process.env.FRONTEND_URL}`,
+        });
+
+        console.log('Checkout session created:', session.id);
+        await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
+        console.log('Pending access set for token:', accessToken);
+
+        const allPendingAccess = await getAllPendingAccess();
+        console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
+
+        res.status(200).json({ id: session.id, token: accessToken });
+      } catch (error) {
+        console.error('Error creating checkout session:', error);
+        res.status(500).json({ 
+          error: 'Failed to create checkout session', 
+          details: error.message 
+        });
+      }
+    } else {
+      console.log(`Received unsupported method: ${req.method}`);
+      res.setHeader('Allow', ['POST']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+  } catch (error) {
+    console.error('Unhandled error in create-checkout-session:', error);
+    res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 };
