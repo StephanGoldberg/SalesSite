@@ -17,9 +17,7 @@ module.exports = async (req, res) => {
       console.log('Token not found in pending access');
       return res.status(404).json({ error: 'Token not found', message: 'Your session may have expired or the payment is still processing. Please try again or contact support.' });
     }
-  }
-
-  if (req.method === 'POST') {
+  } else if (req.method === 'POST') {
     const { token, githubUsername } = req.body;
 
     console.log('Received request to submit GitHub username');
@@ -27,7 +25,6 @@ module.exports = async (req, res) => {
     console.log('GitHub Username:', githubUsername);
 
     try {
-      // Run cleanup process
       await cleanupPendingAccess();
       console.log('Cleanup process completed');
 
@@ -75,8 +72,8 @@ module.exports = async (req, res) => {
         });
       }
     }
+  } else {
+    res.setHeader('Allow', ['GET', 'POST']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-
-  res.setHeader('Allow', ['GET', 'POST']);
-  return res.status(405).end(`Method ${req.method} Not Allowed`);
 };

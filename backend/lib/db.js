@@ -43,6 +43,8 @@ const updatePendingAccess = async (token, data) => {
     pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
     await setPendingAccessData(pendingAccess);
     console.log('Pending access after updating:', JSON.stringify(getPendingAccessData()));
+  } else {
+    console.log('Token not found for update:', token);
   }
 };
 
@@ -64,7 +66,6 @@ const cleanupPendingAccess = async () => {
   const now = Date.now();
   const cleanedPendingAccess = Object.fromEntries(
     Object.entries(pendingAccess).filter(([_, value]) => {
-      // Keep entries less than 24 hours old
       return now - value.timestamp < 24 * 60 * 60 * 1000;
     })
   );
