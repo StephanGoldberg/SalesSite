@@ -1,22 +1,8 @@
-const cors = require('cors');
 const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
 
-const corsMiddleware = cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['POST', 'GET', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-});
-
 module.exports = async (req, res) => {
   console.log('submit-github-username.js: Request received:', req.method, req.url);
-  
-  await new Promise((resolve) => corsMiddleware(req, res, resolve));
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
 
   if (req.method === 'GET') {
     const token = req.query.token;
