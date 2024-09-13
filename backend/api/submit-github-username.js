@@ -1,5 +1,5 @@
 const cors = require('cors');
-const { getPendingAccess, removePendingAccess, cleanupPendingAccess, loadFromFile } = require('../lib/db.js');
+const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
 
 const corsMiddleware = cors({
@@ -17,9 +17,6 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-
-  // Reload database from file for each request
-  await loadFromFile();
 
   if (req.method === 'GET') {
     const token = req.query.token;

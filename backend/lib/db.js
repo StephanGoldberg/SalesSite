@@ -1,71 +1,60 @@
-const fs = require('fs').promises;
-const path = require('path');
+const pendingAccessKey = 'PENDING_ACCESS';
 
-const DB_FILE = path.join('/tmp', 'pendingAccess.json');
-
-let pendingAccess = {};
-let lastSave = Date.now();
-
-const saveToFile = async () => {
+const getPendingAccessData = () => {
   try {
-    await fs.writeFile(DB_FILE, JSON.stringify(pendingAccess));
-    console.log('Database saved to file');
-    lastSave = Date.now();
+    return JSON.parse(process.env[pendingAccessKey] || '{}');
   } catch (error) {
-    console.error('Error saving database to file:', error);
+    console.error('Error parsing pending access data:', error);
+    return {};
   }
 };
 
-const loadFromFile = async () => {
+const setPendingAccessData = async (data) => {
   try {
-    const data = await fs.readFile(DB_FILE, 'utf8');
-    pendingAccess = JSON.parse(data);
-    console.log('Database loaded from file');
+    // In a real Vercel environment, you would use their API to update the environment variable
+    // For local testing, we'll just update process.env
+    process.env[pendingAccessKey] = JSON.stringify(data);
   } catch (error) {
-    console.log('No existing database found, starting fresh');
+    console.error('Error setting pending access data:', error);
   }
 };
-
-// Load data from file on module initialization
-loadFromFile();
 
 const setPendingAccess = async (token, data) => {
   console.log('Setting pending access:', token, JSON.stringify(data));
+  const pendingAccess = getPendingAccessData();
   pendingAccess[token] = { ...data, timestamp: Date.now() };
-  if (Date.now() - lastSave > 60000) { // Save every minute
-    await saveToFile();
-  }
+  await setPendingAccessData(pendingAccess);
 };
 
 const getPendingAccess = (token) => {
   console.log('Getting pending access for token:', token);
+  const pendingAccess = getPendingAccessData();
   return pendingAccess[token];
 };
 
 const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, JSON.stringify(data));
+  const pendingAccess = getPendingAccessData();
   if (pendingAccess[token]) {
     pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
-    if (Date.now() - lastSave > 60000) { // Save every minute
-      await saveToFile();
-    }
+    await setPendingAccessData(pendingAccess);
   }
 };
 
 const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
+  const pendingAccess = getPendingAccessData();
   delete pendingAccess[token];
-  if (Date.now() - lastSave > 60000) { // Save every minute
-    await saveToFile();
-  }
+  await setPendingAccessData(pendingAccess);
 };
 
 const getAllPendingAccess = () => {
-  return pendingAccess;
+  return getPendingAccessData();
 };
 
 const cleanupPendingAccess = async () => {
   console.log('Starting cleanup of pending access');
+  const pendingAccess = getPendingAccessData();
   const now = Date.now();
   const cleanedPendingAccess = Object.fromEntries(
     Object.entries(pendingAccess).filter(([_, value]) => {
@@ -73,8 +62,7 @@ const cleanupPendingAccess = async () => {
       return now - value.timestamp < 24 * 60 * 60 * 1000;
     })
   );
-  pendingAccess = cleanedPendingAccess;
-  await saveToFile();
+  await setPendingAccessData(cleanedPendingAccess);
   console.log('Cleanup completed');
 };
 
@@ -84,6 +72,5 @@ module.exports = {
   updatePendingAccess,
   removePendingAccess,
   getAllPendingAccess,
-  cleanupPendingAccess,
-  loadFromFile // Export this for manual reloading if needed
+  cleanupPendingAccess
 };
