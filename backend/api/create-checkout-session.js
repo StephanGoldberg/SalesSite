@@ -69,7 +69,10 @@ module.exports = async (req, res) => {
         } catch (dbError) {
           console.error('Error setting pending access:', dbError);
           console.error('Error details:', dbError.stack);
-          // Continue with the response even if setting pending access fails
+          return res.status(500).json({ 
+            error: 'Failed to set pending access', 
+            details: dbError.message 
+          });
         }
 
         try {

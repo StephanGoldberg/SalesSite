@@ -76,9 +76,9 @@ const getAllPendingAccess = async () => {
   console.log('Getting all pending access');
   try {
     const config = getEdgeConfig();
-    const allItems = await config.getAll();
+    const allItems = await config.get('pending:*');
     console.log('All items from Edge Config:', JSON.stringify(allItems));
-    const pendingAccess = Object.entries(allItems)
+    const pendingAccess = Object.entries(allItems || {})
       .filter(([key]) => key.startsWith('pending:'))
       .map(([_, value]) => value);
     console.log('All pending access:', JSON.stringify(pendingAccess));
@@ -94,11 +94,11 @@ const cleanupPendingAccess = async () => {
   console.log('Starting cleanup of pending access');
   try {
     const config = getEdgeConfig();
-    const allItems = await config.getAll();
+    const allItems = await config.get('pending:*');
     const now = Date.now();
     let cleaned = 0;
-    for (const [key, value] of Object.entries(allItems)) {
-      if (key.startsWith('pending:') && now - value.timestamp >= 24 * 60 * 60 * 1000) {
+    for (const [key, value] of Object.entries(allItems || {})) {
+      if (now - value.timestamp >= 24 * 60 * 60 * 1000) {
         await config.delete(key);
         cleaned++;
       }
