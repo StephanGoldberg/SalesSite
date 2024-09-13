@@ -1,19 +1,26 @@
 const Stripe = require('stripe');
+const { buffer } = require('micro');
 const { updatePendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 module.exports = async (req, res) => {
+  const buf = await buffer(req);
   const sig = req.headers['stripe-signature'];
+
+  console.log('Received webhook. Signature:', sig);
 
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
+    console.error('Received payload:', buf.toString());
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+  console.log('Webhook verified. Event type:', event.type);
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;

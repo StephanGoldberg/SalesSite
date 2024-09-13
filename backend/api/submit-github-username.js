@@ -2,6 +2,9 @@ const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
 const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 
 module.exports = async (req, res) => {
+  console.log('Request method:', req.method);
+  console.log('Request URL:', req.url);
+
   if (req.method === 'GET') {
     const token = req.query.token;
     console.log('Checking payment status for token:', token);
