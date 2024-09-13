@@ -34,7 +34,15 @@
       "src": "^/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "STRIPE_SECRET_KEY": "@stripe_secret_key",
+    "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
+    "GITHUB_ACCESS_TOKEN": "@github_access_token",
+    "GITHUB_REPO_OWNER": "@github_repo_owner",
+    "GITHUB_REPO_NAME": "@github_repo_name",
+    "FRONTEND_URL": "@frontend_url"
+  }
 }
   
   
