@@ -34,7 +34,7 @@ const loadFromFile = async () => {
 loadFromFile();
 
 const setPendingAccess = async (token, data) => {
-  console.log('Setting pending access:', token, data);
+  console.log('Setting pending access:', token, JSON.stringify(data));
   pendingAccess[token] = { ...data, timestamp: Date.now() };
   await saveToFile();
 };
@@ -45,7 +45,7 @@ const getPendingAccess = (token) => {
 };
 
 const updatePendingAccess = async (token, data) => {
-  console.log('Updating pending access:', token, data);
+  console.log('Updating pending access:', token, JSON.stringify(data));
   pendingAccess[token] = { ...pendingAccess[token], ...data, timestamp: Date.now() };
   await saveToFile();
 };
