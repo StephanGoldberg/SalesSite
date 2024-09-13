@@ -15,7 +15,7 @@ function Access() {
     try {
       console.log('Checking payment status for token:', tokenToCheck);
       console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/submit-github-username`, {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/submit-github-username`, {
         params: { token: tokenToCheck },
         headers: {
           'ngrok-skip-browser-warning': 'true'
@@ -84,7 +84,7 @@ function Access() {
     try {
       console.log('Submitting GitHub username:', githubUsername);
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/submit-github-username`,
+        `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
         { token, githubUsername },
         { 
           headers: { 'Content-Type': 'application/json' },
