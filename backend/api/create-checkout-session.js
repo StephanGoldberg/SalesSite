@@ -23,6 +23,7 @@ const corsMiddleware = cors({
   credentials: true,
 });
 
+
 module.exports = async (req, res) => {
   await new Promise((resolve) => corsMiddleware(req, res, resolve));
 
