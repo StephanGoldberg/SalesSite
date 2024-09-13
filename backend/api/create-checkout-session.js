@@ -3,7 +3,7 @@ const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 const path = require('path');
-const { setPendingAccess, getAllPendingAccess } = require('../lib/db.js');
+const { setPendingAccess, getAllPendingAccess, loadFromFile } = require('../lib/db.js');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -16,14 +16,12 @@ console.log('GITHUB_ACCESS_TOKEN:', process.env.GITHUB_ACCESS_TOKEN ? 'Set' : 'N
 console.log('GITHUB_REPO_OWNER:', process.env.GITHUB_REPO_OWNER);
 console.log('GITHUB_REPO_NAME:', process.env.GITHUB_REPO_NAME);
 
-const corsOptions = {
+const corsMiddleware = cors({
   origin: [process.env.FRONTEND_URL, 'https://checkout.stripe.com'],
   methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
   credentials: true,
-};
-
-const corsMiddleware = cors(corsOptions);
+});
 
 module.exports = async (req, res) => {
   console.log('Create checkout session endpoint hit');
@@ -34,6 +32,9 @@ module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') {
       return res.status(200).end();
     }
+
+    // Reload database from file
+    await loadFromFile();
 
     if (req.method === 'POST') {
       console.log('Processing POST request');
