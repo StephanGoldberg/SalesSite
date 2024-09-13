@@ -1,9 +1,7 @@
-const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
+const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
 
 module.exports = async (req, res) => {
-  console.log('submit-github-username.js: Request received:', req.method, req.url);
-
   if (req.method === 'GET') {
     const token = req.query.token;
     console.log('Checking payment status for token:', token);
