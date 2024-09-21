@@ -4,6 +4,8 @@ const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require(
 module.exports = async (req, res) => {
   console.log('Request method:', req.method);
   console.log('Request URL:', req.url);
+  console.log('Request headers:', req.headers);
+  console.log('Request body:', req.body);
 
   if (req.method === 'GET') {
     const token = req.query.token;
@@ -79,6 +81,7 @@ module.exports = async (req, res) => {
       }
     }
   } else {
+    console.log('Method not allowed:', req.method);
     res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
