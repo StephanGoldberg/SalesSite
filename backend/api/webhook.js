@@ -39,6 +39,7 @@ module.exports = async (req, res) => {
       }
     } catch (error) {
       console.error('Error updating pending access:', error);
+      return res.status(500).send('Error processing webhook');
     }
   }
 
