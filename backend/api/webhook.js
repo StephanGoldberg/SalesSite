@@ -30,12 +30,18 @@ module.exports = async (req, res) => {
       const pendingAccessEntries = await getAllPendingAccess();
       console.log('Pending access entries:', pendingAccessEntries);
 
+      let tokenFound = false;
       for (let [token, data] of Object.entries(pendingAccessEntries)) {
         if (data.sessionId === session.id) {
           await updatePendingAccess(token, { ...data, paid: true });
           console.log('Updated pending access for token:', token);
+          tokenFound = true;
           break;
         }
+      }
+
+      if (!tokenFound) {
+        console.error('No matching token found for session:', session.id);
       }
     } catch (error) {
       console.error('Error updating pending access:', error);

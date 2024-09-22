@@ -5,12 +5,14 @@ const DB_FILE = path.join('/tmp', 'pendingAccess.json');
 
 const loadFromFile = async () => {
   try {
+    await fs.access(DB_FILE);
     const data = await fs.readFile(DB_FILE, 'utf8');
     console.log('Database loaded from file:', data);
     return JSON.parse(data);
   } catch (error) {
     if (error.code === 'ENOENT') {
-      console.log('No existing database found, starting fresh');
+      console.log('No existing database found, creating a new one');
+      await saveToFile({});
       return {};
     }
     console.error('Error reading database file:', error);
