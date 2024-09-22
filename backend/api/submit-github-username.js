@@ -81,7 +81,6 @@ module.exports = async (req, res) => {
       }
     }
   } else {
-    console.log('Method not allowed:', req.method);
     res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
