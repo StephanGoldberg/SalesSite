@@ -4,7 +4,7 @@ function PricingSection() {
   return null;
 }
 
-export default PricingSection;
+export default PricingSection; //nothing
 
 
 
