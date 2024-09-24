@@ -54,7 +54,7 @@ function HeroSection() {
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-4 text-white">
           Unlock Lifetime Access to{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-6xl font-extrabold animate-pulse drop-shadow-lg">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-7xl font-extrabold drop-shadow-lg">
             DirectoryMaker
           </span>
         </h1>
@@ -81,6 +81,7 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
 
 
 
