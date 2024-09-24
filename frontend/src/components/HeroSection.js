@@ -50,16 +50,17 @@ function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16 sm:py-12">
+      <div className="container mx-auto px-4 text-center max-w-full">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 text-white leading-tight">
           Unlock Lifetime Access to{' '}
-          <span className="block text-5xl sm:text-6xl md:text-7xl font-extrabold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold drop-shadow-lg block sm:inline-block break-words"
+                style={{ fontSize: 'clamp(3rem, 5vw, 6rem)', wordBreak: 'break-word' }}>
             DirectoryMaker
           </span>
         </h1>
-        <p className="text-lg sm:text-xl text-gray-300 mb-8">
-          Make a one-time payment for unlimited access
+        <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-md mx-auto leading-snug">
+          Make a one-time payment for unlimited access to our repository and exclusive tools.
         </p>
         <button
           onClick={handlePurchase}
@@ -81,6 +82,7 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
 
 
 
