@@ -66,7 +66,11 @@ function HeroSection() {
     <section className="bg-gradient-to-r from-blue-700 via-blue-500 to-blue-300 py-16">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-4 text-white">
-          Get Access to Our Exclusive GitHub Repository
+          Get Access to{' '}
+          <span className="text-6xl font-extrabold text-yellow-300 drop-shadow-lg">
+            DirectoryMaker
+          </span>{' '}
+          Repository
         </h1>
         <p className="text-xl text-blue-100 mb-8">
           One-time payment for lifetime access
