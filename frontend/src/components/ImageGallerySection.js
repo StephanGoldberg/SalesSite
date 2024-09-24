@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function ImageGallerySection() {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const images = [
-    '/images/1.jpg',
-    '/images/2.jpg',
-    '/images/3.jpg',
-    '/images/4.jpg',
-    '/images/5.jpg',
-    '/images/6.jpg'
+    'images/1.jpg',
+    'images/2.jpg',
+    'images/3.jpg',
+    'images/4.jpg',
+    'images/5.jpg',
+    'images/6.jpg'
   ];
+
+  const handleImagesLoaded = () => {
+    setImagesLoaded(true);
+  };
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">How It Looks</h2>
         <div className="bg-black p-4 rounded-lg">
+          {!imagesLoaded && <p className="text-white text-center">Loading images...</p>}
           <Carousel 
             showThumbs={false} 
             infiniteLoop 
@@ -25,6 +31,7 @@ function ImageGallerySection() {
             interval={5000}
             dynamicHeight={false} 
             showArrows={true}
+            onLoad={handleImagesLoaded}
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
               hasPrev && (
                 <button 
@@ -60,8 +67,9 @@ function ImageGallerySection() {
                   className="max-w-full h-auto object-contain"
                   style={{ maxHeight: '400px', width: 'auto' }}
                   onError={(e) => {
+                    console.error(`Failed to load image: ${src}`);
                     e.target.onerror = null;
-                    e.target.src = '/images/placeholder.jpg';
+                    e.target.src = 'images/placeholder.jpg';
                   }}
                 />
               </div>
