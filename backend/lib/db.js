@@ -1,35 +1,61 @@
-// Fallback to in-memory storage if Edge Config is not available
+const { createClient } = require('@vercel/edge-config');
+
+let edge = null;
 let storage = {};
 
-const getEdgeConfig = () => {
-  if (process.env.EDGE_CONFIG) {
-    const { createClient } = require('@vercel/edge-config');
-    return createClient(process.env.EDGE_CONFIG);
+const initEdgeConfig = () => {
+  if (process.env.EDGE_CONFIG && !edge) {
+    try {
+      edge = createClient(process.env.EDGE_CONFIG);
+      console.log('Edge Config initialized successfully');
+    } catch (error) {
+      console.error('Error initializing Edge Config:', error);
+      console.error('EDGE_CONFIG value:', process.env.EDGE_CONFIG);
+      edge = null;
+    }
+  } else if (!process.env.EDGE_CONFIG) {
+    console.warn('EDGE_CONFIG environment variable is not set');
   }
-  return null;
 };
+
+initEdgeConfig();
 
 const PREFIX = 'pending_access:';
 
 const setPendingAccess = async (token, data) => {
   console.log('Setting pending access:', token, JSON.stringify(data));
-  const edge = getEdgeConfig();
+  const fullData = { ...data, timestamp: Date.now() };
   if (edge) {
-    await edge.set(`${PREFIX}${token}`, { ...data, timestamp: Date.now() });
+    try {
+      await edge.set(`${PREFIX}${token}`, fullData);
+      console.log('Data set in Edge Config successfully');
+    } catch (error) {
+      console.error('Error setting data in Edge Config:', error);
+      storage[token] = fullData;
+      console.log('Data set in local storage as fallback');
+    }
   } else {
-    storage[token] = { ...data, timestamp: Date.now() };
+    storage[token] = fullData;
+    console.log('Data set in local storage (Edge Config not available)');
   }
   console.log('Pending access set for token:', token);
 };
 
 const getPendingAccess = async (token) => {
   console.log('Getting pending access for token:', token);
-  const edge = getEdgeConfig();
   let data;
   if (edge) {
-    data = await edge.get(`${PREFIX}${token}`);
+    try {
+      data = await edge.get(`${PREFIX}${token}`);
+      console.log('Data retrieved from Edge Config successfully');
+    } catch (error) {
+      console.error('Error getting data from Edge Config:', error);
+      data = storage[token];
+      console.log('Data retrieved from local storage as fallback');
+    }
   } else {
     data = storage[token];
+    console.log('Data retrieved from local storage (Edge Config not available)');
   }
   console.log('Pending access for token:', data);
   return data;
@@ -39,11 +65,19 @@ const updatePendingAccess = async (token, data) => {
   console.log('Updating pending access:', token, JSON.stringify(data));
   const existingData = await getPendingAccess(token);
   if (existingData) {
-    const edge = getEdgeConfig();
+    const updatedData = { ...existingData, ...data, timestamp: Date.now() };
     if (edge) {
-      await edge.set(`${PREFIX}${token}`, { ...existingData, ...data, timestamp: Date.now() });
+      try {
+        await edge.set(`${PREFIX}${token}`, updatedData);
+        console.log('Data updated in Edge Config successfully');
+      } catch (error) {
+        console.error('Error updating data in Edge Config:', error);
+        storage[token] = updatedData;
+        console.log('Data updated in local storage as fallback');
+      }
     } else {
-      storage[token] = { ...existingData, ...data, timestamp: Date.now() };
+      storage[token] = updatedData;
+      console.log('Data updated in local storage (Edge Config not available)');
     }
     console.log('Pending access updated for token:', token);
   } else {
@@ -53,51 +87,61 @@ const updatePendingAccess = async (token, data) => {
 
 const removePendingAccess = async (token) => {
   console.log('Removing pending access:', token);
-  const edge = getEdgeConfig();
   if (edge) {
-    await edge.delete(`${PREFIX}${token}`);
-  } else {
-    delete storage[token];
+    try {
+      await edge.delete(`${PREFIX}${token}`);
+      console.log('Data removed from Edge Config successfully');
+    } catch (error) {
+      console.error('Error removing data from Edge Config:', error);
+    }
   }
+  delete storage[token];
   console.log('Pending access removed for token:', token);
 };
 
 const getAllPendingAccess = async () => {
-  const edge = getEdgeConfig();
   if (edge) {
-    const allData = await edge.getAll();
-    const pendingAccess = {};
-    for (const [key, value] of Object.entries(allData)) {
-      if (key.startsWith(PREFIX)) {
-        const token = key.slice(PREFIX.length);
-        pendingAccess[token] = value;
+    try {
+      const allData = await edge.getAll();
+      console.log('All data retrieved from Edge Config successfully');
+      const pendingAccess = {};
+      for (const [key, value] of Object.entries(allData)) {
+        if (key.startsWith(PREFIX)) {
+          const token = key.slice(PREFIX.length);
+          pendingAccess[token] = value;
+        }
       }
+      return pendingAccess;
+    } catch (error) {
+      console.error('Error getting all data from Edge Config:', error);
     }
-    return pendingAccess;
-  } else {
-    return storage;
   }
+  console.log('Returning all data from local storage');
+  return storage;
 };
 
 const cleanupPendingAccess = async () => {
   console.log('Starting cleanup of pending access');
   const now = Date.now();
-  const edge = getEdgeConfig();
   if (edge) {
-    const allData = await edge.getAll();
-    for (const [key, value] of Object.entries(allData)) {
-      if (key.startsWith(PREFIX) && now - value.timestamp > 24 * 60 * 60 * 1000) {
-        await edge.delete(key);
+    try {
+      const allData = await edge.getAll();
+      for (const [key, value] of Object.entries(allData)) {
+        if (key.startsWith(PREFIX) && now - value.timestamp > 24 * 60 * 60 * 1000) {
+          await edge.delete(key);
+        }
       }
-    }
-  } else {
-    for (const [token, value] of Object.entries(storage)) {
-      if (now - value.timestamp > 24 * 60 * 60 * 1000) {
-        delete storage[token];
-      }
+      console.log('Cleanup completed in Edge Config');
+    } catch (error) {
+      console.error('Error during cleanup in Edge Config:', error);
     }
   }
-  console.log('Cleanup completed');
+  for (const [token, value] of Object.entries(storage)) {
+    if (now - value.timestamp > 24 * 60 * 60 * 1000) {
+      delete storage[token];
+    }
+  }
+  console.log('Cleanup completed in local storage');
 };
 
 module.exports = {
