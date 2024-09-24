@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
       await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
       console.log('Pending access set for token:', accessToken);
 
-      const allPendingAccess = getAllPendingAccess();
+      const allPendingAccess = await getAllPendingAccess();
       console.log('All pending access after setting:', JSON.stringify(allPendingAccess));
 
       res.status(200).json({ id: session.id, token: accessToken });
