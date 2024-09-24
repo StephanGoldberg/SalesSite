@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const verifyPaymentWithStripe = async (token) => {
   try {
     const sessions = await stripe.checkout.sessions.list({
-      limit: 100, // Adjust as needed
+      limit: 100,
     });
     
     const matchingSession = sessions.data.find(session => 
@@ -15,7 +15,6 @@ const verifyPaymentWithStripe = async (token) => {
     );
 
     if (matchingSession) {
-      // If found, update our local data
       await setPendingAccess(token, { paid: true, sessionId: matchingSession.id });
       return true;
     }
@@ -103,7 +102,7 @@ module.exports = async (req, res) => {
         return res.status(200).json({ 
           success: true, 
           isOwner: false,
-          message: 'An invitation has been sent to your GitHub account. Please check your email and accept the invitation to gain access to the repository.' 
+          message: 'You have been granted access to the repository. If you haven\'t received an email, you may already have access. Please check your GitHub account.' 
         });
       } else {
         throw new Error('Failed to add user to GitHub repository');

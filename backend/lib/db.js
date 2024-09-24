@@ -3,22 +3,12 @@ const { createClient } = require('@vercel/edge-config');
 let edge = null;
 let storage = {};
 
-const initEdgeConfig = () => {
-  if (process.env.EDGE_CONFIG && !edge) {
-    try {
-      edge = createClient(process.env.EDGE_CONFIG);
-      console.log('Edge Config initialized successfully');
-    } catch (error) {
-      console.error('Error initializing Edge Config:', error);
-      console.error('EDGE_CONFIG value:', process.env.EDGE_CONFIG);
-      edge = null;
-    }
-  } else if (!process.env.EDGE_CONFIG) {
-    console.warn('EDGE_CONFIG environment variable is not set');
-  }
-};
-
-initEdgeConfig();
+try {
+  edge = createClient(process.env.EDGE_CONFIG);
+  console.log('Edge Config initialized successfully');
+} catch (error) {
+  console.error('Error initializing Edge Config:', error);
+}
 
 const PREFIX = 'pending_access:';
 
