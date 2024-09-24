@@ -13,9 +13,6 @@ function HeroSection() {
     setError(null);
 
     try {
-      console.log('Initiating purchase...');
-      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
-      
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
         {},
@@ -27,8 +24,6 @@ function HeroSection() {
         }
       );
 
-      console.log('Response received:', response.data);
-
       const stripe = await stripePromise;
       if (!stripe) {
         throw new Error('Stripe failed to load');
@@ -39,22 +34,14 @@ function HeroSection() {
       });
 
       if (stripeError) {
-        console.error('Stripe redirect error:', stripeError);
         setError(stripeError.message);
       }
     } catch (error) {
-      console.error('Error initiating checkout:', error);
-      
       if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
         setError(`Server error: ${error.response.status}`);
       } else if (error.request) {
-        console.error('No response received:', error.request);
         setError('No response from server. Please check your connection.');
       } else {
-        console.error('Error setting up request:', error.message);
         setError(error.message);
       }
     } finally {
@@ -63,22 +50,21 @@ function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-blue-700 via-blue-500 to-blue-300 py-16">
+    <section className="bg-gradient-to-r from-blue-900 via-blue-600 to-blue-400 py-16">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-4 text-white">
-          Get Access to{' '}
-          <span className="text-6xl font-extrabold text-yellow-300 drop-shadow-lg">
+          Unlock Lifetime Access to{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-6xl font-extrabold animate-pulse">
             DirectoryMaker
-          </span>{' '}
-          Repository
+          </span>
         </h1>
         <p className="text-xl text-blue-100 mb-8">
-          One-time payment for lifetime access
+          Make a one-time payment for unlimited access to our repository and exclusive tools.
         </p>
         <button
           onClick={handlePurchase}
           disabled={isLoading}
-          className={`bg-white text-blue-600 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 ${
+          className={`bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
@@ -95,3 +81,4 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
