@@ -50,15 +50,15 @@ function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16">
+    <section className="bg-gradient-to-r from-purple via-black to-black-900 py-16">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="text-5xl font-bold mb-4 text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
           Unlock Lifetime Access to{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-7xl font-extrabold drop-shadow-lg">
+          <span className="block text-5xl sm:text-6xl md:text-7xl font-extrabold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600">
             DirectoryMaker
           </span>
         </h1>
-        <p className="text-xl text-gray-300 mb-8">
+        <p className="text-lg sm:text-xl text-gray-300 mb-8">
           Make a one-time payment for unlimited access
         </p>
         <button

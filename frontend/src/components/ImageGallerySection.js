@@ -16,14 +16,15 @@ function ImageGallerySection() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">How It Looks</h2>
-        <div className="bg-black p-4 rounded-lg">  {/* Add a black background and padding */}
+        <div className="bg-black p-4 rounded-lg">
           <Carousel 
             showThumbs={false} 
             infiniteLoop 
             useKeyboardArrows 
             autoPlay 
+            interval={5000}
             dynamicHeight={false} 
-            showArrows={true} // Enable arrows
+            showArrows={true}
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
               hasPrev && (
                 <button 
@@ -31,9 +32,9 @@ function ImageGallerySection() {
                   onClick={onClickHandler} 
                   title={label} 
                   className="absolute left-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100"
-                  style={{ top: '50%', transform: 'translateY(-50%)' }} // Centering the arrow
+                  style={{ top: '50%', transform: 'translateY(-50%)' }}
                 >
-                  &#10094; {/* Unicode for left arrow */}
+                  &#10094;
                 </button>
               )
             }
@@ -44,9 +45,9 @@ function ImageGallerySection() {
                   onClick={onClickHandler} 
                   title={label} 
                   className="absolute right-0 z-10 p-2 bg-gray-700 text-white rounded-full opacity-75 hover:opacity-100"
-                  style={{ top: '50%', transform: 'translateY(-50%)' }} // Centering the arrow
+                  style={{ top: '50%', transform: 'translateY(-50%)' }}
                 >
-                  &#10095; {/* Unicode for right arrow */}
+                  &#10095;
                 </button>
               )
             }
@@ -57,8 +58,11 @@ function ImageGallerySection() {
                   src={src} 
                   alt={`Screenshot ${index + 1}`} 
                   className="max-w-full h-auto object-contain"
-                  style={{ maxHeight: '400px', width: 'auto' }} // Smaller size
-                  onError={(event) => event.target.src = '/images/placeholder.jpg'} // Fallback for broken images
+                  style={{ maxHeight: '400px', width: 'auto' }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/images/placeholder.jpg';
+                  }}
                 />
               </div>
             ))}
