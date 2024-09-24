@@ -54,15 +54,12 @@ function HeroSection() {
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-4 text-white">
           Unlock Lifetime Access to{' '}
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-black opacity-30 blur-lg rounded-lg"></div>
-            <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-6xl font-extrabold animate-pulse">
-              DirectoryMaker
-            </span>
-          </div>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-black text-6xl font-extrabold animate-pulse drop-shadow-lg">
+            DirectoryMaker
+          </span>
         </h1>
         <p className="text-xl text-blue-100 mb-8">
-          Make a one-time payment for unlimited access
+          Make a one-time payment for unlimited access to our repository and exclusive tools.
         </p>
         <button
           onClick={handlePurchase}
@@ -84,5 +81,6 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
 
 
