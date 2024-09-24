@@ -50,49 +50,38 @@ function HeroSection() {
   };
 
   return (
-    <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-black to-purple-900 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4 text-white">
-            Unlock Lifetime Access to{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-7xl font-extrabold drop-shadow-lg">
-              DirectoryMaker
-            </span>
-          </h1>
-          <p className="text-xl text-gray-300 mb-8">
-            Make a one-time payment for unlimited access 
+    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-5xl font-bold mb-4 text-white">
+          Unlock Lifetime Access to{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-7xl font-extrabold drop-shadow-lg">
+            DirectoryMaker
+          </span>
+        </h1>
+        <p className="text-xl text-gray-300 mb-8">
+          Make a one-time payment for unlimited access
+        </p>
+        <button
+          onClick={handlePurchase}
+          disabled={isLoading}
+          className={`bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 ${
+            isLoading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          {isLoading ? 'Processing...' : 'Buy Now - $79'}
+        </button>
+        {error && (
+          <p className="mt-4 text-red-200 bg-red-600 p-2 rounded">
+            Error: {error}
           </p>
-          <button
-            onClick={handlePurchase}
-            disabled={isLoading}
-            className={`bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 ${
-              isLoading ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-          >
-            {isLoading ? 'Processing...' : 'Buy Now - $79'}
-          </button>
-          {error && (
-            <p className="mt-4 text-red-200 bg-red-600 p-2 rounded">
-              Error: {error}
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* "How It Looks" Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">How It Looks</h2>
-          <div className="w-full bg-gray-300 h-2 mb-6"></div>
-          <p className="text-xl text-gray-500">Buy Now - $79</p>
-        </div>
-      </section>
-    </>
+        )}
+      </div>
+    </section>
   );
 }
 
 export default HeroSection;
+
 
 
 
