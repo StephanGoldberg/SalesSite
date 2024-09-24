@@ -1,10 +1,8 @@
-import React from 'react';
-
 function PricingSection() {
   return null;
 }
 
-export default PricingSection; //nothing
+export default PricingSection;
 
 
 
