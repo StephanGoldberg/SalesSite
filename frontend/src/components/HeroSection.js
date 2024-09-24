@@ -50,7 +50,7 @@ function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-purple via-black to-black-900 py-16">
+    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
           Unlock Lifetime Access to{' '}
