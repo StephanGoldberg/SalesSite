@@ -53,14 +53,20 @@ function HeroSection() {
     <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16 sm:py-12">
       <div className="container mx-auto px-4 text-center max-w-full">
         {/* Main Heading with smaller and larger text */}
-        <h1 className="text-4xl sm:text-5xl font-medium mb-4 text-white leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-medium mb-4 text-white leading-tight">
           Unlock Lifetime Access to
         </h1>
-        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-8xl sm:text-9xl font-extrabold mb-4 drop-shadow-lg">
+        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold mb-4 drop-shadow-lg"
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 6rem)', 
+            whiteSpace: 'nowrap', 
+            overflow: 'hidden', 
+            textOverflow: 'ellipsis'
+          }}>
           DirectoryMaker
         </h2>
 
-        {/* Subheading - single line */}
+        {/* Subheading */}
         <p className="text-xl sm:text-2xl text-gray-300 mb-8">
           Make a one-time payment for unlimited access
         </p>
@@ -88,6 +94,7 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
 
 
 
