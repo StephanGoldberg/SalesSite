@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const { updatePendingAccess, getAllPendingAccess, setPendingAccess } = require('../lib/db.js');
+const { updatePendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -25,25 +25,11 @@ module.exports = async (req, res) => {
       const pendingAccessEntries = await getAllPendingAccess();
       console.log('Pending access entries:', pendingAccessEntries);
 
-      let tokenFound = false;
       for (let [token, data] of Object.entries(pendingAccessEntries)) {
         if (data.sessionId === session.id) {
           await updatePendingAccess(token, { ...data, paid: true });
           console.log('Updated pending access for token:', token);
-          tokenFound = true;
           break;
-        }
-      }
-
-      if (!tokenFound) {
-        console.log('No matching token found for session:', session.id);
-        const successUrl = new URL(session.success_url);
-        const token = successUrl.searchParams.get('token');
-        if (token) {
-          await setPendingAccess(token, { sessionId: session.id, paid: true });
-          console.log('Created new pending access for token:', token);
-        } else {
-          console.error('Unable to extract token from success_url');
         }
       }
     } catch (error) {
