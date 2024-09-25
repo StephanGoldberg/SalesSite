@@ -10,7 +10,7 @@ function FAQSection() {
   const faqs = [
     {
       question: "What is the Directory Maker?",
-      answer: "The Directory Maker is a ready-made, fully-featured directory platform designed to help you launch a directory-based website quickly and efficiently. It includes user authentication, an admin dashboard, payment integration, and advanced search functionality—all customizable to fit your brand."
+      answer: "The Directory Maker is a fully-featured directory platform that provides the core functionality you need to launch a directory website quickly—user authentication, admin dashboard, payment integration, and advanced search. While it offers a powerful backend solution, the design and styling are flexible. This gives you the freedom to customize the look and feel to perfectly fit your brand. It's the ideal foundation, saving you time on complex functionality."
     },
     {
       question: "What tech stack is used in the Directory Maker?",
