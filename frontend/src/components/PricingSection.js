@@ -23,20 +23,20 @@ function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-20 bg-gray-50">
+    <section id="pricing" className="py-20 bg-gradient-to-r from-black via-purple-900 to-indigo-600">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Exclusive Offer</h2>
+        <h2 className="text-4xl font-bold text-center text-white mb-12">Exclusive Offer</h2>
         <div className="max-w-lg mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
           <div className="px-6 py-12">
             <h3 className="text-3xl font-semibold text-center mb-4">Lifetime Access</h3>
             <div className="text-center mb-6">
-              <span className="text-5xl font-bold">$79</span>
+              <span className="text-5xl font-bold text-gray-900">$79</span>
               <span className="text-gray-600 ml-2">one-time payment</span>
             </div>
             <p className="text-center text-red-600 font-semibold mb-8">
               Limited offer: Only for the first 100 customers!
             </p>
-            <ul className="text-lg text-gray-600 mb-10">
+            <ul className="text-lg text-gray-700 mb-10">
               <li className="mb-3 flex items-center">
                 <svg className="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                 Full access to Directory Maker
@@ -49,14 +49,14 @@ function PricingSection() {
                 <svg className="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                 Private GitHub repository access
               </li>
-              <li className="flex items-center">
+              <li className="mb-3 flex items-center">
                 <svg className="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                Premium email support
+                Access to future premium features
               </li>
             </ul>
             <button
               onClick={handlePurchase}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition duration-300"
+              className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition duration-300"
             >
               Get Lifetime Access Now
             </button>
@@ -71,6 +71,7 @@ function PricingSection() {
 }
 
 export default PricingSection;
+
 
 
 
