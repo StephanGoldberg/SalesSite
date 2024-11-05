@@ -31,12 +31,18 @@ module.exports = async (req, res) => {
           },
         ],
         mode: 'payment',
-        success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}`,
+        success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.FRONTEND_URL}`,
+        expires_at: Math.floor(Date.now() / 1000) + (30 * 60), // 30 minute expiration
       });
 
       console.log('Checkout session created:', session.id);
-      await setPendingAccess(accessToken, { paid: false, sessionId: session.id });
+      await setPendingAccess(accessToken, { 
+        paid: false, 
+        sessionId: session.id,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + (30 * 60 * 1000) // 30 minute expiration
+      });
       console.log('Pending access set for token:', accessToken);
 
       const allPendingAccess = await getAllPendingAccess();
