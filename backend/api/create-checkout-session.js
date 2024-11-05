@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
               product_data: {
                 name: 'GitHub Repository Access',
               },
-              unit_amount: 7900, // $79.00
+              unit_amount: 100, // $79.00
             },
             quantity: 1,
           },
