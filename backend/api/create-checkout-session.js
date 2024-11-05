@@ -2,11 +2,17 @@ const Stripe = require('stripe');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 const path = require('path');
+const crypto = require('crypto');
 const { setPendingAccess, getAllPendingAccess } = require('../lib/db.js');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Generate a random state parameter for CSRF protection
+const generateStateParam = () => {
+  return crypto.randomBytes(16).toString('hex');
+};
 
 module.exports = async (req, res) => {
   console.log('Create checkout session endpoint hit');
@@ -14,6 +20,7 @@ module.exports = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const accessToken = uuidv4();
+      const stateParam = generateStateParam();
       console.log('Generated access token:', accessToken);
 
       const session = await stripe.checkout.sessions.create({
@@ -31,7 +38,7 @@ module.exports = async (req, res) => {
           },
         ],
         mode: 'payment',
-        success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${process.env.FRONTEND_URL}/access?token=${accessToken}&session_id={CHECKOUT_SESSION_ID}&state=${stateParam}`,
         cancel_url: `${process.env.FRONTEND_URL}`,
         expires_at: Math.floor(Date.now() / 1000) + (30 * 60), // 30 minute expiration
       });
@@ -40,6 +47,7 @@ module.exports = async (req, res) => {
       await setPendingAccess(accessToken, { 
         paid: false, 
         sessionId: session.id,
+        state: stateParam,
         createdAt: Date.now(),
         expiresAt: Date.now() + (30 * 60 * 1000) // 30 minute expiration
       });
