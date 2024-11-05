@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 function Access() {
+  const [token, setToken] = useState('');
   const [githubUsername, setGithubUsername] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -10,16 +11,26 @@ function Access() {
   const [retryCount, setRetryCount] = useState(0);
   const location = useLocation();
 
-  const checkPaymentStatus = useCallback(async (params) => {
+  const checkPaymentStatus = useCallback(async (tokenToCheck) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
-        {
-          params: params,
-          headers: { 'ngrok-skip-browser-warning': 'true' }
+      console.log('Checking payment status for token:', tokenToCheck);
+      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+      
+      // Get all URL parameters
+      const params = new URLSearchParams(location.search);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/submit-github-username`, {
+        params: { 
+          token: tokenToCheck,
+          // Only include these if they exist
+          session_id: params.get('session_id'),
+          state: params.get('state')
+        },
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
         }
-      );
-
+      });
+      
+      console.log('Payment status response:', response.data);
       if (response.data.paid) {
         setIsPaid(true);
         setMessage('Payment successful! Please enter your GitHub username to gain access.');
@@ -28,7 +39,7 @@ function Access() {
         if (retryCount < 5) {
           setTimeout(() => {
             setRetryCount(prevCount => prevCount + 1);
-            checkPaymentStatus(params);
+            checkPaymentStatus(tokenToCheck);
           }, 5000);
         } else {
           setMessage('Payment processing is taking longer than expected. Please contact support if this persists.');
@@ -36,31 +47,44 @@ function Access() {
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
+      handleError(error);
       if (retryCount < 5) {
         setTimeout(() => {
           setRetryCount(prevCount => prevCount + 1);
-          checkPaymentStatus(params);
+          checkPaymentStatus(tokenToCheck);
         }, 5000);
       } else {
         setMessage('Unable to verify payment status. Please contact support.');
       }
     }
-  }, [retryCount]);
+  }, [retryCount, location.search]); // Added location.search to dependencies
+
+  const handleError = (error) => {
+    if (error.response && error.response.status === 404) {
+      setMessage('Your session may have expired or the payment is still processing. Please try again or contact support.');
+    } else if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+      console.error('Error headers:', error.response.headers);
+      setMessage(`Error: ${error.response.data.message || 'An unexpected error occurred. Please try again.'}`);
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+      setMessage('Unable to connect to the server. Please check your internet connection and try again.');
+    } else {
+      console.error('Error setting up request:', error.message);
+      setMessage(`Error: ${error.message}`);
+    }
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const token = params.get('token');
-    const sessionId = params.get('session_id');
-    const state = params.get('state');
-    
-    if (token) {
-      // Pass all available parameters
-      checkPaymentStatus({ 
-        token,
-        session_id: sessionId,
-        state
-      });
+    const tokenFromUrl = params.get('token');
+    console.log('Token from URL:', tokenFromUrl);
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+      checkPaymentStatus(tokenFromUrl);
     } else {
+      console.log('No token found in URL');
       setMessage('Invalid access. Please make sure you\'ve completed the payment process.');
     }
   }, [location, checkPaymentStatus]);
@@ -70,19 +94,18 @@ function Access() {
     setIsLoading(true);
     setMessage('');
 
-    const params = new URLSearchParams(location.search);
-    const token = params.get('token');
-    const sessionId = params.get('session_id');
-    const state = params.get('state');
-
     try {
+      console.log('Submitting GitHub username:', githubUsername);
+      // Get all URL parameters
+      const params = new URLSearchParams(location.search);
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
         { 
           token,
-          session_id: sessionId,
-          state,
-          githubUsername 
+          githubUsername,
+          // Only include these if they exist
+          session_id: params.get('session_id'),
+          state: params.get('state')
         },
         { 
           headers: { 'Content-Type': 'application/json' },
@@ -90,14 +113,15 @@ function Access() {
         }
       );
 
+      console.log('Submit GitHub username response:', response.data);
       if (response.data.isOwner) {
         setMessage('You are the repository owner. Access is already granted.');
       } else {
-        setMessage('An invitation has been sent to your GitHub account. Please check your email and accept the invitation.');
+        setMessage('An invitation has been sent to your GitHub account. Please check your email and accept the invitation to gain access to the repository.');
       }
     } catch (error) {
       console.error('Error submitting GitHub username:', error);
-      setMessage(error.response?.data?.message || 'An error occurred. Please try again.');
+      handleError(error);
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +130,7 @@ function Access() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">Access Your Purchase</h1>
-      {isPaid ? (
+      {token && isPaid ? (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
           <input
             type="text"
@@ -127,7 +151,7 @@ function Access() {
         </form>
       ) : (
         <p className="text-red-600">
-          {message || 'Waiting for payment confirmation...'}
+          {token ? 'Waiting for payment confirmation...' : 'Invalid access token. Please make sure you\'ve completed your purchase.'}
         </p>
       )}
       {message && <p className="mt-4 text-center font-semibold">{message}</p>}
