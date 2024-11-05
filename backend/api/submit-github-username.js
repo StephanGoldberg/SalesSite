@@ -4,27 +4,14 @@ const { getPendingAccess, removePendingAccess, cleanupPendingAccess, setPendingA
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const verifyPaymentWithStripe = async (token, sessionId, state) => {
+const verifyPaymentWithStripe = async (token, sessionId) => {
   try {
-    // First verify the stored token and state
-    const pendingAccess = await getPendingAccess(token);
-    
-    // Verify state parameter if provided (anti-CSRF)
-    if (sessionId && state && pendingAccess?.state !== state) {
-      console.error('State parameter verification failed');
-      return false;
-    }
-
+    // If we have a session ID, check it directly first
     if (sessionId) {
-      // Verify the specific session
       try {
         const session = await stripe.checkout.sessions.retrieve(sessionId);
         if (session.payment_status === 'paid') {
-          await setPendingAccess(token, { 
-            paid: true, 
-            sessionId: session.id,
-            state: pendingAccess?.state // Preserve state for security
-          });
+          await setPendingAccess(token, { paid: true, sessionId: session.id });
           return true;
         }
       } catch (error) {
@@ -32,25 +19,17 @@ const verifyPaymentWithStripe = async (token, sessionId, state) => {
       }
     }
 
-    // Fallback to recent sessions with time limit
+    // Fall back to listing sessions if direct check fails
     const sessions = await stripe.checkout.sessions.list({
       limit: 100,
-      created: {
-        gte: Math.floor(Date.now() / 1000) - (30 * 60) // Last 30 minutes only
-      }
     });
     
     const matchingSession = sessions.data.find(session => 
-      session.success_url.includes(token) && 
-      session.payment_status === 'paid'
+      session.success_url.includes(token) && session.payment_status === 'paid'
     );
 
     if (matchingSession) {
-      await setPendingAccess(token, { 
-        paid: true, 
-        sessionId: matchingSession.id,
-        state: pendingAccess?.state // Preserve state for security
-      });
+      await setPendingAccess(token, { paid: true, sessionId: matchingSession.id });
       return true;
     }
     
@@ -68,25 +47,17 @@ module.exports = async (req, res) => {
   console.log('Request body:', req.body);
 
   if (req.method === 'GET') {
-    const { token, session_id, state } = req.query;
+    const token = req.query.token;
+    const sessionId = req.query.session_id;
     console.log('Checking payment status for token:', token);
     
     try {
       let pendingAccess = await getPendingAccess(token);
       console.log('Pending access for token:', JSON.stringify(pendingAccess));
       
-      // Check token expiration
-      if (pendingAccess?.expiresAt && Date.now() > pendingAccess.expiresAt) {
-        await removePendingAccess(token);
-        return res.status(400).json({ 
-          error: 'Token expired',
-          message: 'Access token has expired. Please try again.' 
-        });
-      }
-
       if (!pendingAccess || !pendingAccess.paid) {
         console.log('Token not found or payment not confirmed in local data. Verifying with Stripe...');
-        const isPaid = await verifyPaymentWithStripe(token, session_id, state);
+        const isPaid = await verifyPaymentWithStripe(token, sessionId);
         if (isPaid) {
           pendingAccess = { paid: true };
         }
@@ -96,20 +67,14 @@ module.exports = async (req, res) => {
         return res.status(200).json({ paid: true });
       } else {
         console.log('Payment not confirmed for token:', token);
-        return res.status(404).json({ 
-          error: 'Payment not confirmed', 
-          message: 'Your payment has not been confirmed. Please try again or contact support.' 
-        });
+        return res.status(404).json({ error: 'Payment not confirmed', message: 'Your payment has not been confirmed. Please try again or contact support.' });
       }
     } catch (error) {
       console.error('Error checking payment status:', error);
-      return res.status(500).json({ 
-        error: 'Internal server error', 
-        message: 'An unexpected error occurred. Please try again later.' 
-      });
+      return res.status(500).json({ error: 'Internal server error', message: 'An unexpected error occurred. Please try again later.' });
     }
   } else if (req.method === 'POST') {
-    const { token, session_id, state, githubUsername } = req.body;
+    const { token, githubUsername } = req.body;
 
     if (!token || !githubUsername) {
       return res.status(400).json({ error: 'Missing required parameters' });
@@ -126,18 +91,9 @@ module.exports = async (req, res) => {
       let pendingAccess = await getPendingAccess(token);
       console.log('Pending access:', JSON.stringify(pendingAccess));
 
-      // Check token expiration
-      if (pendingAccess?.expiresAt && Date.now() > pendingAccess.expiresAt) {
-        await removePendingAccess(token);
-        return res.status(400).json({ 
-          error: 'Token expired',
-          message: 'Access token has expired. Please try again.' 
-        });
-      }
-
       if (!pendingAccess || !pendingAccess.paid) {
         console.log('Payment not confirmed in local data. Verifying with Stripe...');
-        const isPaid = await verifyPaymentWithStripe(token, session_id, state);
+        const isPaid = await verifyPaymentWithStripe(token);
         if (isPaid) {
           pendingAccess = { paid: true };
         }

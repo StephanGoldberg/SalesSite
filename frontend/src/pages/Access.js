@@ -15,21 +15,12 @@ function Access() {
     try {
       console.log('Checking payment status for token:', tokenToCheck);
       console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
-      
-      // Get all URL parameters
-      const params = new URLSearchParams(location.search);
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/submit-github-username`, {
-        params: { 
-          token: tokenToCheck,
-          // Only include these if they exist
-          session_id: params.get('session_id'),
-          state: params.get('state')
-        },
+        params: { token: tokenToCheck },
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
       });
-      
       console.log('Payment status response:', response.data);
       if (response.data.paid) {
         setIsPaid(true);
@@ -57,7 +48,7 @@ function Access() {
         setMessage('Unable to verify payment status. Please contact support.');
       }
     }
-  }, [retryCount, location.search]); // Added location.search to dependencies
+  }, [retryCount]);
 
   const handleError = (error) => {
     if (error.response && error.response.status === 404) {
@@ -96,17 +87,9 @@ function Access() {
 
     try {
       console.log('Submitting GitHub username:', githubUsername);
-      // Get all URL parameters
-      const params = new URLSearchParams(location.search);
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/submit-github-username`,
-        { 
-          token,
-          githubUsername,
-          // Only include these if they exist
-          session_id: params.get('session_id'),
-          state: params.get('state')
-        },
+        { token, githubUsername },
         { 
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true
