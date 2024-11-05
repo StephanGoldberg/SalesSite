@@ -1,32 +1,42 @@
 const Stripe = require('stripe');
 const { addUserToGitHubRepo } = require('../lib/addUserToGitHubRepo.js');
-const { getPendingAccess, removePendingAccess, cleanupPendingAccess } = require('../lib/db.js');
+const { getPendingAccess, removePendingAccess, cleanupPendingAccess, setPendingAccess } = require('../lib/db.js');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const verifyPaymentStatus = async (token, sessionId, state) => {
+const verifyPaymentWithStripe = async (token, sessionId, state) => {
   try {
+    // First verify the stored token and state
     const pendingAccess = await getPendingAccess(token);
     
-    // First verify the state parameter if available
+    // Verify state parameter if provided (anti-CSRF)
     if (sessionId && state && pendingAccess?.state !== state) {
-      console.log('State parameter verification failed');
+      console.error('State parameter verification failed');
       return false;
     }
 
-    // Then verify with Stripe if we have a session ID
     if (sessionId) {
-      const session = await stripe.checkout.sessions.retrieve(sessionId);
-      if (session.payment_status === 'paid') {
-        return true;
+      // Verify the specific session
+      try {
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+        if (session.payment_status === 'paid') {
+          await setPendingAccess(token, { 
+            paid: true, 
+            sessionId: session.id,
+            state: pendingAccess?.state // Preserve state for security
+          });
+          return true;
+        }
+      } catch (error) {
+        console.error('Error retrieving session:', error);
       }
     }
 
-    // Fall back to the old verification method if needed
+    // Fallback to recent sessions with time limit
     const sessions = await stripe.checkout.sessions.list({
       limit: 100,
       created: {
-        gte: Math.floor(Date.now() / 1000) - (30 * 60)
+        gte: Math.floor(Date.now() / 1000) - (30 * 60) // Last 30 minutes only
       }
     });
     
@@ -35,9 +45,18 @@ const verifyPaymentStatus = async (token, sessionId, state) => {
       session.payment_status === 'paid'
     );
 
-    return !!matchingSession;
+    if (matchingSession) {
+      await setPendingAccess(token, { 
+        paid: true, 
+        sessionId: matchingSession.id,
+        state: pendingAccess?.state // Preserve state for security
+      });
+      return true;
+    }
+    
+    return false;
   } catch (error) {
-    console.error('Error verifying payment:', error);
+    console.error('Error verifying payment with Stripe:', error);
     return false;
   }
 };
@@ -53,9 +72,27 @@ module.exports = async (req, res) => {
     console.log('Checking payment status for token:', token);
     
     try {
-      const isPaid = await verifyPaymentStatus(token, session_id, state);
+      let pendingAccess = await getPendingAccess(token);
+      console.log('Pending access for token:', JSON.stringify(pendingAccess));
       
-      if (isPaid) {
+      // Check token expiration
+      if (pendingAccess?.expiresAt && Date.now() > pendingAccess.expiresAt) {
+        await removePendingAccess(token);
+        return res.status(400).json({ 
+          error: 'Token expired',
+          message: 'Access token has expired. Please try again.' 
+        });
+      }
+
+      if (!pendingAccess || !pendingAccess.paid) {
+        console.log('Token not found or payment not confirmed in local data. Verifying with Stripe...');
+        const isPaid = await verifyPaymentWithStripe(token, session_id, state);
+        if (isPaid) {
+          pendingAccess = { paid: true };
+        }
+      }
+      
+      if (pendingAccess && pendingAccess.paid) {
         return res.status(200).json({ paid: true });
       } else {
         console.log('Payment not confirmed for token:', token);
@@ -74,27 +111,53 @@ module.exports = async (req, res) => {
   } else if (req.method === 'POST') {
     const { token, session_id, state, githubUsername } = req.body;
 
+    if (!token || !githubUsername) {
+      return res.status(400).json({ error: 'Missing required parameters' });
+    }
+
     console.log('Received request to submit GitHub username');
     console.log('Token:', token);
-    console.log('Session ID:', session_id);
     console.log('GitHub Username:', githubUsername);
 
     try {
       await cleanupPendingAccess();
       console.log('Cleanup process completed');
 
-      const isPaid = await verifyPaymentStatus(token, session_id, state);
+      let pendingAccess = await getPendingAccess(token);
+      console.log('Pending access:', JSON.stringify(pendingAccess));
 
-      if (!isPaid) {
-        console.log('Payment not confirmed');
-        return res.status(403).json({ error: 'Payment not confirmed' });
+      // Check token expiration
+      if (pendingAccess?.expiresAt && Date.now() > pendingAccess.expiresAt) {
+        await removePendingAccess(token);
+        return res.status(400).json({ 
+          error: 'Token expired',
+          message: 'Access token has expired. Please try again.' 
+        });
+      }
+
+      if (!pendingAccess || !pendingAccess.paid) {
+        console.log('Payment not confirmed in local data. Verifying with Stripe...');
+        const isPaid = await verifyPaymentWithStripe(token, session_id, state);
+        if (isPaid) {
+          pendingAccess = { paid: true };
+        }
+      }
+
+      if (!pendingAccess || !pendingAccess.paid) {
+        console.log('Invalid or unpaid access token:', token);
+        return res.status(403).json({ error: 'Invalid or unpaid access token' });
+      }
+
+      // Basic GitHub username validation
+      if (!/^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/.test(githubUsername)) {
+        return res.status(400).json({ error: 'Invalid GitHub username format' });
       }
 
       console.log('Adding user to GitHub repo:', githubUsername);
       const result = await addUserToGitHubRepo(githubUsername);
       
       if (result === 'owner') {
-        console.log('User is the repository owner');
+        console.log('User is the repository owner. No need to add as collaborator.');
         await removePendingAccess(token);
         return res.status(200).json({ 
           success: true, 
@@ -102,12 +165,12 @@ module.exports = async (req, res) => {
           message: 'You are the repository owner. Access is already granted.' 
         });
       } else if (result === true) {
-        console.log('Access granted to GitHub repository');
+        console.log('Access granted to GitHub repository for:', githubUsername);
         await removePendingAccess(token);
         return res.status(200).json({ 
           success: true, 
           isOwner: false,
-          message: 'You have been granted access to the repository.' 
+          message: 'You have been granted access to the repository. If you haven\'t received an email, you may already have access. Please check your GitHub account.' 
         });
       } else {
         throw new Error('Failed to add user to GitHub repository');
