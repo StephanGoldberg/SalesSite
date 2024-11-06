@@ -1,7 +1,7 @@
-/* App.css - Dark Theme with Preserved Gradients */
+/* App.css - Enhanced Dark Theme with Gradient Retained */
 
 body {
-  background-color: #121212; /* Dark background */
+  background-color: #000000; /* Fully black background */
   color: #E0E0E0; /* Light text color for readability */
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
@@ -15,14 +15,14 @@ body {
 
 /* Header */
 .header {
-  background: #1E1E1E; /* Slightly lighter dark background for header */
-  color: #E0E0E0;
+  background: #000000; /* Black background for header */
+  color: #FFFFFF;
   padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Dark shadow for header */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Darker shadow for header */
 }
 
 .header a {
-  color: #E0E0E0;
+  color: #FFFFFF;
   text-decoration: none;
 }
 
@@ -56,14 +56,15 @@ body {
 /* Features Section */
 .features {
   padding: 4rem 0;
-  background-color: #1E1E1E;
+  background-color: #000000; /* Fully black background */
 }
 
 .feature-item {
-  background: #2A2A2A; /* Slightly lighter for cards */
+  background: #1A1A1A; /* Darker box for key features */
+  color: #FFFFFF;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Pricing Section */
@@ -74,10 +75,11 @@ body {
 }
 
 .price-box {
-  background: #2A2A2A;
+  background: #1A1A1A; /* Darker box for pricing details */
+  color: #FFFFFF;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
   display: inline-block;
   text-align: left;
 }
@@ -88,10 +90,26 @@ body {
   color: #BB86FC; /* Accent color */
 }
 
+/* How It Looks Section */
+.image-gallery {
+  padding: 4rem 0;
+  background-color: #000000; /* Fully black background */
+  color: #E0E0E0;
+}
+
 /* FAQ Section */
 .faq {
   padding: 4rem 0;
-  background-color: #1E1E1E;
+  background-color: #000000; /* Fully black background */
+}
+
+.faq-item {
+  background: #1A1A1A; /* Darker background for each FAQ item */
+  color: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
 }
 
 /* Buttons */
@@ -112,7 +130,7 @@ body {
 
 /* Footer */
 .footer {
-  background: #1E1E1E;
+  background: #000000; /* Black background for footer */
   color: #E0E0E0;
   padding: 2rem 0;
   text-align: center;
@@ -138,6 +156,7 @@ body {
 .footer ul li {
   margin: 0 1rem;
 }
+
 
   
   
