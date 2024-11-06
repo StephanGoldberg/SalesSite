@@ -15,24 +15,24 @@ function Header() {
   };
 
   return (
-    <header className="bg-white shadow">
+    <header className="bg-black shadow">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-black">Directory Maker</Link>
+        <Link to="/" className="text-xl font-bold text-white">Directory Maker</Link>
         <nav className="flex space-x-6">
           <span
-            className="cursor-pointer text-black hover:text-blue-600"
+            className="cursor-pointer text-white hover:text-blue-600"
             onClick={() => handleNavClick('features')}
           >
             Features
           </span>
           <span
-            className="cursor-pointer text-black hover:text-blue-600"
+            className="cursor-pointer text-white hover:text-blue-600"
             onClick={() => handleNavClick('pricing')}
           >
             Pricing
           </span>
           <span
-            className="cursor-pointer text-black hover:text-blue-600"
+            className="cursor-pointer text-white hover:text-blue-600"
             onClick={() => handleNavClick('faq')}
           >
             FAQ
