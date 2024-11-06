@@ -15,28 +15,13 @@ function Header() {
   };
 
   return (
-    <header className="bg-black shadow">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-white">Directory Maker</Link>
+    <header className="header">
+      <div className="container flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-white">Directory Maker</Link>
         <nav className="flex space-x-6">
-          <span
-            className="cursor-pointer text-white hover:text-blue-600"
-            onClick={() => handleNavClick('features')}
-          >
-            Features
-          </span>
-          <span
-            className="cursor-pointer text-white hover:text-blue-600"
-            onClick={() => handleNavClick('pricing')}
-          >
-            Pricing
-          </span>
-          <span
-            className="cursor-pointer text-white hover:text-blue-600"
-            onClick={() => handleNavClick('faq')}
-          >
-            FAQ
-          </span>
+          <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('features')}>Features</span>
+          <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('pricing')}>Pricing</span>
+          <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('faq')}>FAQ</span>
         </nav>
       </div>
     </header>
@@ -44,6 +29,7 @@ function Header() {
 }
 
 export default Header;
+
 
 
 

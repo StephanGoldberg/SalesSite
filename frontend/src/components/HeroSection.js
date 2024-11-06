@@ -50,50 +50,28 @@ function HeroSection() {
   };
 
   return (
-    <section className="w-full bg-gradient-to-r from-black via-black to-purple-900 py-12">
-      <div className="w-full text-center px-4">
-        {/* Main Heading */}
-        <h1 className="text-3xl sm:text-4xl font-medium mb-4 text-white leading-tight">
-          Unlock Lifetime Access to
-        </h1>
-        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold mb-4 drop-shadow-lg"
-          style={{
-            fontSize: 'clamp(2rem, 5vw, 6rem)', 
-            whiteSpace: 'nowrap', 
-            overflow: 'hidden', 
-            textOverflow: 'ellipsis'
-          }}>
+    <section className="hero">
+      <div className="container text-center">
+        <h1 className="text-4xl font-medium mb-4">Unlock Lifetime Access to</h1>
+        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold mb-4">
           DirectoryMaker
         </h2>
-
-        {/* Subheading */}
-        <p className="text-xl sm:text-2xl text-gray-300 mb-8">
-          Make a one-time payment for unlimited access
-        </p>
-
-        {/* Purchase Button */}
+        <p className="text-xl text-gray-300 mb-8">Make a one-time payment for unlimited access</p>
         <button
           onClick={handlePurchase}
           disabled={isLoading}
-          className={`bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 ${
-            isLoading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          className={`py-3 px-8 rounded-full ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isLoading ? 'Processing...' : 'Buy Now - $79'}
         </button>
-
-        {/* Error Message */}
-        {error && (
-          <p className="mt-4 text-red-200 bg-red-600 p-2 rounded">
-            Error: {error}
-          </p>
-        )}
+        {error && <p className="mt-4 text-red-500">{error}</p>}
       </div>
     </section>
   );
 }
 
 export default HeroSection;
+
 
 
 
