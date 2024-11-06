@@ -69,7 +69,7 @@ function HeroSection() {
           DirectoryMaker
         </h2>
         <p className="text-xl sm:text-2xl text-gray-300 mb-8">
-          Make a one-time payment for unlimited access
+        Your complete directory business solution - all features, one payment
         </p>
         <button
           onClick={handlePurchase}
@@ -77,7 +77,7 @@ function HeroSection() {
           className="bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300"
           style={{ opacity: isLoading ? 0.5 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
         >
-          {isLoading ? 'Processing...' : 'Buy Now - $79'}
+          {isLoading ? 'Processing...' : 'Get DirectoryMaker'}
         </button>
         {error && (
           <p className="mt-4 text-red-500 bg-red-900/50 p-2 rounded">

@@ -10,60 +10,57 @@ function FAQSection() {
   const faqs = [
     {
       question: "What is the Directory Maker?",
-      answer: "The Directory Maker is a fully-featured directory platform that provides the core functionality you need to launch a directory website quickly—user authentication, admin dashboard, payment integration, and advanced search. While it offers a powerful backend solution, the design and styling are flexible. This gives you the freedom to customize the look and feel to perfectly fit your brand. It's the ideal foundation, saving you time on complex functionality."
+      answer: "Directory Maker is a comprehensive, production-ready directory website boilerplate built with enterprise-grade security features. It provides a complete foundation with user authentication, advanced search capabilities, review systems, admin dashboard, and detailed analytics. The core includes secure payment processing, role-based access control, and a flexible design system. While the backend is robust and production-ready, you have full freedom to customize the frontend to match your brand's unique identity."
     },
     {
       question: "What tech stack is used in the Directory Maker?",
-      answer: "The Directory Maker is built using modern and popular technologies: Next.js for the frontend and server-side rendering. Tailwind CSS for styling, offering a modern, responsive design. Supabase for the backend and data storage, providing real-time capabilities and a familiar SQL interface. Clerk for user authentication and management. Stripe for payment processing, allowing you to monetize your directory with ease."
+      answer: "Directory Maker utilizes a modern, scalable tech stack: Next.js 14 and React 18 for the frontend with TypeScript for type safety, Tailwind CSS for responsive styling, Clerk for secure authentication, Supabase for real-time database capabilities, and Stripe for payment processing. The stack also includes React Context for state management, React Hook Form for form handling, Recharts for analytics visualization, and Lucide React for icons. This combination provides the perfect balance of performance, security, and developer experience."
     },
     {
       question: "What exactly do I get when I purchase the Directory Maker?",
-      answer: "You get access to the complete source code of the Directory Maker. This includes: A fully functional directory platform. Comprehensive user authentication and role management. Admin dashboard for managing listings, ads, and sponsorships. Integrated payment system with Stripe. Advanced search functionality and customizable frontend."
-    },
-    {
-      question: "How can I use the Directory Maker?",
-      answer: "After purchasing, you'll receive access to a private GitHub repository where you can fork the project and start customizing it to your needs. The Directory Maker is designed to be easy to set up and modify, so you can tailor it to your specific business requirements."
-    },
-    {
-      question: "How many hours does it save?",
-      answer: "Building a similar directory platform from scratch could take an experienced developer approximately 75 to 105 hours—nearly 3 to 4 weeks of full-time work. By purchasing this Directory Maker, you save all that time and effort, allowing you to focus on growing your business instead of building the foundational elements."
-    },
-    {
-      question: "Can I request additional features?",
-      answer: "While we continually strive to improve the Directory Maker with new features and updates, we do not take on custom feature requests or development work for individual clients. However, we value your feedback and are always open to suggestions for future updates."
-    },
-    {
-      question: "What kind of support do you offer?",
-      answer: "We are committed to helping you get the most out of the Directory Maker. While we provide support for setting up and using the Directory Maker, we do not offer custom development services or work on clients' directories directly. Our goal is to empower you with the tools you need to succeed, and we are here to assist with any questions or issues related to the Directory Maker itself."
-    },
-    {
-      question: "Do you offer refunds?",
-      answer: "Due to the nature of digital products, all sales of the Directory Maker are final, and we do not offer refunds. We recommend reviewing all available information and documentation before making your purchase to ensure it meets your needs."
-    },
-    {
-      question: "How is the Directory Maker licensed?",
-      answer: "The Directory Maker is licensed for personal and commercial use. However, it is a non-transferable license, meaning you cannot resell or redistribute the code in its original or modified form. By purchasing, you agree to these terms and are responsible for ensuring your use complies with the license agreement."
-    },
-    {
-      question: "Can I customize the Directory Maker to fit my brand?",
-      answer: "Absolutely! The Directory Maker is fully customizable. You can easily modify the design, add or remove features, and adjust the layout to match your brand's identity. The code is well-documented and structured to make customization as straightforward as possible."
-    },
-    {
-      question: "How do I deploy the Directory Maker?",
-      answer: "The Directory Maker is designed to be deployed on popular platforms like Vercel. Simply follow the setup instructions included in the documentation, and you can have your directory up and running in no time."
+      answer: "You receive access to a complete, production-ready codebase that includes: 1) Full authentication system with role-based access control, 2) Complete admin dashboard with listing management, user controls, and analytics, 3) Advanced search system with text, category, and custom filters, 4) Review and rating system, 5) Complete payment integration with Stripe, 6) Advertisement system with multiple placement zones, 7) Comprehensive security implementation including XSS protection, CSRF guards, and rate limiting, 8) Detailed documentation and setup guides. Everything is built with TypeScript for better code reliability and maintainability."
     },
     {
       question: "Do I need to know how to code to use this Directory Maker?",
-      answer: "While the Directory Maker is designed to be user-friendly, some knowledge of web development is recommended to fully customize and deploy it. If you are comfortable with HTML, CSS, and JavaScript, you should be able to navigate and modify the Directory Maker with ease."
+      answer: "While Directory Maker provides all the necessary code and documentation, you do need basic development experience to set it up and customize it. You should be comfortable with: 1) Basic Git operations for forking and managing the repository, 2) Database management as you'll need to set up Supabase and handle SQL tables (though all queries are provided), 3) Basic JavaScript/TypeScript for any customizations, 4) Working with environment variables and API keys, 5) Deploying applications on platforms like Vercel. If you're comfortable with these concepts, you'll find our detailed documentation makes the setup process straightforward."
+    },
+    {
+      question: "How many hours does it save?",
+      answer: "Building a similar directory platform from scratch typically requires 75-105 hours (3-4 weeks) of full-time development work. This includes: 20-25 hours for authentication and user management, 15-20 hours for search functionality, 20-25 hours for the admin dashboard, 10-15 hours for payment integration, and 10-20 hours for security implementation. Directory Maker provides all this pre-built and tested, allowing you to focus on customizing the platform for your specific needs rather than building core functionality."
     },
     {
       question: "What makes this Directory Maker different from others?",
-      answer: "Our Directory Maker is a comprehensive, all-in-one solution that combines a powerful backend with a sleek, modern frontend. It includes everything you need to launch a directory-based website quickly and effectively, with no recurring fees and full control over the source code."
+      answer: "Directory Maker stands out through its enterprise-grade security implementation, complete TypeScript coverage, and production-ready features. Unlike other solutions, we provide: 1) Complete Row Level Security (RLS) implementation, 2) Advanced search with multiple filter types, 3) Comprehensive admin dashboard with analytics, 4) Real-time data capabilities through Supabase, 5) Multiple monetization options including ads and sponsorships, 6) Detailed security logging system, and 7) Proper rate limiting and CORS configurations. All this comes with clean, maintainable code and extensive documentation."
+    },
+    {
+      question: "How is the Directory Maker licensed?",
+      answer: "Directory Maker comes with a perpetual, single-project commercial license. You can use it for personal or commercial projects, but each purchase covers one end product (either for yourself or a client). While you can modify the code for your needs, the license is non-transferable and reselling or redistributing the source code is not permitted. This ensures the tool's value while giving you complete freedom to customize and use it for your business needs."
+    },
+    {
+      question: "How can I deploy the Directory Maker?",
+      answer: "Deployment is streamlined for Vercel but compatible with any hosting platform. The process involves: 1) Setting up your Supabase database using our provided SQL scripts, 2) Configuring environment variables for API keys and endpoints, 3) Setting up Clerk for authentication, 4) Configuring Stripe for payments, and 5) Deploying through your platform's interface. Our documentation includes step-by-step deployment guides and troubleshooting tips. While the process requires some technical knowledge, it's designed to be as straightforward as possible."
+    },
+    {
+      question: "Do you offer support?",
+      answer: "We provide comprehensive documentation and basic support for setup and configuration issues. While we don't offer custom development services, our documentation covers most common scenarios and customization needs. Additionally, all security patches and critical updates are provided at no extra cost."
+    },
+    {
+      question: "Can I customize the Directory Maker to fit my brand?",
+      answer: "Absolutely! Directory Maker is built for customization. The frontend is built with Tailwind CSS and React components that are easy to modify. The codebase is modular and well-documented, making it straightforward to modify any aspect of the platform."
+    },
+    {
+      question: "Can I request additional features?",
+      answer: "While we don't take on custom development work, we maintain an active development roadmap based on user feedback. All security updates and critical patches are provided free of charge. The codebase is structured to make it easy to add your own features, and our documentation includes guides for common customizations and extensions."
+    },
+    {
+      question: "Do you offer refunds?",
+      answer: "Due to the digital nature of the product and the immediate access to source code, we don't offer refunds. We recommend thoroughly reviewing our documentation, feature list, and technical requirements before purchasing to ensure Directory Maker meets your needs."
     },
     {
       question: "How do I get started?",
-      answer: "After purchase, you'll receive instructions on how to access the GitHub repository. From there, you can fork the project, customize it to your needs, and deploy it to your preferred hosting platform. Detailed documentation is provided to guide you through each step of the process."
-    }
+      answer: "After purchase, you'll receive immediate access to the private GitHub repository. The getting started process involves: 1) Forking the repository, 2) Setting up your development environment, 3) Configuring your database with our provided SQL scripts, 4) Setting up authentication and payment services, and 5) Customizing the platform for your needs. Our comprehensive documentation guides you through each step, and basic setup can be completed in a few hours."
+    },
+    
   ];
 
   return (
