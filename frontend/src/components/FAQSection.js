@@ -67,21 +67,64 @@ function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-black">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-white">Frequently Asked Questions</h2>
-        <div className="space-y-6">
+    <section id="faq" className="w-screen bg-black py-20 overflow-hidden relative">
+      {/* Gradient background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(128,90,213,0.15),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(76,29,149,0.15),transparent_50%)]" />
+      
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            Frequently Asked Questions
+          </span>
+        </h2>
+        
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3
-                className="text-xl font-semibold text-white cursor-pointer"
-                onClick={() => toggleQuestion(index)}
-              >
-                {faq.question}
-              </h3>
-              {openQuestionIndex === index && (
-                <p className="text-gray-300 mt-4">{faq.answer}</p>
-              )}
+            <div 
+              key={index} 
+              className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 
+                       shadow-[0_0_40px_rgba(139,92,246,0.05)] overflow-hidden transition-all duration-300
+                       hover:border-purple-700/30"
+            >
+              <div className="relative">
+                {/* Glass effect overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 via-transparent to-pink-900/10" />
+                
+                <button
+                  onClick={() => toggleQuestion(index)}
+                  className="w-full p-6 text-left relative flex justify-between items-center"
+                >
+                  <h3 className="text-xl font-semibold text-white pr-8">
+                    {faq.question}
+                  </h3>
+                  <span className={`transform transition-transform duration-300 ${openQuestionIndex === index ? 'rotate-180' : ''}`}>
+                    <svg 
+                      className="w-6 h-6 text-purple-400" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M19 9l-7 7-7-7" 
+                      />
+                    </svg>
+                  </span>
+                </button>
+                
+                <div 
+                  className={`transition-all duration-300 overflow-hidden ${
+                    openQuestionIndex === index ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <p className="px-6 pb-6 text-gray-300">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
