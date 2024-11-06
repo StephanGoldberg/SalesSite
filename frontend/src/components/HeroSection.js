@@ -50,9 +50,9 @@ function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-black via-black to-purple-900 py-16 sm:py-12">
-      <div className="container mx-auto px-4 text-center max-w-full">
-        {/* Main Heading with smaller and larger text */}
+    <section className="w-full bg-gradient-to-r from-black via-black to-purple-900 py-12">
+      <div className="w-full text-center px-4">
+        {/* Main Heading */}
         <h1 className="text-3xl sm:text-4xl font-medium mb-4 text-white leading-tight">
           Unlock Lifetime Access to
         </h1>
@@ -71,7 +71,7 @@ function HeroSection() {
           Make a one-time payment for unlimited access
         </p>
 
-        {/* Button */}
+        {/* Purchase Button */}
         <button
           onClick={handlePurchase}
           disabled={isLoading}
@@ -82,7 +82,7 @@ function HeroSection() {
           {isLoading ? 'Processing...' : 'Buy Now - $79'}
         </button>
 
-        {/* Error Handling */}
+        {/* Error Message */}
         {error && (
           <p className="mt-4 text-red-200 bg-red-600 p-2 rounded">
             Error: {error}
@@ -94,6 +94,7 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
 
 
 
