@@ -185,10 +185,104 @@ function FeaturesSection() {
               </li>
             </ul>
           </div>
+          // First 6 cards remain exactly the same until the last closing div, then add:
 
-        </div>
-      </div>
-    </section>
+<div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+  <h3 className="text-xl font-semibold text-white mb-4">Authentication System</h3>
+  <ul className="space-y-3 text-gray-300">
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Clerk Authentication
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Role-Based Access Control
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Protected Routes & APIs
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Auto-Redirect System
+    </li>
+  </ul>
+</div>
+
+<div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+  <h3 className="text-xl font-semibold text-white mb-4">Data Management</h3>
+  <ul className="space-y-3 text-gray-300">
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Supabase Integration
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      CSV Bulk Import
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Field Validation
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Real-time Updates
+    </li>
+  </ul>
+</div>
+
+<div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+  <h3 className="text-xl font-semibold text-white mb-4">Modern Tech Stack</h3>
+  <ul className="space-y-3 text-gray-300">
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Next.js 14 & React 18
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      React Hook Form
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Recharts Analytics
+    </li>
+    <li className="flex items-center">
+      <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Context State Management
+    </li>
+  </ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+      
   );
 }
 

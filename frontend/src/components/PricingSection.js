@@ -34,7 +34,7 @@ function PricingSection() {
               <span className="text-gray-400 ml-2">one-time payment</span>
             </div>
             <p className="text-center text-red-500 font-semibold mb-8">
-              Limited offer: Only for the first 100 customers!
+              Limited offer
             </p>
             <ul className="text-lg text-gray-300 mb-10 space-y-3">
               <li className="flex items-center">
