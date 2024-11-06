@@ -31,7 +31,22 @@ a:hover {
   color: #FFFFFF !important;
 }
 
+body {
+  background-color: #000000;
+}
 
+section {
+  background-color: #000000;
+}
+
+#root {
+  background-color: #000000;
+}
+
+/* If you're seeing any gaps, this will help */
+.overflow-hidden {
+  overflow-x: clip;
+}
 
 
 
