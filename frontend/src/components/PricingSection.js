@@ -29,13 +29,26 @@ function PricingSection() {
         <div className="max-w-lg mx-auto bg-gray-900 rounded-lg shadow-xl overflow-hidden">
           <div className="px-6 py-12">
             <h3 className="text-3xl font-semibold text-center mb-4 text-white">Lifetime Access</h3>
-            <div className="text-center mb-6">
-              <span className="text-5xl font-bold text-white">$79</span>
-              <span className="text-gray-400 ml-2">one-time payment</span>
+            <div className="text-center mb-4">
+              <div className="flex items-center justify-center">
+                <span className="text-5xl font-bold text-white">$79</span>
+                <div className="ml-2 text-left">
+                  <span className="text-gray-400 block">one-time payment</span>
+                  <span className="text-gray-400 line-through text-sm">Regular $199</span>
+                </div>
+              </div>
             </div>
-            <p className="text-center text-red-500 font-semibold mb-8">
-              Limited offer
-            </p>
+            <div className="bg-purple-900/30 rounded-lg p-4 mb-8 border border-purple-500/20">
+              <p className="text-center font-medium text-purple-200 mb-1">
+                🚀 Launch Special - Save $120
+              </p>
+              <p className="text-center text-purple-200 text-sm">
+                Limited to first 100 customers
+              </p>
+              <p className="text-center text-purple-200 text-sm">
+                Lock in this price now
+              </p>
+            </div>
             <ul className="text-lg text-gray-300 mb-10 space-y-3">
               <li className="flex items-center">
                 <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
