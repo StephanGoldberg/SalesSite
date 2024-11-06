@@ -67,20 +67,20 @@ function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-gray-50">
+    <section id="faq" className="py-20 bg-black">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-white">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+            <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-md">
               <h3
-                className="text-xl font-semibold text-gray-800 cursor-pointer"
+                className="text-xl font-semibold text-white cursor-pointer"
                 onClick={() => toggleQuestion(index)}
               >
                 {faq.question}
               </h3>
               {openQuestionIndex === index && (
-                <p className="text-gray-600 mt-4">{faq.answer}</p>
+                <p className="text-gray-300 mt-4">{faq.answer}</p>
               )}
             </div>
           ))}
@@ -91,5 +91,6 @@ function FAQSection() {
 }
 
 export default FAQSection;
+
 
 

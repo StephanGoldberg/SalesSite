@@ -13,10 +13,10 @@ function ImageGallerySection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-black">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">How It Looks</h2>
-        <div className="bg-black p-4 rounded-lg">
+        <h2 className="text-3xl font-bold text-center mb-12 text-white">How It Looks</h2>
+        <div className="bg-gray-800 p-4 rounded-lg">
           <Carousel 
             showThumbs={false} 
             infiniteLoop 
