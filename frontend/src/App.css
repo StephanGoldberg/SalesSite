@@ -8,15 +8,27 @@ body {
   color: #E0E0E0;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
+/* Full-width Sections */
+.hero, #pricing {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 60px 0;
 }
 
+/* Navbar Styling */
 .header {
   background-color: #000000;
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .header ul {
@@ -42,19 +54,18 @@ body {
   background-color: #BB86FC;
 }
 
+/* Hero Section */
 .hero {
-  background: linear-gradient(to right, #000000, #333333, #000000);
+  background: linear-gradient(to right, black, #3a0ca3, #000000);
   color: #FFFFFF;
-  padding: 60px 0;
   text-align: center;
-  width: 100%;
 }
 
-section#pricing {
-  background: linear-gradient(to right, #000000, #333333, #000000);
+/* Pricing Section */
+#pricing {
+  background: linear-gradient(to right, #3a0ca3, #000000);
   color: #FFFFFF;
-  padding: 60px 0;
-  width: 100%;
+  text-align: center;
 }
 
 button {
@@ -86,6 +97,7 @@ button:hover {
   padding: 2rem 0;
   text-align: center;
 }
+
 
 
 

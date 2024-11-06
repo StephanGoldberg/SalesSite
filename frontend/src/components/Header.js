@@ -18,7 +18,7 @@ function Header() {
     <header className="header">
       <div className="container flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-white">Directory Maker</Link>
-        <nav className="flex space-x-6">
+        <nav className="flex space-x-4">
           <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('features')}>Features</span>
           <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('pricing')}>Pricing</span>
           <span className="cursor-pointer hover:text-blue-400" onClick={() => handleNavClick('faq')}>FAQ</span>
@@ -29,6 +29,7 @@ function Header() {
 }
 
 export default Header;
+
 
 
 
