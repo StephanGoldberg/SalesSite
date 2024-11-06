@@ -24,20 +24,26 @@ function Header() {
           <nav>
             <ul className="flex space-x-8">
               <li>
-                <button onClick={() => handleNavClick('features')} 
-                  className="text-gray-300 hover:text-white transition-colors px-3 py-2">
+                <button 
+                  onClick={() => handleNavClick('features')} 
+                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                >
                   Features
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavClick('pricing')} 
-                  className="text-gray-300 hover:text-white transition-colors px-3 py-2">
+                <button 
+                  onClick={() => handleNavClick('pricing')} 
+                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                >
                   Pricing
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavClick('faq')} 
-                  className="text-gray-300 hover:text-white transition-colors px-3 py-2">
+                <button 
+                  onClick={() => handleNavClick('faq')} 
+                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                >
                   FAQ
                 </button>
               </li>

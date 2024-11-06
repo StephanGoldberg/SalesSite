@@ -50,8 +50,10 @@ function HeroSection() {
   };
 
   return (
-    <section className="w-full bg-gradient-to-r from-black via-black to-purple-900 pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 text-center">
+    <section className="w-screen bg-black pt-24 pb-16 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(128,90,213,0.3),transparent_80%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.25),transparent_100%)]" />
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-medium mb-4 text-white">
           Unlock Lifetime Access to
         </h1>
@@ -78,7 +80,7 @@ function HeroSection() {
           {isLoading ? 'Processing...' : 'Buy Now - $79'}
         </button>
         {error && (
-          <p className="mt-4 text-red-500 bg-red-900 p-2 rounded">
+          <p className="mt-4 text-red-500 bg-red-900/50 p-2 rounded">
             Error: {error}
           </p>
         )}
