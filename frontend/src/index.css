@@ -12,17 +12,23 @@ body {
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-/* Link Styles */
+/* Override link styles to prevent hover color change in the navbar */
 a {
-    color: #BB86FC; /* Accent color for links */
+    color: #E0E0E0; /* Standard link color for dark theme */
     text-decoration: none;
 }
 
 a:hover {
-    color: #9A67EA; /* Slightly darker shade on hover */
+    color: #E0E0E0; /* Prevents color change on hover */
 }
+
+/* Basic utility classes */
+.bg-black {
+    background-color: #000000 !important;
+}
+
+.text-white {
+    color: #FFFFFF !important;
+}
+
 

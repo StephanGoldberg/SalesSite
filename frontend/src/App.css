@@ -1,4 +1,4 @@
-/* App.css - Enhanced Dark Theme with Gradient Retained */
+/* App.css - Enhanced Dark Theme with Specified Black Backgrounds */
 
 body {
   background-color: #000000; /* Fully black background */
@@ -13,9 +13,9 @@ body {
   padding: 0 2rem;
 }
 
-/* Header */
+/* Header (Navbar) */
 .header {
-  background: #000000; /* Black background for header */
+  background: #000000; /* Black background for navbar */
   color: #FFFFFF;
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Darker shadow for header */
@@ -56,11 +56,11 @@ body {
 /* Features Section */
 .features {
   padding: 4rem 0;
-  background-color: #000000; /* Fully black background */
+  background-color: #000000; /* Fully black background for key features */
 }
 
 .feature-item {
-  background: #1A1A1A; /* Darker box for key features */
+  background: #1A1A1A; /* Darker box within features section */
   color: #FFFFFF;
   padding: 2rem;
   border-radius: 8px;
@@ -93,14 +93,14 @@ body {
 /* How It Looks Section */
 .image-gallery {
   padding: 4rem 0;
-  background-color: #000000; /* Fully black background */
+  background-color: #000000; /* Fully black background for "how it looks" section */
   color: #E0E0E0;
 }
 
 /* FAQ Section */
 .faq {
   padding: 4rem 0;
-  background-color: #000000; /* Fully black background */
+  background-color: #000000; /* Fully black background for FAQ section */
 }
 
 .faq-item {
@@ -156,6 +156,7 @@ body {
 .footer ul li {
   margin: 0 1rem;
 }
+
 
 
   
