@@ -8,12 +8,11 @@ body {
   color: #E0E0E0;
 }
 
-/* Full-width Sections */
+/* Full-width sections for Hero and Pricing */
 .hero, #pricing {
   width: 100%;
-  margin-left: 0;
-  margin-right: 0;
   padding: 60px 0;
+  margin: 0;
 }
 
 /* Navbar Styling */
@@ -56,7 +55,7 @@ body {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(to right, black, #3a0ca3, #000000);
+  background: linear-gradient(to right, #000000, #3a0ca3, #000000);
   color: #FFFFFF;
   text-align: center;
 }
@@ -97,6 +96,7 @@ button:hover {
   padding: 2rem 0;
   text-align: center;
 }
+
 
 
 
