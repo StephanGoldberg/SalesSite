@@ -1,101 +1,125 @@
-/* App.css */
+/* App.css - Dark Theme with Preserved Gradients */
 
 body {
-  margin: 0;
-  padding: 0;
+  @apply bg-black text-lightGray; /* Tailwind utilities for dark background and light text */
   font-family: 'Inter', sans-serif;
-  background-color: #121212;
-  color: #E0E0E0;
+  line-height: 1.6;
 }
 
-/* Full-width sections for Hero and Pricing */
-.hero, #pricing {
-  width: 100%;
-  padding: 60px 0;
-  margin: 0;
-}
-
-/* Navbar Styling */
-.header {
-  background-color: #000000;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
-
-.header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
+.container {
+  max-width: 1100px;
   margin: auto;
+  padding: 0 2rem;
 }
 
-.header ul {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.header ul li {
-  margin: 0 15px;
+/* Header (Navbar) */
+.header {
+  @apply bg-black text-white shadow-md p-4;
 }
 
 .header a {
-  color: #FFFFFF;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  @apply text-white no-underline;
 }
 
-.header a:hover {
-  background-color: #BB86FC;
+.header ul {
+  @apply flex list-none;
+}
+
+.header ul li {
+  margin-left: 1rem;
 }
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(to right, #000000, #3a0ca3, #000000);
-  color: #FFFFFF;
+  /* Preserves your existing gradient */
+  padding: 4rem 0;
   text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #BB86FC; /* Accent color */
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: #E0E0E0;
+}
+
+/* Features Section */
+.features {
+  @apply bg-black text-white p-16; /* Fully black background for features section */
+}
+
+.feature-item {
+  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
 }
 
 /* Pricing Section */
-#pricing {
-  background: linear-gradient(to right, #3a0ca3, #000000);
-  color: #FFFFFF;
+.pricing {
+  /* Preserves your existing gradient */
+  padding: 4rem 0;
   text-align: center;
 }
 
-button {
-  background-color: #BB86FC;
-  color: #121212;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.price-box {
+  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
+  display: inline-block;
+  text-align: left;
 }
 
-button:hover {
-  background-color: #9A67EA;
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #BB86FC; /* Accent color */
 }
 
-.faq-item, .feature-item, .price-box {
-  background-color: #1A1A1A;
-  color: #FFFFFF;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-bottom: 1rem;
+/* How It Looks Section */
+.image-gallery {
+  @apply bg-black text-lightGray p-16; /* Fully black background for How It Looks section */
 }
 
+/* FAQ Section */
+.faq {
+  @apply bg-black text-lightGray p-16; /* Fully black background for FAQ section */
+}
+
+.faq-item {
+  @apply bg-darkGray text-white p-6 rounded-md shadow-lg mb-4;
+}
+
+/* Buttons */
+.cta-button {
+  @apply bg-accent text-black p-3 rounded-md text-base no-underline;
+}
+
+.cta-button:hover {
+  @apply bg-hoverAccent; /* Slightly darker for hover */
+}
+
+/* Footer */
 .footer {
-  background-color: #000000;
-  color: #E0E0E0;
-  padding: 2rem 0;
-  text-align: center;
+  @apply bg-black text-lightGray p-8 text-center;
 }
+
+.footer a {
+  @apply text-accent no-underline;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer ul {
+  @apply flex justify-center list-none p-0 mt-4;
+}
+
+.footer ul li {
+  margin: 0 1rem;
+}
+
+
 
 
 
