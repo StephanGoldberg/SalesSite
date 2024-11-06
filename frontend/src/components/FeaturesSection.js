@@ -2,127 +2,186 @@ import React from 'react';
 
 function FeaturesSection() {
   return (
-    <section id="features" className="bg-black py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-white">Key Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <section id="features" className="w-screen bg-black py-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white mb-4">User Authentication & Management</h3>
-            <ul className="space-y-2 text-gray-300">
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">Enterprise-Grade Security</h3>
+            <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Powered by Clerk
+                Row Level Security (RLS)
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Secure, scalable authentication
+                XSS & CSRF Protection
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Supports roles and permissions
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white mb-4">Comprehensive Admin Dashboard</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Manage listings, sponsorships, ads
+                Security Audit Logging
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Add, edit, approve, delete listings
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Full control over directory content
+                API Rate Limiting
               </li>
             </ul>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white mb-4">Integrated Stripe Payments</h3>
-            <ul className="space-y-2 text-gray-300">
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">Advanced Search System</h3>
+            <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Seamless Stripe integration
+                Full-Text Search
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Secure payment processing
+                Custom Filter Builder
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Supports one-time payments
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white mb-4">Supabase-Powered Backend</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Real-time data updates
+                Category Filtering
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Scalable SQL interface
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Pre-configured API routes
+                Smart Result Ranking
               </li>
             </ul>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white mb-4">Responsive & Modern Design</h3>
-            <ul className="space-y-2 text-gray-300">
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">Monetization Ready</h3>
+            <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Built with Tailwind CSS
+                Stripe Integration
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Fully responsive design
+                Ad Space Management
               </li>
               <li className="flex items-center">
-                <svg className="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Easy customization
+                Sponsorship System
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Premium Listings
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">User Engagement</h3>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Review & Rating System
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                User Profiles
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Interaction Tracking
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Activity Analytics
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">Admin Controls</h3>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Complete Dashboard
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Content Management
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                User Management
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Analytics Dashboard
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+            <h3 className="text-xl font-semibold text-white mb-4">Developer Friendly</h3>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                TypeScript Ready
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                API Documentation
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Clean Architecture
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Easy Customization
               </li>
             </ul>
           </div>
