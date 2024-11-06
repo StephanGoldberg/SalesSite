@@ -1,110 +1,105 @@
-/* App.css - Dark Theme with Preserved Gradients */
+/* App.css */
 
+/* Reset body margin and padding */
 body {
-  @apply bg-black text-lightGray; /* Tailwind utilities for dark background and light text */
+  margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
+  background-color: #121212;
+  color: #E0E0E0;
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 2rem;
+/* Full-width sections */
+section#hero,
+section#pricing {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-/* Header (Navbar) */
+/* General Section Styling */
+section {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+/* Navbar Styling */
 .header {
-  @apply bg-black text-white shadow-md p-4;
-}
-
-.header a {
-  @apply text-white no-underline;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .header ul {
-  @apply flex list-none;
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 .header ul li {
-  margin-left: 1rem;
+  margin: 0 15px; /* Adds space between navbar items */
+  padding: 0 10px; /* Adds padding within each navbar item */
+}
+
+.header a {
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 1px solid transparent; /* Border for hover effect */
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition: border-color 0.3s ease;
+}
+
+.header a:hover {
+  border-color: #BB86FC; /* Accent color on hover */
 }
 
 /* Hero Section */
 .hero {
-  /* Preserves your existing gradient */
-  padding: 4rem 0;
+  background: linear-gradient(to right, black, purple 70%);
+  color: white;
+  padding: 60px 0;
   text-align: center;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #BB86FC; /* Accent color */
+/* Button Styling */
+button {
+  background-color: #BB86FC;
+  color: #121212;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.hero p {
-  font-size: 1.25rem;
-  color: #E0E0E0;
+button:hover {
+  background-color: #9A67EA;
 }
 
-/* Features Section */
-.features {
-  @apply bg-black text-white p-16; /* Fully black background for features section */
-}
-
-.feature-item {
-  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
-}
-
-/* Pricing Section */
-.pricing {
-  /* Preserves your existing gradient */
-  padding: 4rem 0;
-  text-align: center;
-}
-
-.price-box {
-  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
-  display: inline-block;
-  text-align: left;
-}
-
-.price {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #BB86FC; /* Accent color */
-}
-
-/* How It Looks Section */
-.image-gallery {
-  @apply bg-black text-lightGray p-16; /* Fully black background for How It Looks section */
-}
-
-/* FAQ Section */
-.faq {
-  @apply bg-black text-lightGray p-16; /* Fully black background for FAQ section */
-}
-
+/* FAQ Section Styling */
 .faq-item {
-  @apply bg-darkGray text-white p-6 rounded-md shadow-lg mb-4;
+  background: #1A1A1A;
+  color: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
 }
 
-/* Buttons */
-.cta-button {
-  @apply bg-accent text-black p-3 rounded-md text-base no-underline;
-}
-
-.cta-button:hover {
-  @apply bg-hoverAccent; /* Slightly darker for hover */
-}
-
-/* Footer */
+/* Footer Styling */
 .footer {
-  @apply bg-black text-lightGray p-8 text-center;
+  background: #000000;
+  color: #E0E0E0;
+  padding: 2rem 0;
+  text-align: center;
 }
 
 .footer a {
-  @apply text-accent no-underline;
+  color: #BB86FC;
+  text-decoration: none;
 }
 
 .footer a:hover {
@@ -112,12 +107,30 @@ body {
 }
 
 .footer ul {
-  @apply flex justify-center list-none p-0 mt-4;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
 }
 
 .footer ul li {
   margin: 0 1rem;
 }
+
+/* Utility Classes */
+.bg-black {
+  background-color: #000000;
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.text-center {
+  text-align: center;
+}
+
 
 
 
