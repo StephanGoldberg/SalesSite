@@ -50,21 +50,38 @@ function HeroSection() {
   };
 
   return (
-    <section className="hero">
-      <div className="container text-center">
-        <h1 className="text-4xl font-medium mb-4">Unlock Lifetime Access to</h1>
-        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold mb-4">
+    <section className="hero bg-gradient-to-r from-black via-black to-purple-900 py-16">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-3xl sm:text-4xl font-medium mb-4 text-white">
+          Unlock Lifetime Access to
+        </h1>
+        <h2 
+          className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 font-extrabold mb-4"
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 6rem)', 
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}
+        >
           DirectoryMaker
         </h2>
-        <p className="text-xl text-gray-300 mb-8">Make a one-time payment for unlimited access</p>
+        <p className="text-xl sm:text-2xl text-gray-300 mb-8">
+          Make a one-time payment for unlimited access
+        </p>
         <button
           onClick={handlePurchase}
           disabled={isLoading}
-          className={`py-3 px-8 rounded-full ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className="bg-white text-blue-700 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300"
+          style={{ opacity: isLoading ? 0.5 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
         >
           {isLoading ? 'Processing...' : 'Buy Now - $79'}
         </button>
-        {error && <p className="mt-4 text-red-500">{error}</p>}
+        {error && (
+          <p className="mt-4 text-red-500 bg-red-900 p-2 rounded">
+            Error: {error}
+          </p>
+        )}
       </div>
     </section>
   );

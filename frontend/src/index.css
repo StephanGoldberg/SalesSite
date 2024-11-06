@@ -1,35 +1,38 @@
 /* index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles */
+/* Basic custom styling */
+
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #000000; /* Fully black background to match App.css */
-    color: #E0E0E0; /* Light text for readability */
-    margin: 0;
-    padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #121212;
+  color: #E0E0E0;
+  margin: 0;
+  padding: 0;
 }
 
-/* Override link styles to prevent hover color change in the navbar */
 a {
-    color: #E0E0E0; /* Standard link color for dark theme */
-    text-decoration: none;
+  color: #E0E0E0;
+  text-decoration: none;
 }
 
 a:hover {
-    color: #E0E0E0; /* Prevents color change on hover */
+  color: #BB86FC;
 }
 
-/* Basic utility classes */
 .bg-black {
-    background-color: #000000 !important;
+  background-color: #000000 !important;
 }
 
 .text-white {
-    color: #FFFFFF !important;
+  color: #FFFFFF !important;
 }
+
+
+
 
 
 

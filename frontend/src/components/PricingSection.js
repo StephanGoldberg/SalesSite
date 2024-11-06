@@ -23,32 +23,54 @@ function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-20">
-      <div className="container mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12">Exclusive Offer</h2>
-        <div className="price-box">
+    <section id="pricing" className="py-20 bg-gradient-to-b from-black via-purple-900 to-black">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12 text-white">Exclusive Offer</h2>
+        <div className="max-w-lg mx-auto bg-gray-900 rounded-lg shadow-xl overflow-hidden">
           <div className="px-6 py-12">
-            <h3 className="text-3xl font-semibold text-center mb-4">Lifetime Access</h3>
+            <h3 className="text-3xl font-semibold text-center mb-4 text-white">Lifetime Access</h3>
             <div className="text-center mb-6">
-              <span className="text-5xl font-bold">$79</span>
-              <span className="text-gray-600 ml-2">one-time payment</span>
+              <span className="text-5xl font-bold text-white">$79</span>
+              <span className="text-gray-400 ml-2">one-time payment</span>
             </div>
-            <p className="text-center text-red-600 font-semibold mb-8">
+            <p className="text-center text-red-500 font-semibold mb-8">
               Limited offer: Only for the first 100 customers!
             </p>
-            <ul className="text-lg text-gray-300 mb-10">
-              <li className="mb-3">Full access to Directory Maker</li>
-              <li className="mb-3">Lifetime updates included</li>
-              <li className="mb-3">Private GitHub repository access</li>
-              <li className="mb-3">Access to future premium features</li>
+            <ul className="text-lg text-gray-300 mb-10 space-y-3">
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Full access to Directory Maker
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Lifetime updates included
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Private GitHub repository access
+              </li>
+              <li className="flex items-center">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Access to future premium features
+              </li>
             </ul>
             <button
               onClick={handlePurchase}
-              className="w-full py-3 px-4 rounded-lg font-bold transition duration-300"
+              className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-3 px-4 rounded-lg font-bold hover:opacity-90 transition duration-300"
             >
               Get Lifetime Access Now
             </button>
-            <p className="text-center text-gray-500 mt-6">Secure payment processed by Stripe</p>
+            <p className="text-center text-gray-500 mt-6">
+              Secure payment processed by Stripe
+            </p>
           </div>
         </div>
       </div>
