@@ -1,46 +1,136 @@
-/* App.css - Fallback for Dark Theme */
+/* App.css */
 
+/* Reset body margin and padding */
 body {
-  background-color: #000000 !important; /* Fully black background */
-  color: #E0E0E0 !important; /* Light text for readability */
+  margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
+  background-color: #121212;
+  color: #E0E0E0;
 }
 
+/* Full-width sections */
+section#hero,
+section#pricing {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* General Section Styling */
+section {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+/* Navbar Styling */
 .header {
-  background-color: #000000 !important; /* Black navbar */
-  color: #FFFFFF !important;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
+.header ul {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.header ul li {
+  margin: 0 15px; /* Adds space between navbar items */
+  padding: 0 10px; /* Adds padding within each navbar item */
+}
+
+.header a {
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 1px solid transparent; /* Border for hover effect */
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition: border-color 0.3s ease;
+}
+
+.header a:hover {
+  border-color: #BB86FC; /* Accent color on hover */
+}
+
+/* Hero Section */
 .hero {
-  /* Keeps your existing gradient */
-  padding: 4rem 0;
+  background: linear-gradient(to right, black, purple 70%);
+  color: white;
+  padding: 60px 0;
   text-align: center;
 }
 
-.features {
-  background-color: #000000 !important; /* Fully black for features section */
+/* Button Styling */
+button {
+  background-color: #BB86FC;
+  color: #121212;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.feature-item {
-  background-color: #1A1A1A !important; /* Dark gray for feature items */
-  color: #FFFFFF !important;
+button:hover {
+  background-color: #9A67EA;
 }
 
-.pricing {
-  /* Keeps your existing gradient */
-  padding: 4rem 0;
+/* FAQ Section Styling */
+.faq-item {
+  background: #1A1A1A;
+  color: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
 }
 
-.image-gallery, .faq {
-  background-color: #000000 !important; /* Black background */
-  color: #E0E0E0 !important;
-}
-
+/* Footer Styling */
 .footer {
-  background-color: #000000 !important; /* Black footer */
-  color: #E0E0E0 !important;
+  background: #000000;
+  color: #E0E0E0;
+  padding: 2rem 0;
+  text-align: center;
 }
+
+.footer a {
+  color: #BB86FC;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.footer ul li {
+  margin: 0 1rem;
+}
+
+/* Utility Classes */
+.bg-black {
+  background-color: #000000;
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.text-center {
+  text-align: center;
+}
+
 
 
 
