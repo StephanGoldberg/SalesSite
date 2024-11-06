@@ -1,8 +1,7 @@
-/* App.css - Enhanced Dark Theme with Specified Black Backgrounds */
+/* App.css - Dark Theme with Preserved Gradients */
 
 body {
-  background-color: #000000; /* Fully black background */
-  color: #E0E0E0; /* Light text color for readability */
+  @apply bg-black text-lightGray; /* Tailwind utilities for dark background and light text */
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
 }
@@ -15,20 +14,15 @@ body {
 
 /* Header (Navbar) */
 .header {
-  background: #000000; /* Black background for navbar */
-  color: #FFFFFF;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Darker shadow for header */
+  @apply bg-black text-white shadow-md p-4;
 }
 
 .header a {
-  color: #FFFFFF;
-  text-decoration: none;
+  @apply text-white no-underline;
 }
 
 .header ul {
-  display: flex;
-  list-style: none;
+  @apply flex list-none;
 }
 
 .header ul li {
@@ -37,7 +31,7 @@ body {
 
 /* Hero Section */
 .hero {
-  /* Keeps your original gradient */
+  /* Preserves your existing gradient */
   padding: 4rem 0;
   text-align: center;
 }
@@ -55,31 +49,22 @@ body {
 
 /* Features Section */
 .features {
-  padding: 4rem 0;
-  background-color: #000000; /* Fully black background for key features */
+  @apply bg-black text-white p-16; /* Fully black background for features section */
 }
 
 .feature-item {
-  background: #1A1A1A; /* Darker box within features section */
-  color: #FFFFFF;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
 }
 
 /* Pricing Section */
 .pricing {
-  /* Keeps your original gradient */
+  /* Preserves your existing gradient */
   padding: 4rem 0;
   text-align: center;
 }
 
 .price-box {
-  background: #1A1A1A; /* Darker box for pricing details */
-  color: #FFFFFF;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
   display: inline-block;
   text-align: left;
 }
@@ -92,53 +77,34 @@ body {
 
 /* How It Looks Section */
 .image-gallery {
-  padding: 4rem 0;
-  background-color: #000000; /* Fully black background for "how it looks" section */
-  color: #E0E0E0;
+  @apply bg-black text-lightGray p-16; /* Fully black background for How It Looks section */
 }
 
 /* FAQ Section */
 .faq {
-  padding: 4rem 0;
-  background-color: #000000; /* Fully black background for FAQ section */
+  @apply bg-black text-lightGray p-16; /* Fully black background for FAQ section */
 }
 
 .faq-item {
-  background: #1A1A1A; /* Darker background for each FAQ item */
-  color: #FFFFFF;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-bottom: 1rem;
+  @apply bg-darkGray text-white p-6 rounded-md shadow-lg mb-4;
 }
 
 /* Buttons */
 .cta-button {
-  display: inline-block;
-  background: #BB86FC; /* Accent color */
-  color: #121212;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none;
+  @apply bg-accent text-black p-3 rounded-md text-base no-underline;
 }
 
 .cta-button:hover {
-  background: #9A67EA; /* Slightly darker for hover */
+  @apply bg-hoverAccent; /* Slightly darker for hover */
 }
 
 /* Footer */
 .footer {
-  background: #000000; /* Black background for footer */
-  color: #E0E0E0;
-  padding: 2rem 0;
-  text-align: center;
+  @apply bg-black text-lightGray p-8 text-center;
 }
 
 .footer a {
-  color: #BB86FC;
-  text-decoration: none;
+  @apply text-accent no-underline;
 }
 
 .footer a:hover {
@@ -146,16 +112,13 @@ body {
 }
 
 .footer ul {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0;
+  @apply flex justify-center list-none p-0 mt-4;
 }
 
 .footer ul li {
   margin: 0 1rem;
 }
+
 
 
 
