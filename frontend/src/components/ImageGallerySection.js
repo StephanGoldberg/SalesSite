@@ -29,68 +29,71 @@ function ImageGallerySection() {
           {/* Light effect for glass morphism */}
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 via-transparent to-pink-900/10 rounded-2xl" />
           
-          <Carousel 
-            showThumbs={false} 
-            infiniteLoop 
-            useKeyboardArrows 
-            autoPlay 
-            interval={5000}
-            dynamicHeight={false} 
-            showArrows={true}
-            showStatus={false}
-            showIndicators={true}
-            renderArrowPrev={(onClickHandler, hasPrev, label) =>
-              hasPrev && (
-                <button 
-                  type="button" 
-                  onClick={onClickHandler} 
-                  title={label} 
-                  className="absolute left-4 z-10 p-3 bg-black/50 backdrop-blur-md text-white rounded-full 
-                           opacity-75 hover:opacity-100 hover:bg-black/70 transition-all duration-300
-                           border border-white/10 shadow-lg"
-                  style={{ top: '50%', transform: 'translateY(-50%)' }}
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-              )
-            }
-            renderArrowNext={(onClickHandler, hasNext, label) =>
-              hasNext && (
-                <button 
-                  type="button" 
-                  onClick={onClickHandler} 
-                  title={label} 
-                  className="absolute right-4 z-10 p-3 bg-black/50 backdrop-blur-md text-white rounded-full 
-                           opacity-75 hover:opacity-100 hover:bg-black/70 transition-all duration-300
-                           border border-white/10 shadow-lg"
-                  style={{ top: '50%', transform: 'translateY(-50%)' }}
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              )
-            }
-          >
-            {images.map((src, index) => (
-              <div key={index} className="relative px-4 pb-4">
-                <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-                  <img 
-                    src={src} 
-                    alt={`Screenshot ${index + 1}`} 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      console.error(`Failed to load image: ${src}`);
-                      e.target.onerror = null;
-                      e.target.src = 'images/placeholder.jpg';
-                    }}
-                  />
+          <div className="max-w-4xl mx-auto"> {/* Added max-width container */}
+            <Carousel 
+              showThumbs={false} 
+              infiniteLoop 
+              useKeyboardArrows 
+              autoPlay 
+              interval={5000}
+              dynamicHeight={false} 
+              showArrows={true}
+              showStatus={false}
+              showIndicators={true}
+              renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                hasPrev && (
+                  <button 
+                    type="button" 
+                    onClick={onClickHandler} 
+                    title={label} 
+                    className="absolute left-4 z-10 p-3 bg-black/50 backdrop-blur-md text-white rounded-full 
+                             opacity-75 hover:opacity-100 hover:bg-black/70 transition-all duration-300
+                             border border-white/10 shadow-lg"
+                    style={{ top: '50%', transform: 'translateY(-50%)' }}
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                )
+              }
+              renderArrowNext={(onClickHandler, hasNext, label) =>
+                hasNext && (
+                  <button 
+                    type="button" 
+                    onClick={onClickHandler} 
+                    title={label} 
+                    className="absolute right-4 z-10 p-3 bg-black/50 backdrop-blur-md text-white rounded-full 
+                             opacity-75 hover:opacity-100 hover:bg-black/70 transition-all duration-300
+                             border border-white/10 shadow-lg"
+                    style={{ top: '50%', transform: 'translateY(-50%)' }}
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                )
+              }
+            >
+              {images.map((src, index) => (
+                <div key={index} className="relative px-4 pb-4">
+                  <div className="relative" style={{ maxHeight: '500px' }}> {/* Controlled height */}
+                    <img 
+                      src={src} 
+                      alt={`Screenshot ${index + 1}`} 
+                      className="mx-auto object-contain h-full"
+                      style={{ maxHeight: '500px', width: 'auto' }}
+                      onError={(e) => {
+                        console.error(`Failed to load image: ${src}`);
+                        e.target.onerror = null;
+                        e.target.src = 'images/placeholder.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Carousel>
+              ))}
+            </Carousel>
+          </div>
 
           {/* Custom indicators styling */}
           <style jsx global>{`
