@@ -23,8 +23,8 @@ function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-20 bg-gradient-to-b from-black via-purple-900 to-black">
-      <div className="container mx-auto px-4">
+    <section id="pricing" className="w-full bg-gradient-to-b from-black via-purple-900 to-black py-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <h2 className="text-4xl font-bold text-center mb-12 text-white">Exclusive Offer</h2>
         <div className="max-w-lg mx-auto bg-gray-900 rounded-lg shadow-xl overflow-hidden">
           <div className="px-6 py-12">
