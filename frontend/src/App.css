@@ -1,123 +1,47 @@
-/* App.css - Dark Theme with Preserved Gradients */
+/* App.css - Fallback for Dark Theme */
 
 body {
-  @apply bg-black text-lightGray; /* Tailwind utilities for dark background and light text */
+  background-color: #000000 !important; /* Fully black background */
+  color: #E0E0E0 !important; /* Light text for readability */
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 2rem;
-}
-
-/* Header (Navbar) */
 .header {
-  @apply bg-black text-white shadow-md p-4;
+  background-color: #000000 !important; /* Black navbar */
+  color: #FFFFFF !important;
 }
 
-.header a {
-  @apply text-white no-underline;
-}
-
-.header ul {
-  @apply flex list-none;
-}
-
-.header ul li {
-  margin-left: 1rem;
-}
-
-/* Hero Section */
 .hero {
-  /* Preserves your existing gradient */
+  /* Keeps your existing gradient */
   padding: 4rem 0;
   text-align: center;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #BB86FC; /* Accent color */
-}
-
-.hero p {
-  font-size: 1.25rem;
-  color: #E0E0E0;
-}
-
-/* Features Section */
 .features {
-  @apply bg-black text-white p-16; /* Fully black background for features section */
+  background-color: #000000 !important; /* Fully black for features section */
 }
 
 .feature-item {
-  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
+  background-color: #1A1A1A !important; /* Dark gray for feature items */
+  color: #FFFFFF !important;
 }
 
-/* Pricing Section */
 .pricing {
-  /* Preserves your existing gradient */
+  /* Keeps your existing gradient */
   padding: 4rem 0;
-  text-align: center;
 }
 
-.price-box {
-  @apply bg-darkGray text-white p-8 rounded-md shadow-lg;
-  display: inline-block;
-  text-align: left;
+.image-gallery, .faq {
+  background-color: #000000 !important; /* Black background */
+  color: #E0E0E0 !important;
 }
 
-.price {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #BB86FC; /* Accent color */
-}
-
-/* How It Looks Section */
-.image-gallery {
-  @apply bg-black text-lightGray p-16; /* Fully black background for How It Looks section */
-}
-
-/* FAQ Section */
-.faq {
-  @apply bg-black text-lightGray p-16; /* Fully black background for FAQ section */
-}
-
-.faq-item {
-  @apply bg-darkGray text-white p-6 rounded-md shadow-lg mb-4;
-}
-
-/* Buttons */
-.cta-button {
-  @apply bg-accent text-black p-3 rounded-md text-base no-underline;
-}
-
-.cta-button:hover {
-  @apply bg-hoverAccent; /* Slightly darker for hover */
-}
-
-/* Footer */
 .footer {
-  @apply bg-black text-lightGray p-8 text-center;
+  background-color: #000000 !important; /* Black footer */
+  color: #E0E0E0 !important;
 }
 
-.footer a {
-  @apply text-accent no-underline;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-.footer ul {
-  @apply flex justify-center list-none p-0 mt-4;
-}
-
-.footer ul li {
-  margin: 0 1rem;
-}
 
 
 
