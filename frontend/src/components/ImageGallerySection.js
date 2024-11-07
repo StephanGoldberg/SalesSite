@@ -12,9 +12,7 @@ function ImageGallerySection() {
     'images/6.jpg',
     'images/7.jpg',
     'images/8.jpg',
-    'images/9.jpg',
-    'images/10.jpg',
-    'images/11.jpg'
+    'images/9.jpg'
   ];
 
   return (
