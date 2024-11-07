@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^21.0.1",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@vercel/edge-config": "^1.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
