@@ -16,17 +16,17 @@ function Header() {
 
   return (
     <header className="bg-black/90 backdrop-blur-sm fixed w-full z-50 border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-white hover:text-purple-400 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="text-xl sm:text-2xl font-bold text-white whitespace-nowrap">
             Directory Maker
           </Link>
-          <nav>
-            <ul className="flex space-x-8">
+          <nav className="flex">
+            <ul className="flex space-x-2 sm:space-x-8">
               <li>
                 <button 
                   onClick={() => handleNavClick('features')} 
-                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                  className="text-sm sm:text-base text-white hover:text-purple-400 transition-colors px-2 sm:px-4 py-2"
                 >
                   Features
                 </button>
@@ -34,7 +34,7 @@ function Header() {
               <li>
                 <button 
                   onClick={() => handleNavClick('pricing')} 
-                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                  className="text-sm sm:text-base text-white hover:text-purple-400 transition-colors px-2 sm:px-4 py-2"
                 >
                   Pricing
                 </button>
@@ -42,7 +42,7 @@ function Header() {
               <li>
                 <button 
                   onClick={() => handleNavClick('faq')} 
-                  className="text-white hover:text-purple-400 transition-colors px-4 py-2 rounded-md hover:bg-purple-900/20"
+                  className="text-sm sm:text-base text-white hover:text-purple-400 transition-colors px-2 sm:px-4 py-2"
                 >
                   FAQ
                 </button>
