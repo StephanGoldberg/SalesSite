@@ -20,7 +20,7 @@ function VideoSection() {
           
           <div className="relative aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
             <iframe
-              src="YOUR_YOUTUBE_EMBED_URL" // Replace with your YouTube video embed URL
+              src="https://youtu.be/NJVJ5iBst7Y" // Replace with your YouTube video embed URL
               title="Directory Maker Presentation"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
