@@ -11,6 +11,7 @@ import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Contact from './pages/Contact';
 import License from './pages/License';
+import Documentation from './pages/Documentation'; 
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/license" element={<License />} />
+            <Route path="/documentation" element={<Documentation />} />
           </Routes>
         </main>
         <Footer />
