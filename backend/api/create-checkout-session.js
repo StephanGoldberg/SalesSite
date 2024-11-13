@@ -9,7 +9,6 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Generate a random state parameter for CSRF protection
 const generateStateParam = () => {
   return crypto.randomBytes(16).toString('hex');
 };
@@ -21,7 +20,13 @@ module.exports = async (req, res) => {
     try {
       const accessToken = uuidv4();
       const stateParam = generateStateParam();
+      const { planType } = req.body; // Add this line to get planType
+
       console.log('Generated access token:', accessToken);
+
+      // Set price based on plan type
+      const priceAmount = planType === 'agency' ? 49900 : 7900; // $499 or $79
+      const productName = planType === 'agency' ? 'Directory Maker - Agency License' : 'GitHub Repository Access';
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -30,9 +35,9 @@ module.exports = async (req, res) => {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'GitHub Repository Access',
+                name: productName,
               },
-              unit_amount: 7900, // $79.00
+              unit_amount: priceAmount,
             },
             quantity: 1,
           },
@@ -48,6 +53,7 @@ module.exports = async (req, res) => {
         paid: false, 
         sessionId: session.id,
         state: stateParam,
+        planType: planType || 'standard', // Store plan type
         createdAt: Date.now(),
         expiresAt: Date.now() + (30 * 60 * 1000) // 30 minute expiration
       });
