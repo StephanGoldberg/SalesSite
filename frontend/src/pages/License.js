@@ -10,12 +10,27 @@ function License() {
         This License Agreement ("Agreement") is a legal agreement between you ("Licensee") and the creators of Directory Maker ("Licensor"). By purchasing, downloading, or using Directory Maker ("Software"), you agree to be bound by the terms and conditions of this Agreement. If you do not agree to the terms of this Agreement, do not use the Software.
       </p>
       
-      <h2 className="text-2xl font-bold mt-8 mb-4">2. License Grant</h2>
+      <h2 className="text-2xl font-bold mt-8 mb-4">2. License Types and Grants</h2>
+      <div className="mb-4">
+        <h3 className="text-xl font-bold mb-2">2.1 Standard License</h3>
+        <p className="mb-4">
+          <strong>Single-Use License:</strong> The Standard License grants the Licensee a non-exclusive, non-transferable, single-use license to use Directory Maker for one personal or commercial project. The Licensee may install and use the Software on a single website or project.
+        </p>
+      </div>
+      <div className="mb-4">
+        <h3 className="text-xl font-bold mb-2">2.2 Agency License</h3>
+        <p className="mb-4">
+          <strong>Multi-Project License:</strong> The Agency License grants the Licensee a non-exclusive, non-transferable license to use Directory Maker for multiple client projects. This license allows:
+          <ul className="list-disc ml-8 mt-2">
+            <li>Use in unlimited client projects</li>
+            <li>White-label rights</li>
+            <li>Custom branding for each implementation</li>
+            <li>Creation of multiple instances for different clients</li>
+          </ul>
+        </p>
+      </div>
       <p className="mb-4">
-        <strong>Single-Use License:</strong> Upon purchase, the Licensee is granted a non-exclusive, non-transferable, single-use license to use Directory Maker for personal or commercial projects. The Licensee may install and use the Software on a single website or project.
-      </p>
-      <p className="mb-4">
-        <strong>Modifications:</strong> The Licensee may modify or customize the Software to fit their specific needs. However, any derivative works based on the Software are subject to the terms of this Agreement.
+        <strong>Modifications:</strong> Under both license types, the Licensee may modify or customize the Software to fit their specific needs. However, any derivative works based on the Software are subject to the terms of this Agreement.
       </p>
       
       <h2 className="text-2xl font-bold mt-8 mb-4">3. Restrictions</h2>
@@ -26,7 +41,7 @@ function License() {
         <strong>No Sub-licensing:</strong> The Licensee may not sublicense, assign, or transfer the rights granted under this Agreement to any third party without the prior written consent of the Licensor.
       </p>
       <p className="mb-4">
-        <strong>Non-Transferable License:</strong> This license is granted to the original purchaser only and is not transferable. If the Licensee sells or transfers the ownership of the project for which the Software is used, the new owner must purchase a new license.
+        <strong>Agency License Restrictions:</strong> While the Agency License permits use in multiple client projects, each implementation must be managed by the Agency (Licensee). Clients cannot be given direct access to the Software's source code or be granted licensing rights.
       </p>
 
       <h2 className="text-2xl font-bold mt-8 mb-4">4. Intellectual Property Rights</h2>
