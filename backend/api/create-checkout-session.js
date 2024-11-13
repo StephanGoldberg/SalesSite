@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       console.log('Generated access token:', accessToken);
 
       // Set price based on plan type
-      const priceAmount = planType === 'agency' ? 49900 : 7900; // $499 or $79
+      const priceAmount = planType === 'agency' ? 200 : 100; // $499 or $79
       const productName = planType === 'agency' ? 'Directory Maker - Agency License' : 'GitHub Repository Access';
 
       const session = await stripe.checkout.sessions.create({
