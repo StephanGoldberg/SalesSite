@@ -34,7 +34,7 @@ function FAQSection() {
     },
     {
       question: "How is the Directory Maker licensed?",
-      answer: "Directory Maker comes with a perpetual, single-project commercial license. You can use it for personal or commercial projects, but each purchase covers one end product (either for yourself or a client). While you can modify the code for your needs, the license is non-transferable and reselling or redistributing the source code is not permitted. This ensures the tool's value while giving you complete freedom to customize and use it for your business needs."
+      answer: "Directory Maker offers two license options: Standard and Agency. The Standard License ($79) is a perpetual, single-project commercial license for one end product. The Agency License ($499) allows unlimited client projects, white-labeling, and custom branding for agencies. Both licenses are perpetual and include lifetime updates. While you can modify the code for your needs, licenses are non-transferable and reselling or redistributing the source code is not permitted. For agencies managing multiple client projects, the Agency License provides the flexibility to create unlimited implementations while ensuring code security and maintaining the tool's value."
     },
     {
       question: "How can I deploy the Directory Maker?",
