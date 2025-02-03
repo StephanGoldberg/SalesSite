@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../components/SEO';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,13 @@ function Contact() {
   };
 
   return (
+    <>
+    <SEO 
+  title="Contact - Directory Maker | Get Support"
+  description="Contact the Directory Maker team for support, questions about licensing, or technical assistance with your directory website project."
+  canonicalUrl="/contact"
+  keywords="directory maker support, directory software help, business directory assistance"
+/>
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-4xl font-bold mb-8">Contact Us</h1>
       <p className="mb-8">
@@ -69,6 +77,7 @@ function Contact() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 

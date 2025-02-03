@@ -1,7 +1,15 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 function TermsOfService() {
   return (
+    <>
+    <SEO 
+  title="Terms of Service - Directory Maker"
+  description="Directory Maker's terms of service. Understand our terms and conditions for using the directory website solution."
+  canonicalUrl="/terms-of-service"
+  keywords="directory maker terms, directory software conditions, usage terms"
+/>
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-4xl font-bold mb-8">Directory Maker Terms and Conditions</h1>
       
@@ -87,6 +95,7 @@ function TermsOfService() {
         These terms and conditions shall be governed by and construed in accordance with the laws of the jurisdiction in which the creators of Directory Maker are based, without regard to its conflict of law principles.
       </p>
     </div>
+    </>
   );
 }
 

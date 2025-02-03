@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../components/SEO';
 
 function Documentation() {
   // For collapsible sections
@@ -174,6 +175,13 @@ function Documentation() {
   ];
 
   return (
+    <>
+    <SEO 
+  title="Documentation - Directory Maker | Setup & Usage Guide"
+  description="Comprehensive documentation for Directory Maker. Learn how to set up, customize, and deploy your directory website. Includes technical guides and best practices."
+  canonicalUrl="/documentation"
+  keywords="directory website documentation, directory software guide, directory maker setup, directory cms tutorial"
+/>
     <section className="w-screen bg-black py-32 overflow-hidden relative">
       {/* Gradient background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(128,90,213,0.15),transparent_50%)]" />
@@ -251,6 +259,7 @@ function Documentation() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

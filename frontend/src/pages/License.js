@@ -1,7 +1,15 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 function License() {
   return (
+    <>
+    <SEO 
+  title="License Agreement - Directory Maker"
+  description="Read Directory Maker's license agreement. Understand the terms and conditions for using our directory website solution for your projects."
+  canonicalUrl="/license"
+  keywords="directory maker license, directory software terms, business directory agreement"
+/>
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-4xl font-bold mb-8">Directory Maker License Agreement</h1>
       
@@ -102,6 +110,7 @@ function License() {
         This Agreement constitutes the entire agreement between the parties with respect to the subject matter hereof and supersedes all prior or contemporaneous understandings or agreements, written or oral, regarding such subject matter. No amendment or modification of this Agreement shall be binding unless in writing and signed by the Licensor.
       </p>
     </div>
+    </>
   );
 }
 

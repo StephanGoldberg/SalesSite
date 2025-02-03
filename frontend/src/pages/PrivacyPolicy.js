@@ -1,7 +1,15 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 function PrivacyPolicy() {
   return (
+    <>
+    <SEO 
+  title="Privacy Policy - Directory Maker"
+  description="Directory Maker's privacy policy. Learn how we handle and protect your information when you use our directory website solution."
+  canonicalUrl="/privacy-policy"
+  keywords="directory maker privacy, directory software security, data protection"
+/>
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-4xl font-bold mb-8">Directory Maker Privacy Policy</h1>
       
@@ -72,6 +80,7 @@ function PrivacyPolicy() {
         We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any significant changes by posting the new Privacy Policy on our website and updating the effective date at the top of this document. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.
       </p>
     </div>
+    </>
   );
 }
 

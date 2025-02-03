@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import SEO from '../components/SEO';
 
 function Access() {
   const [token, setToken] = useState('');
@@ -111,6 +112,13 @@ function Access() {
   };
 
   return (
+    <>
+    <SEO 
+  title="Access Repository - Directory Maker"
+  description="Access your purchased Directory Maker repository. Start building your professional directory website with our complete solution."
+  canonicalUrl="/access"
+  keywords="directory maker access, directory software download, repository access"
+/>
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">Access Your Purchase</h1>
       {token && isPaid ? (
@@ -139,6 +147,7 @@ function Access() {
       )}
       {message && <p className="mt-4 text-center font-semibold">{message}</p>}
     </div>
+    </>
   );
 }
 
