@@ -18,11 +18,51 @@ function FAQSection() {
     },
     {
       question: "What exactly do I get when I purchase the Directory Maker?",
-      answer: "You receive access to a complete, production-ready codebase that includes: 1) Full authentication system with role-based access control, 2) Complete admin dashboard with listing management, user controls, and analytics, 3) Advanced search system with text, category, and custom filters, 4) Review and rating system, 5) Complete payment integration with Stripe, 6) Advertisement system with multiple placement zones, 7) Comprehensive security implementation including XSS protection, CSRF guards, and rate limiting, 8) Detailed documentation and setup guides. Everything is built with TypeScript for better code reliability and maintainability."
+      answer: `After purchase, you'll receive:
+    
+    1. Immediate access to the private GitHub repository containing the complete codebase
+    2. Step-by-step setup guide:
+       - Clone the repository
+       - Create free accounts on Supabase (database) and Stripe (payments)
+       - Follow our setup wizard to configure your environment
+       - Deploy your directory site
+    
+    The codebase includes:
+    - Complete admin dashboard with listing management
+    - User authentication system with role-based access
+    - Advanced search with filters and categories
+    - Payment system with Stripe integration
+    - Review and rating system
+    - Advertisement zones management
+    - Security features (XSS protection, CSRF guards)
+    - Comprehensive documentation
+    
+    Everything is production-ready and built with TypeScript for reliability. The entire setup process typically takes less than an hour if you follow our guide.
+    
+    Note: You'll need free accounts on:
+    - Supabase (database hosting)
+    - Stripe (payment processing)
+    - Vercel/similar (website hosting)
+    `
     },
     {
       question: "Do I need to know how to code to use this Directory Maker?",
-      answer: "While Directory Maker provides all the necessary code and documentation, you do need basic development experience to set it up and customize it. You should be comfortable with: 1) Basic Git operations for forking and managing the repository, 2) Database management as you'll need to set up Supabase and handle SQL tables (though all queries are provided), 3) Basic JavaScript/TypeScript for any customizations, 4) Working with environment variables and API keys, 5) Deploying applications on platforms like Vercel. If you're comfortable with these concepts, you'll find our detailed documentation makes the setup process straightforward."
+      answer: `While Directory Maker is developer-friendly, we've made common customizations accessible through our Express Customize feature:
+    
+    No-Code Customizations (Express Customize):
+    - Easily change your directory name and description
+    - Update hero background image
+    - Set your own pricing for regular and featured listings
+    - Customize upgrade pricing
+    - All done through simple settings panels
+    
+    For deeper customizations, you'll need basic development experience:
+    1) Basic Git operations for cloning the repository
+    2) Setting up Supabase database (using our provided SQL scripts)
+    3) Basic environment setup (we guide you through each step)
+    4) Deploying on platforms like Vercel (step-by-step guide provided)
+    
+    Our detailed documentation makes the setup process straightforward, and most common branding/pricing changes can be done without coding through Express Customize. For anything beyond that, basic JavaScript/TypeScript knowledge is helpful.`
     },
     {
       question: "How many hours does it save?",
