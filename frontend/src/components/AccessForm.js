@@ -28,14 +28,14 @@ function AccessForm({ token }) {
       <h2 className="text-2xl font-bold mb-6">Grant GitHub Access</h2>
       <p className="mb-4">Please enter your GitHub username to receive access to the private repository:</p>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={githubUsername}
-          onChange={(e) => setGithubUsername(e.target.value)}
-          placeholder="GitHub Username"
-          required
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
-        />
+      <input
+  type="text"
+  value={githubUsername}
+  onChange={(e) => setGithubUsername(e.target.value)}
+  placeholder="GitHub Username"
+  required
+  className="w-full p-2 mb-4 border border-gray-300 rounded-lg bg-gray-800 text-white placeholder-gray-400"
+/>
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-bold hover:bg-blue-700 transition duration-300"
