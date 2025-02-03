@@ -17,7 +17,7 @@ function Home() {
   canonicalUrl="/"
   keywords="directory website builder, listing website template, business directory software, white label directory solution, directory boilerplate"
 />
-<ProductSchema />
+
     <div className="container mx-auto mt-16 mb-16 px-8">
       <HeroSection />
       <FeaturesSection />
