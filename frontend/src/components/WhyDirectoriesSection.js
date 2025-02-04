@@ -28,47 +28,46 @@ const WhyDirectoriesSection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* We only need this simplified version for proper X embeds */}
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/KintuLabs/status/1760938279141269853"></a>
+            <a href="https://twitter.com/KintuLabs/status/1760938279141269853">View tweet about directories revenue by @KintuLabs</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/levelsio/status/1101097126967140352"></a>
+            <a href="https://twitter.com/levelsio/status/1101097126967140352">View tweet about RemoteOK revenue by @levelsio</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/afonsolfm/status/1689003294201614336"></a>
+            <a href="https://twitter.com/afonsolfm/status/1689003294201614336">View tweet about directory monetization by @afonsolfm</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203"></a>
+            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203">View tweet about directory portfolio by @no_fear_inc</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/staticmaker1/status/1874990726771249487"></a>
+            <a href="https://twitter.com/staticmaker1/status/1874990726771249487">View tweet about luxury hotel directory by @staticmaker1</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
             <p lang="en" dir="ltr">
               Loading tweet...
             </p>
-            <a href="https://twitter.com/rrmdp/status/1885036318276596011"></a>
+            <a href="https://twitter.com/rrmdp/status/1885036318276596011">View tweet about job board directory by @rrmdp</a>
           </blockquote>
         </div>
 
