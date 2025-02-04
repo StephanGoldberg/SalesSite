@@ -27,56 +27,68 @@ const WhyDirectoriesSection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* First Post - Various Directories */}
+          {/* First Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet1">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/KintuLabs/status/1760938279141269853"></a>
+                <a href="https://twitter.com/KintuLabs/status/1760938279141269853">
+                  Directory Revenue Examples by @KintuLabs
+                </a>
               </blockquote>
             </div>
           </div>
 
-          {/* Second Post - RemoteOK Revenue */}
+          {/* Second Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet2">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/levelsio/status/1101097126967140352"></a>
+                <a href="https://twitter.com/levelsio/status/1101097126967140352">
+                  RemoteOK Revenue Report by @levelsio
+                </a>
               </blockquote>
             </div>
           </div>
 
-          {/* Third Post - Directory Monetization */}
+          {/* Third Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet3">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/afonsolfm/status/1689003294201614336"></a>
+                <a href="https://twitter.com/afonsolfm/status/1689003294201614336">
+                  Directory Monetization Strategy by @afonsolfm
+                </a>
               </blockquote>
             </div>
           </div>
 
-          {/* Fourth Post - Portfolio of Directories */}
+          {/* Fourth Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet4">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/no_fear_inc/status/1885018805618819203"></a>
+                <a href="https://twitter.com/no_fear_inc/status/1885018805618819203">
+                  Directory Portfolio Success by @no_fear_inc
+                </a>
               </blockquote>
             </div>
           </div>
 
-          {/* Fifth Post - Luxury Hotel Directory */}
+          {/* Fifth Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet5">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/staticmaker1/status/1874990726771249487"></a>
+                <a href="https://twitter.com/staticmaker1/status/1874990726771249487">
+                  Hotel Directory Success Story by @staticmaker1
+                </a>
               </blockquote>
             </div>
           </div>
 
-          {/* Sixth Post - Job Board Directory */}
+          {/* Sixth Post */}
           <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
             <div id="tweet6">
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/rrmdp/status/1885036318276596011"></a>
+                <a href="https://twitter.com/rrmdp/status/1885036318276596011">
+                  Job Board Directory Revenue by @rrmdp
+                </a>
               </blockquote>
             </div>
           </div>
@@ -84,7 +96,7 @@ const WhyDirectoriesSection = () => {
 
         <div className="text-center mt-12">
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Directory websites are proven money-makers. Start yours today with DirectoryMaker.
+            Start yours today with DirectoryMaker.
           </p>
         </div>
       </div>
