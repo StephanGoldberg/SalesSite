@@ -28,59 +28,48 @@ const WhyDirectoriesSection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                Directories that print money:<br />• SaaS Hub .com - $120k/yr<br />• Sober Nation .com - $250k/yr<br />• Disk Prices .com - $60k/yr<br />• Book A Magician .com - $30k/yr<br />• Nomad List .com - $360k/yr
-                <a href="https://twitter.com/KintuLabs/status/1760938279141269853">February 23, 2024</a>
-              </p>
-            </blockquote>
-          </div>
+          {/* We only need this simplified version for proper X embeds */}
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/KintuLabs/status/1760938279141269853"></a>
+          </blockquote>
 
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                👩‍💻 RemoteOK just passed $35,000/mo revenue (or $420,000/y extrapolated), which is now about $2k higher than Nomad List
-                <a href="https://twitter.com/levelsio/status/1101097126967140352">February 28, 2019</a>
-              </p>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/levelsio/status/1101097126967140352"></a>
+          </blockquote>
 
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                let's say you have a directory website<br /><br />you monetise on listings<br /><br />5 listings @ $29/month is $145 MRR<br />10 listings @ $49/month is $490 MRR<br />20 listings @ $99/month is $1980 MRR
-                <a href="https://twitter.com/afonsolfm/status/1689003294201614336">August 8, 2023</a>
-              </p>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/afonsolfm/status/1689003294201614336"></a>
+          </blockquote>
 
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                Scaling the portfolio of directories is one of the disruptive movers this month.
-                <a href="https://twitter.com/no_fear_inc/status/1885018805618819203">January 30, 2024</a>
-              </p>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203"></a>
+          </blockquote>
 
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                "boring" luxury hotel directory site.<br />founded by a husband and wife team.<br />bootstrapped business.<br />monetization via membership.<br />sold for $67 million in 2023.
-                <a href="https://twitter.com/staticmaker1/status/1874990726771249487">January 3, 2024</a>
-              </p>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/staticmaker1/status/1874990726771249487"></a>
+          </blockquote>
 
-          <div className="backdrop-blur-sm bg-gray-900/30 rounded-xl border border-purple-900/20 overflow-hidden p-4">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                One man working remotely<br />Bootstrapping<br />No ads<br />A simple meta directory of job boards<br />Passed $59K
-                <a href="https://twitter.com/rrmdp/status/1885036318276596011">January 30, 2024</a>
-              </p>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Loading tweet...
+            </p>
+            <a href="https://twitter.com/rrmdp/status/1885036318276596011"></a>
+          </blockquote>
         </div>
 
         <div className="text-center mt-12">
