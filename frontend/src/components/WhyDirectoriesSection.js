@@ -8,7 +8,9 @@ const WhyDirectoriesSection = () => {
     document.body.appendChild(script);
     
     return () => {
-      document.body.removeChild(script);
+      if (script && script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
     };
   }, []);
 

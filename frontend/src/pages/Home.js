@@ -1,4 +1,3 @@
-
 import React from 'react';
 import HeroSection from '../components/HeroSection';
 import FeaturesSection from '../components/FeaturesSection';
@@ -12,22 +11,21 @@ import WhyDirectoriesSection from '../components/WhyDirectoriesSection';
 function Home() {
   return (
     <>
-    <SEO 
-  title="Directory Maker - Build Professional Directory & Listing Websites"
-  description="Launch your directory website in minutes. Complete solution with advanced search, user management, and monetization features. Perfect for business directories, job boards, and listing sites."
-  canonicalUrl="/"
-  keywords="directory website builder, listing website template, business directory software, white label directory solution, directory boilerplate"
-/>
-
-    <div className="container mx-auto mt-16 mb-16 px-8">
-      <HeroSection />
-      <FeaturesSection />
-      <ImageGallerySection />
-      <PricingSection />
-      <VideoSection />
-      <WhyDirectoriesSection />
-      <FAQSection />
-    </div>
+      <SEO 
+        title="Directory Maker - Build Professional Directory & Listing Websites"
+        description="Launch your directory website in minutes. Complete solution with advanced search, user management, and monetization features. Perfect for business directories, job boards, and listing sites."
+        canonicalUrl="/"
+        keywords="directory website builder, listing website template, business directory software, white label directory solution, directory boilerplate"
+      />
+      <div className="container mx-auto mt-16 mb-16 px-8">
+        <HeroSection />
+        <FeaturesSection />
+        <ImageGallerySection />
+        <PricingSection />
+        <VideoSection />
+        <WhyDirectoriesSection />
+        <FAQSection />
+      </div>
     </>
   );
 }
