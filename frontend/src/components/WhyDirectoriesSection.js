@@ -29,45 +29,33 @@ const WhyDirectoriesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/KintuLabs/status/1760938279141269853">View tweet about directories revenue by @KintuLabs</a>
+            <p lang="en" dir="ltr">Directories that print money:<br /><br />• SaaS Hub .com - $120k/yr<br />• Sober Nation .com - $250k/yr<br />• Disk Prices .com - $60k/yr<br />• Book A Magician .com - $30k/yr<br />• Nomad List .com - $360k/yr</p>
+            <a href="https://twitter.com/KintuLabs/status/1760938279141269853?ref_src=twsrc%5Etfw">View tweet from Chris Osborne about directory revenues</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/levelsio/status/1101097126967140352">View tweet about RemoteOK revenue by @levelsio</a>
+            <p lang="en" dir="ltr">👩‍💻 <a href="https://t.co/LXa46PgDiR">https://t.co/LXa46PgDiR</a> just passed $35,000/mo revenue (or $420,000/y extrapolated), which is now about $2k higher than 🎒 <a href="https://t.co/VbTTH3ltoQ">https://t.co/VbTTH3ltoQ</a> 😲<br /><br />Main reason: 🛍 volume sales (5-20x job posts in a bundle sold to bigger companies).<br /><br />📊 Live data: <a href="https://t.co/jV1gZhhcqc">https://t.co/jV1gZhhcqc</a></p>
+            <a href="https://twitter.com/levelsio/status/1101097126967140352?ref_src=twsrc%5Etfw">View tweet from @levelsio about RemoteOK revenue</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/afonsolfm/status/1689003294201614336">View tweet about directory monetization by @afonsolfm</a>
+            <p lang="en" dir="ltr">let&#39;s say you have a directory website<br /><br />you monetise on listings<br /><br />5 listings @ $29/month is $145 MRR<br />10 listings @ $49/month is $490 MRR<br />20 listings @ $99/month is $1980 MRR<br /><br />the hard part is building the platform &amp; promoting it!<br /><br />with nichebase you cut the effort in half</p>
+            <a href="https://twitter.com/afonsolfm/status/1689003294201614336?ref_src=twsrc%5Etfw">View tweet from Afonso Matos about directory monetization</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203">View tweet about directory portfolio by @no_fear_inc</a>
+            <p lang="en" dir="ltr">Scaling the portfolio of directories is one of the disruptive movers this month.<br /><br />I launched most of them around November - and they&#39;re picking up hard.<br /><br />Also, directory submissions pop up daily. Which is an active signal that the portfolio works</p>
+            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203?ref_src=twsrc%5Etfw">View tweet from Mario Peshev about directory portfolio growth</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/staticmaker1/status/1874990726771249487">View tweet about luxury hotel directory by @staticmaker1</a>
+            <p lang="en" dir="ltr">&quot;boring&quot; luxury hotel directory site.<br /><br />founded by a husband and wife team.<br /><br />bootstrapped business.<br /><br />monetization via membership.<br /><br />sold for $67 million in 2023.</p>
+            <a href="https://twitter.com/staticmaker1/status/1874990726771249487?ref_src=twsrc%5Etfw">View tweet from staticmaker about luxury hotel directory sale</a>
           </blockquote>
 
           <blockquote className="twitter-tweet">
-            <p lang="en" dir="ltr">
-              Loading tweet...
-            </p>
-            <a href="https://twitter.com/rrmdp/status/1885036318276596011">View tweet about job board directory by @rrmdp</a>
+            <p lang="en" dir="ltr">One man working remotely<br /><br />Bootstrapping<br /><br />No ads<br /><br />A simple meta directory of job boards <br /><br />Passed $59K<br /><br />You can too 💪</p>
+            <a href="https://twitter.com/rrmdp/status/1885036318276596011?ref_src=twsrc%5Etfw">View tweet from Rodrigo Rocco about job board directory success</a>
           </blockquote>
         </div>
 
