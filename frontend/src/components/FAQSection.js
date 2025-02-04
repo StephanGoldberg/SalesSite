@@ -34,11 +34,7 @@ This combination provides the perfect balance of performance, security, and deve
       answer:
 `After purchase, you'll receive:
 1. Immediate access to the private GitHub repository containing the complete codebase.
-2. A step-by-step setup guide, which includes:
-   - Cloning the repository.
-   - Creating free accounts on Supabase (database) and Stripe (payments).
-   - Following our setup wizard to configure your environment.
-   - Deploying your directory site.
+2. A step-by-step setup guide.
 
 The codebase includes:
 - A complete admin dashboard with listing management.
@@ -69,13 +65,7 @@ No-Code Customizations (Express Customize):
 - Customize upgrade pricing.
 - All done through simple settings panels.
 
-For deeper customizations, basic development experience is required:
-1. Basic Git operations for cloning the repository.
-2. Setting up the Supabase database (using our provided SQL scripts).
-3. Basic environment setup (we guide you through each step).
-4. Deploying on platforms like Vercel (step-by-step guide provided).
-
-Our detailed documentation makes the setup process straightforward. Most common branding and pricing changes can be done without coding through Express Customize, while deeper modifications may require basic JavaScript/TypeScript knowledge.`
+For deeper customizations, basic development experience is required.`
     },
     {
       question: "How many hours does it save?",
