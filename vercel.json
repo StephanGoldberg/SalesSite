@@ -13,6 +13,17 @@
       "use": "@vercel/node"
     }
   ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://checkout.stripe.com https://js.stripe.com https://platform.twitter.com; style-src 'self' 'unsafe-inline';"
+        }
+      ]
+    }
+  ],
   "routes": [
     {
       "src": "/api/webhook",
@@ -44,7 +55,7 @@
     }
   ]
 }
-  
+
   
   
   
