@@ -7,7 +7,7 @@ function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
           {/* Enterprise Security */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Enterprise-Grade Security</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -38,7 +38,7 @@ function FeaturesSection() {
           </div>
 
           {/* Advanced Search */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Advanced Search System</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -69,7 +69,7 @@ function FeaturesSection() {
           </div>
 
           {/* Express Customization - NEW */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Express Customization</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -108,7 +108,7 @@ function FeaturesSection() {
           </div>
 
           {/* Monetization */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Monetization Ready</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -139,7 +139,7 @@ function FeaturesSection() {
           </div>
 
           {/* User Engagement */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">User Engagement</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -170,7 +170,7 @@ function FeaturesSection() {
           </div>
 
           {/* Admin Controls */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Admin Controls</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -201,7 +201,7 @@ function FeaturesSection() {
           </div>
 
           {/* Authentication System */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Authentication System</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -232,7 +232,7 @@ function FeaturesSection() {
           </div>
 
           {/* Data Management */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Data Management</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -263,7 +263,7 @@ function FeaturesSection() {
           </div>
 
           {/* Modern Tech Stack */}
-          <div className="bg-gray-900/50 p-8 rounded-xl shadow-lg border border-purple-900/20 backdrop-blur-sm hover:border-purple-700/30 transition-all">
+          <div className="bg-gray-900/30 p-8 rounded-xl shadow-lg border border-purple-900/30 backdrop-blur-lg hover:border-purple-700/40 transition-all">
             <h3 className="text-xl font-semibold text-white mb-4">Modern Tech Stack</h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
@@ -300,6 +300,7 @@ function FeaturesSection() {
 }
 
 export default FeaturesSection;
+
 
 
 
