@@ -35,7 +35,7 @@ const WhyDirectoriesSection = () => {
         </div>
       </div>
     </section>
-  );
+  ); //
 };
 
 export default WhyDirectoriesSection;
