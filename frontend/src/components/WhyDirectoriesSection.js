@@ -30,7 +30,7 @@ const WhyDirectoriesSection = () => {
 
         <div className="text-center mt-12">
           <p className="text-xl text-white max-w-3xl mx-auto">
-            Directory websites are proven money-makers. Start yours today with DirectoryMaker.
+             Start yours today with DirectoryMaker
           </p>
         </div>
       </div>
