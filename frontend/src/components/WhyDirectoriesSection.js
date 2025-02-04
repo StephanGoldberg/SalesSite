@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const WhyDirectoriesSection = () => {
-  React.useEffect(() => {
-    // Check if the Twitter script is already loaded
+  useEffect(() => {
+    const loadTwitterWidgets = () => {
+      if (window.twttr && window.twttr.widgets) {
+        // Force Twitter to re-parse tweets within our container.
+        window.twttr.widgets.load(document.getElementById("twitter-section"));
+      }
+    };
+
     if (!window.twttr) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src = "https://platform.twitter.com/widgets.js";
       script.async = true;
       script.charSet = "utf-8";
-      script.onload = () => {
-        if (window.twttr && window.twttr.widgets) {
-          window.twttr.widgets.load();
-        }
-      };
+      script.onload = loadTwitterWidgets;
       document.body.appendChild(script);
       return () => {
-        if (script && script.parentNode) {
+        if (script.parentNode) {
           script.parentNode.removeChild(script);
         }
       };
     } else {
-      // If already loaded, re-parse the tweet elements
-      window.twttr.widgets.load();
+      loadTwitterWidgets();
     }
   }, []);
 
@@ -37,10 +38,11 @@ const WhyDirectoriesSection = () => {
           </span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Wrap tweets in a container with an id so we can reload just these elements */}
+        <div id="twitter-section" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Tweet 1 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 Directories that print money:
                 <br /><br />
@@ -63,7 +65,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 2 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 👩‍💻 <a href="https://t.co/LXa46PgDiR">https://t.co/LXa46PgDiR</a> just passed $35,000/mo revenue (or $420,000/y extrapolated), which is now about $2k higher than 🎒 <a href="https://t.co/VbTTH3ltoQ">https://t.co/VbTTH3ltoQ</a> 😲
                 <br /><br />
@@ -80,7 +82,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 3 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 let's say you have a directory website
                 <br /><br />
@@ -105,7 +107,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 4 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 Scaling the portfolio of directories is one of the disruptive movers this month.
                 <br /><br />
@@ -122,7 +124,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 5 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 "boring" luxury hotel directory site.
                 <br /><br />
@@ -134,7 +136,7 @@ const WhyDirectoriesSection = () => {
                 <br /><br />
                 sold for $67 million in 2023.
                 <a href="https://t.co/lExHsy5XSl">https://t.co/lExHsy5XSl</a>{" "}
-                <a href="https://t.co/G5xZvut96R">pic.twitter.com/G5xZvut96R</a>
+                <a href="https://twitter.com/staticmaker1/status/1874990726771249487?ref_src=twsrc%5Etfw">pic.twitter.com/G5xZvut96R</a>
               </p>
               &mdash; staticmaker (@staticmaker1){" "}
               <a href="https://twitter.com/staticmaker1/status/1874990726771249487?ref_src=twsrc%5Etfw">
@@ -145,7 +147,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 6 */}
           <div>
-            <blockquote className="twitter-tweet" data-theme="dark">
+            <blockquote className="twitter-tweet" data-theme="light">
               <p lang="en" dir="ltr">
                 One man working remotely
                 <br /><br />
@@ -158,7 +160,7 @@ const WhyDirectoriesSection = () => {
                 Passed $59K
                 <br /><br />
                 You can too 💪<a href="https://twitter.com/hashtag/buildinpublic?src=hash&ref_src=twsrc%5Etfw">#buildinpublic</a>{" "}
-                <a href="https://t.co/ve7v4tbs7x">pic.twitter.com/ve7v4tbs7x</a>
+                <a href="https://twitter.com/rrmdp/status/1885036318276596011?ref_src=twsrc%5Etfw">pic.twitter.com/ve7v4tbs7x</a>
               </p>
               &mdash; Rodrigo Rocco 👨‍💻📈📗 from JobBoardSearch 🔎 (@rrmdp){" "}
               <a href="https://twitter.com/rrmdp/status/1885036318276596011?ref_src=twsrc%5Etfw">
