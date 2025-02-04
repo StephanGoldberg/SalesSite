@@ -24,7 +24,7 @@ function Contact() {
 
     // Use EmailJS to send the email. Make sure you have signed up at emailjs.com,
     // created a service (using your Gmail account, for example), and an email template
-    // that sends messages to nela.petria@gmail.com.
+    
     emailjs
       .send(
         'service_malpp6p',   // Replace with your EmailJS service ID
