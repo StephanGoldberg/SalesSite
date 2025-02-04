@@ -2,7 +2,7 @@ import React from 'react';
 
 const WhyDirectoriesSection = () => {
   React.useEffect(() => {
-    // If the Twitter script isn't already loaded, add it.
+    // Check if the Twitter script is already loaded
     if (!window.twttr) {
       const script = document.createElement('script');
       script.src = "https://platform.twitter.com/widgets.js";
@@ -20,7 +20,7 @@ const WhyDirectoriesSection = () => {
         }
       };
     } else {
-      // If already loaded, just re-parse the tweet elements.
+      // If already loaded, re-parse the tweet elements
       window.twttr.widgets.load();
     }
   }, []);
@@ -40,7 +40,7 @@ const WhyDirectoriesSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Tweet 1 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 Directories that print money:
                 <br /><br />
@@ -63,7 +63,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 2 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 👩‍💻 <a href="https://t.co/LXa46PgDiR">https://t.co/LXa46PgDiR</a> just passed $35,000/mo revenue (or $420,000/y extrapolated), which is now about $2k higher than 🎒 <a href="https://t.co/VbTTH3ltoQ">https://t.co/VbTTH3ltoQ</a> 😲
                 <br /><br />
@@ -80,7 +80,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 3 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 let's say you have a directory website
                 <br /><br />
@@ -105,7 +105,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 4 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 Scaling the portfolio of directories is one of the disruptive movers this month.
                 <br /><br />
@@ -122,7 +122,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 5 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 "boring" luxury hotel directory site.
                 <br /><br />
@@ -145,7 +145,7 @@ const WhyDirectoriesSection = () => {
 
           {/* Tweet 6 */}
           <div>
-            <blockquote className="twitter-tweet">
+            <blockquote className="twitter-tweet" data-theme="dark">
               <p lang="en" dir="ltr">
                 One man working remotely
                 <br /><br />
@@ -179,3 +179,4 @@ const WhyDirectoriesSection = () => {
 };
 
 export default WhyDirectoriesSection;
+
