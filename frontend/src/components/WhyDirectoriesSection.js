@@ -28,47 +28,47 @@ const WhyDirectoriesSection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about directory revenue</p>
-              <a href="https://twitter.com/KintuLabs/status/1760938279141269853?ref_src=twsrc%5Etfw">Directory revenue tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Directories that print money:<br /><br />• SaaS Hub .com - $120k/yr<br />• Sober Nation .com - $250k/yr<br />• Disk Prices .com - $60k/yr<br />• Book A Magician .com - $30k/yr<br />• Nomad List .com - $360k/yr
+            </p>
+            <a href="https://twitter.com/KintuLabs/status/1760938279141269853?ref_src=twsrc%5Etfw">View the directory revenue examples</a>
+          </blockquote>
 
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about RemoteOK revenue</p>
-              <a href="https://twitter.com/levelsio/status/1101097126967140352?ref_src=twsrc%5Etfw">RemoteOK revenue tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              👩‍💻 RemoteOK.io just passed $35,000/mo revenue (or $420,000/y extrapolated), which is now about $2k higher than 🎒 NomadList.com 😲<br /><br />Main reason: 🛍 volume sales (5-20x job posts in a bundle sold to bigger companies).<br /><br />📊 Live data: remoteok.io/open
+            </p>
+            <a href="https://twitter.com/levelsio/status/1101097126967140352?ref_src=twsrc%5Etfw">View the RemoteOK revenue milestone</a>
+          </blockquote>
 
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about directory monetization</p>
-              <a href="https://twitter.com/afonsolfm/status/1689003294201614336?ref_src=twsrc%5Etfw">Directory monetization tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              let's say you have a directory website<br /><br />you monetise on listings<br /><br />5 listings @ $29/month is $145 MRR<br />10 listings @ $49/month is $490 MRR<br />20 listings @ $99/month is $1980 MRR<br /><br />the hard part is building the platform & promoting it!<br /><br />with nichebase you cut the effort in half
+            </p>
+            <a href="https://twitter.com/afonsolfm/status/1689003294201614336?ref_src=twsrc%5Etfw">View the directory monetization strategy</a>
+          </blockquote>
 
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about directory portfolio</p>
-              <a href="https://twitter.com/no_fear_inc/status/1885018805618819203?ref_src=twsrc%5Etfw">Directory portfolio tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              Scaling the portfolio of directories is one of the disruptive movers this month.<br /><br />I launched most of them around November - and they're picking up hard.<br /><br />Also, directory submissions pop up daily. Which is an active signal that the portfolio works
+            </p>
+            <a href="https://twitter.com/no_fear_inc/status/1885018805618819203?ref_src=twsrc%5Etfw">View the portfolio success story</a>
+          </blockquote>
 
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about luxury hotel directory</p>
-              <a href="https://twitter.com/staticmaker1/status/1874990726771249487?ref_src=twsrc%5Etfw">Luxury hotel directory tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              "boring" luxury hotel directory site.<br /><br />founded by a husband and wife team.<br /><br />bootstrapped business.<br /><br />monetization via membership.<br /><br />sold for $67 million in 2023.
+            </p>
+            <a href="https://twitter.com/staticmaker1/status/1874990726771249487?ref_src=twsrc%5Etfw">View the hotel directory success story</a>
+          </blockquote>
 
-          <div className="min-h-[200px]">
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">Tweet about job board directory</p>
-              <a href="https://twitter.com/rrmdp/status/1885036318276596011?ref_src=twsrc%5Etfw">Job board directory tweet</a>
-            </blockquote>
-          </div>
+          <blockquote className="twitter-tweet">
+            <p lang="en" dir="ltr">
+              One man working remotely<br /><br />Bootstrapping<br /><br />No ads<br /><br />A simple meta directory of job boards<br /><br />Passed $59K<br /><br />You can too 💪
+            </p>
+            <a href="https://twitter.com/rrmdp/status/1885036318276596011?ref_src=twsrc%5Etfw">View the job board directory success story</a>
+          </blockquote>
         </div>
 
         <div className="text-center mt-12">
