@@ -7,6 +7,7 @@ import VideoSection from '../components/VideoSection';
 import FAQSection from '../components/FAQSection';
 import SEO from '../components/SEO';
 import WhyDirectoriesSection from '../components/WhyDirectoriesSection';
+import ShowcaseSection from '../components/ShowcaseSection';
 
 function Home() {
   return (
@@ -24,6 +25,7 @@ function Home() {
         <PricingSection />
         <VideoSection />
         <WhyDirectoriesSection />
+        <ShowcaseSection />
         <FAQSection />
       </div>
     </>
