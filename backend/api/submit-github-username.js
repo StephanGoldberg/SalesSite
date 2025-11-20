@@ -61,8 +61,7 @@ const verifyPaymentWithStripe = async (token, sessionId) => {
 };
 
 module.exports = async (req, res) => {
-  // Rest of the code remains exactly the same as your working version
-  // Only the verifyPaymentWithStripe function has been updated above
+
   
   console.log('Request method:', req.method);
   console.log('Request URL:', req.url);

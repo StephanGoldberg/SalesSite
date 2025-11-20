@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     try {
       const accessToken = uuidv4();
       const stateParam = generateStateParam();
-      const { planType } = req.body; // Add this line to get planType
+      const { planType } = req.body; 
 
       console.log('Generated access token:', accessToken);
 

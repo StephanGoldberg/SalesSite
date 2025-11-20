@@ -7,7 +7,7 @@ function FAQSection() {
     setOpenQuestionIndex(openQuestionIndex === index ? null : index);
   };
 
-  // FAQ data with improved punctuation and newlines (adjust as needed)
+  // FAQ data 
   const faqs = [
     {
       question: "What is the Directory Maker?",

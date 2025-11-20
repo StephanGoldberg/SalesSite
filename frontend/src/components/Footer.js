@@ -24,7 +24,7 @@ function Footer() {
         </div>
         <div className="text-center mt-6">
           <p className="text-sm text-gray-400">
-            &copy; 2024 Directory Maker. All rights reserved.
+            &copy; 2025 Directory Maker. All rights reserved.
           </p>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SEO from '../components/SEO';
 
 function Documentation() {
-  // For collapsible sections
+  // collapsible sections
   const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (index) => {
